@@ -16,14 +16,14 @@ function NavItem({ name, icon, path, type = "link", onClick }) {
   if (type === "logout")
     return (
       <button onClick={onClick} className={classname}>
-        <span>{icon}</span>
+        {icon}
         <span>{name}</span>
       </button>
     );
 
   return (
     <NavLink to={path} className={classname}>
-      <span>{icon}</span>
+      {icon}
       <span>{name}</span>
     </NavLink>
   );

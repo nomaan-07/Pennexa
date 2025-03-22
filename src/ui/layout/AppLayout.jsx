@@ -1,12 +1,14 @@
 import { Outlet } from "react-router";
 
 import Sidebar from "../navigation/Sidebar";
+import MobileNav from "../navigation/MobileNav";
 
 function AppLayout() {
   return (
     <>
       <Sidebar />
-      <div className="ml-70 h-1000">
+      <MobileNav />
+      <div className="md:ml-70">
         <header></header>
         <main>
           <Outlet />

@@ -20,3 +20,19 @@
     @apply bg-linear-to-r from-emerald-500 to-emerald-100 text-white md:hover:text-white dark:from-emerald-600 dark:to-slate-800;
   }
 }
+
+@utility mobile-nav-link {
+  &.active {
+    @apply text-emerald-500;
+
+    & .circle {
+      @apply block;
+    }
+  }
+}
+
+@utility mobile-dashboard-link {
+  &.active {
+    @apply outline outline-emerald-200 dark:outline-emerald-800/50;
+  }
+}
