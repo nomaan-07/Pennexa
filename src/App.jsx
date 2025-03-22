@@ -8,7 +8,7 @@ import Account from './pages/Account';
 import Login from './pages/Login';
 import PageNotFound from './pages/PageNotFound';
 import ErrorPage from './pages/ErrorPage';
-import AppLayout from './ui/AppLayout';
+import AppLayout from './ui/layout/AppLayout';
 
 const router = createBrowserRouter([
   {
