@@ -6,10 +6,17 @@
 
 @theme {
   --font-poppins: "Poppins", sans-serif;
+  --breakpoint-xs: 30rem;
 }
 
 @layer base {
   body {
-    @apply font-poppins bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-slate-100;
+    @apply font-poppins bg-slate-100 text-slate-900 dark:bg-slate-900 dark:text-slate-100;
+  }
+}
+
+@utility nav-link {
+  &.active {
+    @apply bg-linear-to-r from-emerald-500 to-emerald-100 text-white md:hover:text-white dark:from-emerald-600 dark:to-slate-800;
   }
 }

@@ -1,10 +1,18 @@
-import { Outlet } from 'react-router';
+import { Outlet } from "react-router";
+
+import Sidebar from "../navigation/Sidebar";
 
 function AppLayout() {
   return (
-    <div>
-      <Outlet />
-    </div>
+    <>
+      <Sidebar />
+      <div className="ml-70 h-1000">
+        <header></header>
+        <main>
+          <Outlet />
+        </main>
+      </div>
+    </>
   );
 }
 
