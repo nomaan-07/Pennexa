@@ -4,7 +4,7 @@ const baseStyles = "flex flex-col items-center justify-center gap-1 text-xs";
 
 const types = {
   dashboard:
-    "mobile-dashboard-link xs:border-8 xs:-translate-y-8 xs:size-18 size-16 -translate-y-7 rounded-full border-6 border-slate-100 bg-emerald-500 text-white dark:border-slate-900",
+    "mobile-nav-link--dashboard xs:border-8 xs:-translate-y-8 xs:size-18 size-16 -translate-y-7 rounded-full border-6 border-slate-100 bg-emerald-500 text-white dark:border-slate-900",
   other: "mobile-nav-link xs:size-auto relative size-10 text-slate-400",
 };
 

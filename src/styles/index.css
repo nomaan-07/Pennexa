@@ -31,8 +31,14 @@
   }
 }
 
-@utility mobile-dashboard-link {
+@utility mobile-nav-link--dashboard {
   &.active {
     @apply outline outline-emerald-200 dark:outline-emerald-800/50;
+  }
+}
+
+@utility header__add-btn {
+  &.active {
+    @apply bg-emerald-500 text-white md:hover:text-white;
   }
 }
