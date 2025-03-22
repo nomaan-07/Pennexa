@@ -11,6 +11,8 @@ import ErrorPage from "./pages/ErrorPage";
 import AppLayout from "./ui/layout/AppLayout";
 import AddTransaction from "./pages/AddTransaction";
 
+import { DarkModeProvider } from "./context/DarkModeContext";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -54,7 +56,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <DarkModeProvider>
+      <RouterProvider router={router} />
+    </DarkModeProvider>
+  );
 }
 
 export default App;

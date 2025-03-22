@@ -10,7 +10,7 @@ function AppLayout() {
       <Sidebar />
       <MobileNav />
       <Header />
-      <main className="h-1000 md:ml-70">
+      <main className="md:ml-70">
         <Outlet />
       </main>
     </>
