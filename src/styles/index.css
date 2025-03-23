@@ -17,7 +17,7 @@
 
 @utility nav-link {
   &.active {
-    @apply bg-linear-to-r from-emerald-500 to-emerald-100 text-white md:hover:text-white dark:from-emerald-600 dark:to-slate-800;
+    @apply bg-linear-to-r from-emerald-500 to-emerald-100 text-white md:hover:text-white dark:from-emerald-600 dark:to-slate-700;
   }
 }
 
@@ -39,6 +39,6 @@
 
 @utility header__add-btn {
   &.active {
-    @apply bg-emerald-500 text-white md:hover:text-white;
+    @apply bg-emerald-500 text-white md:hover:bg-emerald-500 md:hover:text-white dark:md:hover:bg-emerald-500 dark:md:hover:text-white;
   }
 }

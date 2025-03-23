@@ -1,6 +1,7 @@
 import { NavLink } from "react-router";
 
-const baseStyles = "flex flex-col items-center justify-center gap-1 text-xs";
+const baseStyles =
+  "flex flex-col items-center justify-center gap-1 text-xs capitalize";
 
 const types = {
   dashboard:

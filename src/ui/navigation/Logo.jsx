@@ -1,4 +1,4 @@
-function Logo({ type }) {
+function Logo({ type, className = "" }) {
   const isHeader = type === "header";
 
   const iconStyles = isHeader ? "w-6 md:w-9" : "w-9";
@@ -7,7 +7,7 @@ function Logo({ type }) {
     : "w-40 translate-y-1.5";
 
   return (
-    <div className="flex items-center gap-2">
+    <div className={`flex items-center gap-2 ${className}`}>
       <img src="/logo-icon.png" alt="logo-icon" className={iconStyles} />
       <img src="/logo-text.png" alt="logo-text" className={textStyles} />
     </div>

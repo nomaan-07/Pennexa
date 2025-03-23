@@ -12,7 +12,7 @@ export const items = [
   {
     name: "dashboard",
     icon: <LucideLayoutDashboard className={iconStyles} />,
-    path: "/",
+    path: "dashboard",
   },
   {
     name: "expenses",

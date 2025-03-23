@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router";
 
 import Dashboard from "./pages/Dashboard";
 import Expenses from "./pages/Expenses";
@@ -21,6 +21,10 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
+        element: <Navigate to="dashboard" replace />,
+      },
+      {
+        path: "dashboard",
         element: <Dashboard />,
       },
       {
