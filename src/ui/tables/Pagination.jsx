@@ -1,12 +1,7 @@
-import {
-  LucideArrowLeft,
-  LucideArrowLeftFromLine,
-  LucideChevronLeft,
-  LucideChevronRight,
-} from "lucide-react";
+import { LucideChevronLeft, LucideChevronRight } from "lucide-react";
+
 import Button from "../buttons/button";
 import Buttons from "../buttons/Buttons";
-import Row from "../layout/Row";
 
 function Pagination() {
   return (
