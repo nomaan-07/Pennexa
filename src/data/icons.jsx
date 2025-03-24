@@ -1,0 +1,72 @@
+import {
+  LucideUtensils,
+  LucideHome,
+  LucideShoppingCart,
+  LucideCar,
+  LucidePlane,
+  LucideGift,
+  LucideHeartPulse,
+  LucideGraduationCap,
+  LucideWallet,
+  LucideMusic,
+  LucideMonitor,
+  LucideTrophy,
+  LucideFactory,
+  LucideFileText,
+  LucideBriefcase,
+  LucidePiggyBank,
+  LucideTrendingUp,
+  LucideBanknote,
+  LucideReceipt,
+  LucideDollarSign,
+  LucideSofa,
+  LucideShirt,
+  LucideDumbbell,
+  LucideStore,
+  LucideLaptop,
+} from "lucide-react";
+
+const icons = [
+  { name: "LucideUtensils", icon: <LucideUtensils /> },
+  { name: "LucideHome", icon: <LucideHome /> },
+  { name: "LucideSofa", icon: <LucideSofa /> },
+  { name: "LucideShirt", icon: <LucideShirt /> },
+  { name: "LucideDumbbell", icon: <LucideDumbbell /> },
+  { name: "LucideStore", icon: <LucideStore /> },
+  { name: "LucideLaptop", icon: <LucideLaptop /> },
+  {
+    name: "LucideShoppingCart",
+    icon: <LucideShoppingCart />,
+  },
+  { name: "LucideCar", icon: <LucideCar /> },
+  { name: "LucidePlane", icon: <LucidePlane /> },
+  { name: "LucideGift", icon: <LucideGift /> },
+  {
+    name: "LucideHeartPulse",
+    icon: <LucideHeartPulse />,
+  },
+  {
+    name: "LucideGraduationCap",
+    icon: <LucideGraduationCap />,
+  },
+  { name: "LucideMusic", icon: <LucideMusic /> },
+  { name: "LucideMonitor", icon: <LucideMonitor /> },
+  { name: "LucideTrophy", icon: <LucideTrophy /> },
+  { name: "LucideBriefcase", icon: <LucideBriefcase /> },
+  { name: "LucideFactory", icon: <LucideFactory /> },
+  { name: "LucideFileText", icon: <LucideFileText /> },
+  { name: "LucidePiggyBank", icon: <LucidePiggyBank /> },
+  {
+    name: "LucideTrendingUp",
+    icon: <LucideTrendingUp />,
+  },
+  { name: "LucideBanknote", icon: <LucideBanknote /> },
+  { name: "LucideReceipt", icon: <LucideReceipt /> },
+  {
+    name: "LucideDollarSign",
+    icon: <LucideDollarSign />,
+  },
+  { name: "LucideWallet", icon: <LucideWallet /> }, // Wallet stays here!
+];
+
+export default icons;

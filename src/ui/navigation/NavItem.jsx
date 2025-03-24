@@ -1,7 +1,7 @@
 import { NavLink } from "react-router";
 
 const baseStyles =
-  "flex items-center gap-4 rounded-lg px-4 py-2.5 text-lg font-medium transition-colors capitalize";
+  "flex items-center gap-4 rounded-full px-4 py-2.5 text-lg font-medium transition-colors capitalize select-none";
 
 const types = {
   link: "nav-link md:hover:bg-emerald-50 md:hover:text-emerald-500 dark:md:hover:bg-emerald-500/10 dark:md:hover:text-inherit",

@@ -1,0 +1,20 @@
+export const filterOptions = [
+  { value: "all", label: "All" },
+  { value: "7", label: "Last 7 days" },
+  { value: "30", label: "Last 30 days" },
+  { value: "90", label: "Last 90 days" },
+];
+
+export const sortOptions = [
+  { value: "name-desc", label: "Sort by name (A-Z)" },
+  { value: "name-asc", label: "Sort by name (Z-A)" },
+  {
+    value: "amount-desc",
+    label: "Sort by amount (high first)",
+  },
+  { value: "amount-asc", label: "Sort by amount (low first)" },
+];
+
+export const sortField = "sortBy";
+
+export const filterField = "last";

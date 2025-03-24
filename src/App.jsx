@@ -12,6 +12,7 @@ import AppLayout from "./ui/layout/AppLayout";
 import AddTransaction from "./pages/AddTransaction";
 
 import { DarkModeProvider } from "./context/DarkModeContext";
+import { MobileFilterProvider } from "./context/MobileFilterContext";
 
 const router = createBrowserRouter([
   {
@@ -62,7 +63,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <DarkModeProvider>
-      <RouterProvider router={router} />
+      <MobileFilterProvider>
+        <RouterProvider router={router} />
+      </MobileFilterProvider>
     </DarkModeProvider>
   );
 }

@@ -6,14 +6,14 @@ import Header from "../navigation/Header";
 
 function AppLayout() {
   return (
-    <>
+    <div className="mt-20 mb-30 md:mt-24 lg:mt-30 lg:ml-70">
+      <Header />
       <Sidebar />
       <MobileNav />
-      <Header />
-      <main className="md:ml-70">
+      <main className="mx-auto max-w-306 space-y-6 px-4 sm:px-8 md:space-y-8 lg:px-12">
         <Outlet />
       </main>
-    </>
+    </div>
   );
 }
 

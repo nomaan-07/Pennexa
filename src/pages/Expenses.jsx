@@ -1,5 +1,7 @@
+import ExpensesTable from "../features/expenses/ExpensesTable";
+
 function Expenses() {
-  return <div>Expenses</div>;
+  return <ExpensesTable />;
 }
 
 export default Expenses;

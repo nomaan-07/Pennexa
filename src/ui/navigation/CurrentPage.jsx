@@ -5,9 +5,9 @@ function CurrentPage() {
   const currentPage = location.pathname.replace("/", "").replace("-", " ");
 
   return (
-    <h2 className="hidden text-2xl font-semibold capitalize md:block lg:text-3xl">
+    <h1 className="hidden text-3xl font-semibold capitalize lg:block">
       {currentPage}
-    </h2>
+    </h1>
   );
 }
 
