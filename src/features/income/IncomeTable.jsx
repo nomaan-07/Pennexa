@@ -8,7 +8,7 @@ function IncomeTable() {
   return (
     <>
       <TableOperations />
-      <Table items={incomes} type="income" />
+      <Table items={incomes} />
       <Pagination />
     </>
   );

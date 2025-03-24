@@ -1,7 +1,5 @@
-import IncomeTable from "../features/income/IncomeTable";
-
 function Income() {
-  return <IncomeTable />;
+  return <div>Income</div>;
 }
 
 export default Income;

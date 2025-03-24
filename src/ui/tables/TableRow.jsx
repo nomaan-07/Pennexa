@@ -1,9 +1,19 @@
+import { useState } from "react";
 import { LucideMoreVertical } from "lucide-react";
+
+import Icon from "../Icon";
+import TableActionButtons from "../buttons/TableActionButtons";
+
 import { formatDate, formatPrice } from "../../utils/helpers";
-import { Icon } from "../Icon";
+import { useClickOutside } from "../../hooks/useClickOutside";
 
 function TableRow({ number, item }) {
-  const { icon, amount, date, category, source, textColor, bgColor } = item;
+  const { id, icon, amount, date, category, source, textColor, bgColor } = item;
+  const [isActionOpen, setIsActionOpen] = useState(false);
+
+  const dropDownRef = useClickOutside(() => setIsActionOpen(false));
+
+  const toggleAction = () => setIsActionOpen((prev) => !prev);
 
   return (
     <div className="grid grid-cols-[1rem_1fr_0.6fr_0.9fr_2.5rem] gap-6 px-6 py-4 even:bg-slate-50 sm:grid-cols-[3rem_1fr_0.7fr_0.8fr_3rem] sm:py-6 dark:even:bg-slate-700">
@@ -16,12 +26,15 @@ function TableRow({ number, item }) {
       </div>
       <div>{formatPrice(amount)}</div>
       <div>{formatDate(date)}</div>
-      <div>
-        <LucideMoreVertical
-          className="mx-auto size-4 transition-colors md:cursor-pointer md:hover:text-emerald-500"
-          role="button"
-          aria-label="More options"
-        />
+      <div
+        ref={dropDownRef}
+        role="button"
+        aria-label="More options"
+        onClick={toggleAction}
+        className={`relative flex size-7 items-center justify-center rounded-lg transition-colors md:cursor-pointer md:hover:bg-slate-200 dark:hover:bg-slate-600 ${isActionOpen ? "bg-slate-200 dark:bg-slate-600" : ""}`}
+      >
+        <LucideMoreVertical className="mx-auto size-4" />
+        {isActionOpen && <TableActionButtons id={id} />}
       </div>
     </div>
   );

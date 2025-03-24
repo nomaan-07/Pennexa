@@ -10,7 +10,7 @@ const types = {
     "bg-slate-200 text-slate-700 dark:md:hover:bg-slate-700 md:text-inherit md:bg-inherit dark:md:hover:text-slate-300 dark:bg-slate-700 dark:text-slate-300 dark:md:text-inherit dark:md:bg-inherit md:hover:bg-slate-200 md:hover:text-slate-900 gap-1 sm:gap-2 px-3 sm:px-4",
 };
 
-function Button({ children, type = "primary", onClick, className }) {
+function Button({ children, type = "primary", onClick, className = "" }) {
   const styles = `${baseStyles} ${types[type]} ${className}`;
   return (
     <button onClick={onClick} className={styles}>

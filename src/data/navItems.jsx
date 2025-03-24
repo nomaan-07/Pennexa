@@ -20,9 +20,9 @@ export const items = [
     path: "/expenses",
   },
   {
-    name: "income",
+    name: "incomes",
     icon: <LucideTrendingUp className={iconStyles} />,
-    path: "/income",
+    path: "/incomes",
   },
   {
     name: "groups",
@@ -40,6 +40,6 @@ export const mobileItems = [
   "groups",
   "expenses",
   "dashboard",
-  "income",
+  "incomes",
   "account",
 ].map((name) => items.find((item) => item.name === name));

@@ -2,7 +2,7 @@ import { createBrowserRouter, Navigate, RouterProvider } from "react-router";
 
 import Dashboard from "./pages/Dashboard";
 import Expenses from "./pages/Expenses";
-import Income from "./pages/Income";
+import Incomes from "./pages/Incomes";
 import Groups from "./pages/Groups";
 import Account from "./pages/Account";
 import Login from "./pages/Login";
@@ -13,6 +13,8 @@ import AddTransaction from "./pages/AddTransaction";
 
 import { DarkModeProvider } from "./context/DarkModeContext";
 import { MobileFilterProvider } from "./context/MobileFilterContext";
+import Expense from "./pages/Expense";
+import Income from "./pages/Income";
 
 const router = createBrowserRouter([
   {
@@ -33,7 +35,15 @@ const router = createBrowserRouter([
         element: <Expenses />,
       },
       {
-        path: "income",
+        path: "expenses/:id",
+        element: <Expense />,
+      },
+      {
+        path: "incomes",
+        element: <Incomes />,
+      },
+      {
+        path: "incomes/:id",
         element: <Income />,
       },
       {
