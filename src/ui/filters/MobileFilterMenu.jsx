@@ -28,7 +28,9 @@ function MobileFilterMenu() {
     <div className={className}>
       <MobileFilterSort field={filterField} options={filterOptions} />
       <MobileFilterSort field={sortField} options={sortOptions} />
-      <Button onClick={toggleFilterModal}>Apply</Button>
+      <Button onClick={toggleFilterModal} className="w-64">
+        Apply
+      </Button>
     </div>
   );
 }

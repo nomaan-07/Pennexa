@@ -1,15 +1,18 @@
 import { LucideLogOut } from "lucide-react";
 
 import NavItem from "../../ui/navigation/NavItem";
+import Button from "../../ui/buttons/Button";
 
 function Logout() {
   return (
-    <NavItem
-      name="logout"
-      icon={<LucideLogOut className="size-6" />}
-      type="logout"
+    <Button
+      type="secondary"
+      className="w-full justify-start text-lg"
       onClick={() => {}}
-    />
+    >
+      <LucideLogOut className="size-6" />
+      <span>logout</span>
+    </Button>
   );
 }
 
