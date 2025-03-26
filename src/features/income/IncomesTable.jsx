@@ -13,7 +13,7 @@ import Button from "../../ui/buttons/Button";
 import MobileTransactionTable from "../../ui/tables/MobileTransactionTable";
 
 import { useModal } from "../../hooks/uesModal";
-import { incomes } from "../../data/data-income";
+import { incomes } from "../../data/data-incomes";
 
 function IncomesTable() {
   const navigate = useNavigate();

@@ -9,7 +9,6 @@ import Login from "./pages/Login";
 import PageNotFound from "./pages/PageNotFound";
 import ErrorPage from "./pages/ErrorPage";
 import AppLayout from "./ui/layout/AppLayout";
-import AddTransaction from "./pages/AddTransaction";
 import Expense from "./pages/Expense";
 import Income from "./pages/Income";
 
@@ -52,10 +51,6 @@ const router = createBrowserRouter([
       {
         path: "account",
         element: <Account />,
-      },
-      {
-        path: "add-transaction",
-        element: <AddTransaction />,
       },
     ],
   },

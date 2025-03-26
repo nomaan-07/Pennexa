@@ -18,8 +18,7 @@ function MobileTransactionBox({ children, title, item, number }) {
           <div>{title}</div>
           <Badge
             name={item.category}
-            bgColor={item.bgColor}
-            textColor={item.textColor}
+            className={`${item.textColor} ${item.bgColor}`}
             icon={item.icon}
             iconStyles="*:size-4"
           />

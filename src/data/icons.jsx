@@ -26,6 +26,7 @@ import {
   LucideLaptop,
   Filter,
   ArrowUpDown,
+  LucideTrendingDown,
 } from "lucide-react";
 
 const icons = [
@@ -38,6 +39,7 @@ const icons = [
   { name: "LucideLaptop", icon: <LucideLaptop /> },
   { name: "Filter", icon: <Filter /> },
   { name: "ArrowUpDown", icon: <ArrowUpDown /> },
+  { name: "LucideTrendingDown", icon: <LucideTrendingDown /> },
   {
     name: "LucideShoppingCart",
     icon: <LucideShoppingCart />,

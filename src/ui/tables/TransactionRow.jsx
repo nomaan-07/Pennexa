@@ -13,8 +13,7 @@ function TransactionRow({ number, item, children }) {
         name={category}
         icon={icon}
         iconStyles="*:size-4"
-        bgColor={bgColor}
-        textColor={textColor}
+        className={`${textColor} ${bgColor}`}
       />
       <div>{formatPrice(amount)}</div>
       <div>{formatDate(date)}</div>
