@@ -1,6 +1,8 @@
 import GroupTableRow from "./GroupTableRow";
 import TableHeader from "./TableHeader";
 
+// grid-cols-[1rem_1fr_2rem_2rem_2.5rem] sm:grid-cols-[1rem_1fr_2rem_2.5rem_3rem]
+
 function GroupsTable({ type, items }) {
   return (
     <div className="overflow-x-hidden">

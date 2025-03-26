@@ -2,7 +2,6 @@ import Filter from "../filters/Filter";
 import MobileTableOperation from "./MobileTableOperation";
 import SortBy from "../filters/SortBy";
 import Row from "../layout/Row";
-import FilterHeading from "./FIlterHeading";
 import {
   filterField,
   filterOptions,
