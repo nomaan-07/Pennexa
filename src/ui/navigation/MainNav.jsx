@@ -1,11 +1,3 @@
-import {
-  LucideFolderTree,
-  LucideLayoutDashboard,
-  LucideTrendingDown,
-  LucideTrendingUp,
-  LucideUserCog,
-} from "lucide-react";
-
 import { items } from "../../data/navItems";
 import NavItem from "./NavItem";
 

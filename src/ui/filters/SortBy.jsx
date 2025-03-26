@@ -36,7 +36,7 @@ function SortBy() {
       </div>
 
       {isOpen && (
-        <div className="absolute top-11 mt-1 w-95/100 overflow-hidden rounded-3xl bg-white shadow dark:bg-slate-800 dark:shadow-slate-700">
+        <div className="absolute top-11 z-10 mt-1 w-95/100 overflow-hidden rounded-3xl bg-white shadow dark:bg-slate-800 dark:shadow-slate-700">
           {sortOptions.map((option) => (
             <SortButton
               option={option}

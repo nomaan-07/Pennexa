@@ -1,7 +1,7 @@
 export const incomes = [
   {
     id: "i1",
-    source: "salary",
+    category: "salary",
     icon: "LucideBanknote",
     description: "Monthly salary",
     amount: 2600,
@@ -11,7 +11,7 @@ export const incomes = [
   },
   {
     id: "i2",
-    source: "freelance",
+    category: "freelance",
     icon: "LucideLaptop",
     description: "Website development",
     amount: 1200,
@@ -21,7 +21,7 @@ export const incomes = [
   },
   {
     id: "i3",
-    source: "investment",
+    category: "investment",
     icon: "LucideTrendingUp",
     description: "Stock dividends",
     amount: 340.5,
@@ -31,7 +31,7 @@ export const incomes = [
   },
   {
     id: "i4",
-    source: "rental",
+    category: "rental",
     icon: "LucideHome",
     description: "Apartment rent",
     amount: 1600,
@@ -41,7 +41,7 @@ export const incomes = [
   },
   {
     id: "i5",
-    source: "bonus",
+    category: "bonus",
     icon: "LucideGift",
     description: "Year-end bonus",
     amount: 800,
@@ -51,7 +51,7 @@ export const incomes = [
   },
   {
     id: "i6",
-    source: "side job",
+    category: "side job",
     icon: "LucideBriefcase",
     description: "Part-time tutoring",
     amount: 300,
@@ -61,7 +61,7 @@ export const incomes = [
   },
   {
     id: "i7",
-    source: "freelance",
+    category: "freelance",
     icon: "LucideLaptop",
     description: "Graphic design project",
     amount: 550,
@@ -71,7 +71,7 @@ export const incomes = [
   },
   {
     id: "i8",
-    source: "salary",
+    category: "salary",
     icon: "LucideBanknote",
     description: "Quarterly performance bonus",
     amount: 1000,
@@ -81,7 +81,7 @@ export const incomes = [
   },
   {
     id: "i9",
-    source: "investment",
+    category: "investment",
     icon: "LucideTrendingUp",
     description: "Crypto trading profit",
     amount: 225.75,
@@ -91,7 +91,7 @@ export const incomes = [
   },
   {
     id: "i10",
-    source: "gift",
+    category: "gift",
     icon: "LucideGift",
     description: "Birthday gift money",
     amount: 150,
@@ -101,7 +101,7 @@ export const incomes = [
   },
   {
     id: "i11",
-    source: "rental",
+    category: "rental",
     icon: "LucideHome",
     description: "Garage rent",
     amount: 450,
@@ -111,7 +111,7 @@ export const incomes = [
   },
   {
     id: "i12",
-    source: "business",
+    category: "business",
     icon: "LucideStore",
     description: "E-commerce sales",
     amount: 3000,
@@ -121,7 +121,7 @@ export const incomes = [
   },
   {
     id: "i13",
-    source: "salary",
+    category: "salary",
     icon: "LucideBanknote",
     description: "Project completion bonus",
     amount: 600,
@@ -131,7 +131,7 @@ export const incomes = [
   },
   {
     id: "i14",
-    source: "freelance",
+    category: "freelance",
     icon: "LucideLaptop",
     description: "Content writing",
     amount: 400,
@@ -141,7 +141,7 @@ export const incomes = [
   },
   {
     id: "i15",
-    source: "investment",
+    category: "investment",
     icon: "LucideTrendingUp",
     description: "Mutual fund returns",
     amount: 600,
@@ -151,7 +151,7 @@ export const incomes = [
   },
   {
     id: "i16",
-    source: "side job",
+    category: "side job",
     icon: "LucideBriefcase",
     description: "Photography gig",
     amount: 275,
@@ -161,7 +161,7 @@ export const incomes = [
   },
   {
     id: "i17",
-    source: "business",
+    category: "business",
     icon: "LucideStore",
     description: "Small business profit",
     amount: 2600,
@@ -171,7 +171,7 @@ export const incomes = [
   },
   {
     id: "i18",
-    source: "salary",
+    category: "salary",
     icon: "LucideBanknote",
     description: "Performance raise",
     amount: 180,
@@ -181,7 +181,7 @@ export const incomes = [
   },
   {
     id: "i19",
-    source: "gift",
+    category: "gift",
     icon: "LucideGift",
     description: "Wedding gift money",
     amount: 700,
@@ -191,7 +191,7 @@ export const incomes = [
   },
   {
     id: "i20",
-    source: "investment",
+    category: "investment",
     icon: "LucideTrendingUp",
     description: "Rental property profit",
     amount: 1300,

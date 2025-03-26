@@ -1,16 +1,18 @@
-import { Link } from "react-router";
-
-const styles =
-  "*:size-4 w-full flex items-center gap-2 p-2 text-xs text-slate-500 dark:text-slate-300 transition-colors md:cursor-pointer";
+const baseStyles =
+  "*:size-4 w-full flex items-center gap-2 px-2 py-3 md:py-2 text-xs text-slate-500 dark:text-slate-300 transition-colors md:cursor-pointer";
 
 const types = {
-  edit: "hover:bg-emerald-100 dark:hover:bg-emerald-500/20 ",
-  delete: "hover:bg-rose-100 dark:hover:bg-rose-500/20 ",
+  primary: "md:hover:bg-emerald-100 dark:md:hover:bg-emerald-500/20 ",
+  delete: "md:hover:bg-rose-100 dark:md:hover:bg-rose-500/20 ",
 };
-function TableActionButton({ children, onClick, type = "edit" }) {
+
+function TableActionButton({ icon, label, onClick }) {
+  const styles = `${baseStyles} ${label === "delete" ? types.delete : types.primary}`;
+
   return (
-    <button className={`${styles} ${types[type]}`} onClick={onClick}>
-      {children}
+    <button className={styles} onClick={onClick}>
+      {icon}
+      <span>{label}</span>
     </button>
   );
 }

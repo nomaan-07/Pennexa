@@ -1,6 +1,6 @@
 import { LucideChevronLeft, LucideChevronRight } from "lucide-react";
 
-import Button from "../buttons/button";
+import Button from "../buttons/Button";
 import Buttons from "../buttons/Buttons";
 
 function Pagination() {

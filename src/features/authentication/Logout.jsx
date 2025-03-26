@@ -1,6 +1,5 @@
 import { LucideLogOut } from "lucide-react";
 
-import NavItem from "../../ui/navigation/NavItem";
 import Button from "../../ui/buttons/Button";
 
 function Logout() {

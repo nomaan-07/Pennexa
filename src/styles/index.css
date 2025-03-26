@@ -42,3 +42,11 @@
     @apply bg-emerald-500 text-white md:hover:bg-emerald-500 md:hover:text-white dark:md:hover:bg-emerald-500 dark:md:hover:text-white;
   }
 }
+
+@utility modal--close {
+  @apply pointer-events-none opacity-0;
+}
+
+@utility modal--open {
+  @apply pointer-events-auto opacity-100;
+}

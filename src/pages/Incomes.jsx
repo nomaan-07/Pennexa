@@ -1,7 +1,13 @@
-import IncomeTable from "../features/income/IncomeTable";
+import IncomesTable from "../features/income/IncomesTable";
+import TableOperations from "../ui/tables/TableOperations";
 
 function Incomes() {
-  return <IncomeTable />;
+  return (
+    <>
+      <TableOperations />
+      <IncomesTable />
+    </>
+  );
 }
 
 export default Incomes;

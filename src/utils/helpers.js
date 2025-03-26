@@ -9,3 +9,7 @@ export function formatDate(date) {
 export function formatPrice(price) {
   return price.toLocaleString("en-US", { style: "currency", currency: "USD" });
 }
+
+export function formatNumber(number) {
+  return String(number).padStart(2, "0");
+}

@@ -8,14 +8,14 @@ import TableAction from "../../ui/tables/TableAction";
 import TableActionButton from "../../ui/buttons/TableActionButton";
 import MobileTransactionBox from "../../ui/tables/MobileTransactionBox";
 import Modal from "../../ui/common/Modal";
-
-import { expenses } from "../../data/data-expenses";
-import { useModal } from "../../hooks/uesModal";
-import Button from "../../ui/buttons/Button";
 import Buttons from "../../ui/buttons/Buttons";
+import Button from "../../ui/buttons/Button";
 import MobileTransactionTable from "../../ui/tables/MobileTransactionTable";
 
-function ExpensesTable() {
+import { useModal } from "../../hooks/uesModal";
+import { incomes } from "../../data/data-income";
+
+function IncomesTable() {
   const navigate = useNavigate();
   const { isOpen, openModal, closeModal } = useModal();
 
@@ -24,20 +24,21 @@ function ExpensesTable() {
       <Table columns="grid-cols-[3rem_1fr_0.7fr_0.9fr_3rem]">
         <Table.Header>
           <div>Sl</div>
-          <div>Category</div>
+          <div>Source</div>
           <div>amount</div>
           <div>date</div>
           <div>action</div>
         </Table.Header>
+
         <Table.Body
-          data={expenses}
-          render={(expense, index) => (
-            <TransactionRow number={index + 1} item={expense} key={expense.id}>
+          data={incomes}
+          render={(income, index) => (
+            <TransactionRow number={index + 1} item={income} key={income.id}>
               <TableAction>
                 <TableActionButton
                   icon={<Eye />}
                   label="view"
-                  onClick={() => navigate(`/expenses/${expense.id}`)}
+                  onClick={() => navigate(`/incomes/${income.id}`)}
                 />
                 <TableActionButton
                   icon={<Trash2 />}
@@ -51,9 +52,9 @@ function ExpensesTable() {
       </Table>
 
       <MobileTransactionTable>
-        {expenses.map((item, index) => (
+        {incomes.map((item, index) => (
           <MobileTransactionBox
-            title="category"
+            title="source"
             item={item}
             number={index + 1}
             key={item.id}
@@ -62,7 +63,7 @@ function ExpensesTable() {
               <TableActionButton
                 icon={<Eye />}
                 label="view"
-                onClick={() => navigate(`/expenses/${item.id}`)}
+                onClick={() => navigate(`/incomes/${item.id}`)}
               />
               <TableActionButton
                 icon={<Trash2 />}
@@ -88,4 +89,4 @@ function ExpensesTable() {
   );
 }
 
-export default ExpensesTable;
+export default IncomesTable;

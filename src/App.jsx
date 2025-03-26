@@ -10,11 +10,10 @@ import PageNotFound from "./pages/PageNotFound";
 import ErrorPage from "./pages/ErrorPage";
 import AppLayout from "./ui/layout/AppLayout";
 import AddTransaction from "./pages/AddTransaction";
-
-import { DarkModeProvider } from "./context/DarkModeContext";
-import { MobileFilterProvider } from "./context/MobileFilterContext";
 import Expense from "./pages/Expense";
 import Income from "./pages/Income";
+
+import { DarkModeProvider } from "./context/DarkModeContext";
 
 const router = createBrowserRouter([
   {
@@ -73,9 +72,7 @@ const router = createBrowserRouter([
 function App() {
   return (
     <DarkModeProvider>
-      <MobileFilterProvider>
-        <RouterProvider router={router} />
-      </MobileFilterProvider>
+      <RouterProvider router={router} />
     </DarkModeProvider>
   );
 }

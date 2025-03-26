@@ -4,7 +4,7 @@ import HeaderButton from "./HeaderButton";
 
 function HeaderAddButton() {
   return (
-    <HeaderButton to="/add-transaction">
+    <HeaderButton>
       <LucidePlus />
     </HeaderButton>
   );

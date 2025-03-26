@@ -1,8 +1,8 @@
 function Logo({ type, className = "" }) {
-  const isHeader = type === "header";
+  const inHeader = type === "header";
 
-  const iconStyles = isHeader ? "w-6 lg:w-9" : "w-9";
-  const textStyles = isHeader
+  const iconStyles = inHeader ? "w-6 lg:w-9" : "w-9";
+  const textStyles = inHeader
     ? "w-28 translate-y-1 lg:w-40 lg:translate-y-1.5"
     : "w-40 translate-y-1.5";
 

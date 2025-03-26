@@ -24,6 +24,8 @@ import {
   LucideDumbbell,
   LucideStore,
   LucideLaptop,
+  Filter,
+  ArrowUpDown,
 } from "lucide-react";
 
 const icons = [
@@ -34,6 +36,8 @@ const icons = [
   { name: "LucideDumbbell", icon: <LucideDumbbell /> },
   { name: "LucideStore", icon: <LucideStore /> },
   { name: "LucideLaptop", icon: <LucideLaptop /> },
+  { name: "Filter", icon: <Filter /> },
+  { name: "ArrowUpDown", icon: <ArrowUpDown /> },
   {
     name: "LucideShoppingCart",
     icon: <LucideShoppingCart />,
