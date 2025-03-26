@@ -6,7 +6,7 @@ import { formatDate, formatNumber, formatPrice } from "../../utils/helpers";
 function MobileTransactionBox({ children, title, item, number }) {
   return (
     <div
-      className="xs:text-sm space-y-4 rounded-xl bg-white p-4 text-xs capitalize md:hidden dark:bg-slate-800"
+      className="space-y-4 rounded-xl bg-white p-4 capitalize md:hidden dark:bg-slate-800"
       key={item.id}
     >
       <div className="flex items-center justify-between border-b border-slate-100 pb-3 dark:border-b-slate-700">
