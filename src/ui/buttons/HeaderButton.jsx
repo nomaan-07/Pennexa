@@ -1,18 +1,9 @@
-import { NavLink } from "react-router";
-
-const styles = "flex items-center  gap-2 rounded-full p-3 *:size-5";
-
-const types = {
-  header:
-    "header__add-btn bg-slate-200 text-slate-500 transition-colors md:cursor-pointer *:lg:size-6 md:hover:bg-slate-300 md:hover:text-slate-700 dark:bg-slate-700 dark:text-slate-300 dark:md:hover:bg-slate-600 dark:md:hover:text-slate-300",
-  filter: "bg-white lg:hidden dark:bg-slate-800",
-};
-
-function HeaderButton({ children, type = "header", onClick }) {
-  const className = `${styles} ${types[type]}`;
-
+function HeaderButton({ children, onClick }) {
   return (
-    <button className={className} onClick={onClick}>
+    <button
+      className="rounded-full bg-slate-200 p-3 text-slate-500 transition-colors *:size-5 md:cursor-pointer md:hover:bg-slate-300 md:hover:text-slate-700 *:lg:size-6 dark:bg-slate-700 dark:text-slate-300 dark:md:hover:bg-slate-600 dark:md:hover:text-slate-300"
+      onClick={onClick}
+    >
       {children}
     </button>
   );
