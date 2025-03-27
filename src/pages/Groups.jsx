@@ -1,8 +1,15 @@
-// import GroupsDetail from "../features/groups/GroupsDetail";
+import { Plus } from "lucide-react";
+import GroupsTables from "../features/groups/GroupsTables";
+import Button from "../ui/buttons/Button";
+import AddGroup from "../ui/buttons/AddGroup";
 
 function Groups() {
-  return <div>groups</div>;
-  // return <GroupsDetail />;
+  return (
+    <>
+      <AddGroup />
+      <GroupsTables />
+    </>
+  );
 }
 
 export default Groups;

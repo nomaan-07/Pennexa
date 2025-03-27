@@ -15,7 +15,7 @@ export const incomeGroups = [
   },
   {
     name: "investment",
-    icon: "LucideTrendingUp",
+    icon: "BarChart3",
     textColor: "text-emerald-600",
     bgColor100: "bg-emerald-100",
     bgColor600: "bg-emerald-600",
@@ -97,9 +97,9 @@ export const expenseGroups = [
   {
     name: "bills",
     icon: "LucideWallet",
-    textColor: "text-slate-600",
-    bgColor100: "bg-slate-200",
-    bgColor600: "bg-slate-600",
+    textColor: "text-stone-600",
+    bgColor100: "bg-stone-200",
+    bgColor600: "bg-stone-600",
   },
   {
     name: "furniture",

@@ -6,7 +6,7 @@ import Table from "../../ui/tables/Table";
 import TransactionRow from "../../ui/tables/TransactionRow";
 import TableAction from "../../ui/tables/TableAction";
 import TableActionButton from "../../ui/buttons/TableActionButton";
-import MobileTransactionBox from "../../ui/tables/MobileTransactionBox";
+import MobileTableBox from "../../ui/tables/MobileTableBox";
 import Modal from "../../ui/common/Modal";
 import Buttons from "../../ui/buttons/Buttons";
 import Button from "../../ui/buttons/Button";
@@ -53,7 +53,7 @@ function IncomesTable() {
 
       <MobileTransactionTable>
         {incomes.map((item, index) => (
-          <MobileTransactionBox
+          <MobileTableBox
             title="source"
             item={item}
             number={index + 1}
@@ -71,13 +71,13 @@ function IncomesTable() {
                 onClick={openModal}
               />
             </TableAction>
-          </MobileTransactionBox>
+          </MobileTableBox>
         ))}
       </MobileTransactionTable>
 
       <Pagination />
 
-      <Modal isOpen={isOpen} onClose={closeModal}>
+      <Modal isOpen={isOpen} onClose={closeModal} closeButton={false}>
         <Buttons>
           <Button type="danger">Delete</Button>
           <Button type="secondary" onClick={closeModal}>

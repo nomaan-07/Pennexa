@@ -14,21 +14,19 @@ import { expenseGroups, incomeGroups } from "../../data/data-groups";
 function CreateTransactionForm({ isOpen, onClose }) {
   const { register, handleSubmit, formState, watch, reset } = useForm();
 
+  const { errors } = formState;
+
   const categories = (
     watch().type === "expense" ? expenseGroups : incomeGroups
   ).slice(0, 10);
 
-  const { errors } = formState;
-
   const typeValidation = { required: "You must choose a transaction type" };
   const categoryValidation = { required: "You must choose a category" };
   const requiredValidation = { required: "This field is required" };
-
   const numberValidation = {
     ...requiredValidation,
     validate: (value) => Number(value) > 0 || "Enter a valid number",
   };
-
   const descriptionValidation = {
     ...requiredValidation,
     validate: (value) => value.trim() !== "" || "This field cannot be empty",
@@ -51,7 +49,7 @@ function CreateTransactionForm({ isOpen, onClose }) {
           <FormChips>
             <FormChip
               field="type"
-              activeClasses="bg-emerald-50 text-emerald-500"
+              activeClasses="bg-rose-50 text-rose-500"
               name="expense"
               iconName="LucideTrendingDown"
               watch={watch}
@@ -60,7 +58,7 @@ function CreateTransactionForm({ isOpen, onClose }) {
             />
             <FormChip
               field="type"
-              activeClasses="bg-rose-50 text-rose-500"
+              activeClasses="bg-emerald-50 text-emerald-500"
               name="income"
               iconName="LucideTrendingUp"
               watch={watch}
@@ -91,7 +89,7 @@ function CreateTransactionForm({ isOpen, onClose }) {
         <FormRow type="grid">
           <FormRow
             type="gridItem"
-            label="Choose the date"
+            label="Enter the date:"
             error={errors?.date?.message}
           >
             <Input
@@ -104,7 +102,7 @@ function CreateTransactionForm({ isOpen, onClose }) {
           </FormRow>
           <FormRow
             type="gridItem"
-            label="Enter Amount ($)"
+            label="Enter Amount ($):"
             error={errors?.amount?.message}
           >
             <Input
