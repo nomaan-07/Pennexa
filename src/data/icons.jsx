@@ -44,6 +44,7 @@ import {
   LucideBitcoin,
   LucideAward,
   LucidePackage,
+  LucideTv,
 } from "lucide-react";
 
 const icons = [
@@ -92,6 +93,7 @@ const icons = [
   { name: "LucideBanknote", icon: <LucideBanknote /> },
   { name: "LucideReceipt", icon: <LucideReceipt /> },
   { name: "LucideWallet", icon: <LucideWallet /> },
+  { name: "LucideTv", icon: <LucideTv /> },
 ];
 
 export default icons;

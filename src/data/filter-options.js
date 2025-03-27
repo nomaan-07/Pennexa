@@ -6,6 +6,8 @@ export const filterOptions = [
 ];
 
 export const sortOptions = [
+  { value: "date-desc", label: "Sort by date (new first)" },
+  { value: "date-asc", label: "Sort by date (old first)" },
   { value: "name-desc", label: "Sort by name (A-Z)" },
   { value: "name-asc", label: "Sort by name (Z-A)" },
   {

@@ -1,19 +1,22 @@
 export const incomeGroups = [
   {
+    id: "ig1",
     name: "salary",
     icon: "LucideBanknote",
-    textColor: "text-blue-600",
-    bgColor100: "bg-blue-100",
-    bgColor600: "bg-blue-600",
+    textColor: "text-cyan-600",
+    bgColor100: "bg-cyan-100",
+    bgColor600: "bg-cyan-600",
   },
   {
+    id: "ig2",
     name: "freelance",
     icon: "LucideLaptop",
-    textColor: "text-purple-600",
-    bgColor100: "bg-purple-100",
-    bgColor600: "bg-purple-600",
+    textColor: "text-indigo-600",
+    bgColor100: "bg-indigo-100",
+    bgColor600: "bg-indigo-600",
   },
   {
+    id: "ig3",
     name: "investment",
     icon: "BarChart3",
     textColor: "text-emerald-600",
@@ -52,14 +55,16 @@ export const incomeGroups = [
 
 export const expenseGroups = [
   {
+    id: "eg1",
     name: "vacation",
     icon: "LucidePlane",
-    textColor: "text-blue-600",
-    bgColor100: "bg-blue-100",
-    bgColor600: "bg-blue-600",
+    textColor: "text-amber-600",
+    bgColor100: "bg-amber-100",
+    bgColor600: "bg-amber-600",
   },
 
   {
+    id: "eg2",
     name: "food",
     icon: "LucideUtensils",
     textColor: "text-red-600",

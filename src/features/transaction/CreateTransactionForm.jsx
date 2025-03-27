@@ -79,26 +79,25 @@ function CreateTransactionForm({ isOpen, onClose, transactionToEdit = {} }) {
           </FormRow>
         )}
 
-        {watch().type ||
-          (isEditSession && (
-            <FormRow error={errors?.category?.message}>
-              <p>Choose the Category:</p>
-              <FormChips>
-                {categories.map((group) => (
-                  <FormChip
-                    field="category"
-                    activeClasses={`${group.textColor} ${group.bgColor100}`}
-                    name={group.name}
-                    iconName={group.icon}
-                    watch={watch}
-                    register={register}
-                    key={group.name}
-                    validation={categoryValidation}
-                  />
-                ))}
-              </FormChips>
-            </FormRow>
-          ))}
+        {(watch().type || isEditSession) && (
+          <FormRow error={errors?.category?.message}>
+            <p>Choose the Category:</p>
+            <FormChips>
+              {categories.map((group) => (
+                <FormChip
+                  field="category"
+                  activeClasses={`${group.textColor} ${group.bgColor100}`}
+                  name={group.name}
+                  iconName={group.icon}
+                  watch={watch}
+                  register={register}
+                  key={group.name}
+                  validation={categoryValidation}
+                />
+              ))}
+            </FormChips>
+          </FormRow>
+        )}
         <FormRow type="grid">
           <FormRow
             type="gridItem"
