@@ -7,8 +7,11 @@ function GroupsTables() {
 
   if (isGroupsLoading) return <Spinner />;
 
-  const expenseGroups = groups.filter((group) => group.type === "expense");
-  const incomeGroups = groups.filter((group) => group.type === "income");
+  const sortedGroups = groups.sort((a, b) => b.public - a.public);
+  const expenseGroups = sortedGroups.filter(
+    (group) => group.type === "expense",
+  );
+  const incomeGroups = sortedGroups.filter((group) => group.type === "income");
 
   return (
     <>
