@@ -17,6 +17,7 @@ function CreateGroupForm({ isOpen, onClose, incomeCount, expenseCount }) {
   const { register, handleSubmit, formState, watch, reset } = useForm();
   const { showToast } = useToast();
 
+  const watchedValues = watch();
   const { errors } = formState;
 
   const groupValidation = { required: "You must choose a group" };
@@ -41,13 +42,15 @@ function CreateGroupForm({ isOpen, onClose, incomeCount, expenseCount }) {
   }
 
   function onSubmit(data) {
-    if (incomeCount > 10)
-      return showToast("failed", "You can't add more than 10 income sources");
-    if (expenseCount > 10)
-      return showToast(
-        "failed",
-        "You can't add more than 10 expense categories",
-      );
+    if (watchedValues.group === "income" && incomeCount >= 10) {
+      showToast("failed", "You can't add more than 10 income sources.");
+      return;
+    }
+
+    if (watchedValues.group === "expense" && expenseCount >= 10) {
+      showToast("failed", "You can't add more than 10 expense categories.");
+      return;
+    }
 
     const newGroup = {
       type: data.group,
@@ -61,7 +64,10 @@ function CreateGroupForm({ isOpen, onClose, incomeCount, expenseCount }) {
     };
     createGroup(newGroup, {
       onSuccess: () => {
-        showToast("success", `new ${watch("group")} successfully created.`);
+        showToast(
+          "success",
+          `new ${watchedValues.group} group successfully created.`,
+        );
         handleClose();
       },
     });
@@ -78,7 +84,7 @@ function CreateGroupForm({ isOpen, onClose, incomeCount, expenseCount }) {
               activeClasses="bg-rose-50 text-rose-500"
               name="expense"
               iconName="LucideTrendingDown"
-              watch={watch}
+              isActive={watchedValues.group === "expense"}
               register={register}
               validation={groupValidation}
             />
@@ -87,7 +93,7 @@ function CreateGroupForm({ isOpen, onClose, incomeCount, expenseCount }) {
               activeClasses="bg-emerald-50 text-emerald-500"
               name="income"
               iconName="LucideTrendingUp"
-              watch={watch}
+              isActive={watchedValues.group === "income"}
               register={register}
               validation={groupValidation}
             />
@@ -109,7 +115,7 @@ function CreateGroupForm({ isOpen, onClose, incomeCount, expenseCount }) {
               <div key={item.name}>
                 <label
                   htmlFor={item.name}
-                  className={`transition-colors *:size-7 ${watch().icon === item.name ? "text-emerald-500" : "text-slate-500 md:cursor-pointer md:hover:text-slate-900 dark:text-slate-300 dark:md:hover:text-slate-200"}`}
+                  className={`transition-colors *:size-7 ${watchedValues.icon === item.name ? "text-emerald-500" : "text-slate-500 md:cursor-pointer md:hover:text-slate-900 dark:text-slate-300 dark:md:hover:text-slate-200"}`}
                 >
                   {item.icon}
                 </label>
@@ -130,7 +136,7 @@ function CreateGroupForm({ isOpen, onClose, incomeCount, expenseCount }) {
             {colors.map((color) => (
               <div
                 key={color.name}
-                className={`size-8 ${watch().color === color.name ? "brightness-110" : "p-0.5"} `}
+                className={`size-8 ${watchedValues.color === color.name ? "brightness-110" : "p-0.5"} `}
               >
                 <label
                   htmlFor={color.name}

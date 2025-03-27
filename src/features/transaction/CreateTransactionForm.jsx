@@ -21,10 +21,13 @@ function CreateTransactionForm({ isOpen, onClose, transactionToEdit = {} }) {
       : {},
   });
 
+  const watchedValues = watch();
+
   const { errors } = formState;
 
   const categories = (
-    watch().type === "expense" || editedValues.transactionType === "expense"
+    watchedValues.type === "expense" ||
+    editedValues.transactionType === "expense"
       ? expenseGroups
       : incomeGroups
   ).slice(0, 10);
@@ -62,7 +65,7 @@ function CreateTransactionForm({ isOpen, onClose, transactionToEdit = {} }) {
                 activeClasses="bg-rose-50 text-rose-500"
                 name="expense"
                 iconName="LucideTrendingDown"
-                watch={watch}
+                isActive={watchedValues.type}
                 register={register}
                 validation={typeValidation}
               />
@@ -71,7 +74,7 @@ function CreateTransactionForm({ isOpen, onClose, transactionToEdit = {} }) {
                 activeClasses="bg-emerald-50 text-emerald-500"
                 name="income"
                 iconName="LucideTrendingUp"
-                watch={watch}
+                isActive={watchedValues.type}
                 register={register}
                 validation={typeValidation}
               />
@@ -79,7 +82,7 @@ function CreateTransactionForm({ isOpen, onClose, transactionToEdit = {} }) {
           </FormRow>
         )}
 
-        {(watch().type || isEditSession) && (
+        {(watchedValues.type || isEditSession) && (
           <FormRow error={errors?.category?.message}>
             <p>Choose the Category:</p>
             <FormChips>
@@ -89,7 +92,7 @@ function CreateTransactionForm({ isOpen, onClose, transactionToEdit = {} }) {
                   activeClasses={`${group.textColor} ${group.bgColor100}`}
                   name={group.name}
                   iconName={group.icon}
-                  watch={watch}
+                  isActive={watchedValues.type}
                   register={register}
                   key={group.name}
                   validation={categoryValidation}

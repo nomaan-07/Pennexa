@@ -1,12 +1,12 @@
 import Badge from "../common/Badge";
 
 function FormChip({
-  watch,
+  field,
   activeClasses,
   name,
   register,
   iconName,
-  field,
+  isActive,
   validation,
 }) {
   return (
@@ -14,7 +14,7 @@ function FormChip({
       <Badge
         name={name}
         className={
-          watch(field) === name
+          isActive
             ? activeClasses
             : "bg-slate-100 text-slate-500 transition-colors md:cursor-pointer md:hover:bg-slate-200 md:hover:text-slate-900 dark:bg-slate-700 dark:text-slate-300 dark:md:hover:bg-slate-600 dark:md:hover:text-slate-200"
         }
