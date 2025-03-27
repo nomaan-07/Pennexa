@@ -43,7 +43,7 @@ function CreateGroupForm({ isOpen, onClose }) {
     const newGroup = {
       type: data.group,
       icon: data.icon,
-      name: data.name,
+      name: data.name.toLowerCase(),
       colors: {
         textColor: `text-${data.color}-600`,
         bgColor100: `bg-${data.color}-100`,
@@ -51,7 +51,7 @@ function CreateGroupForm({ isOpen, onClose }) {
       },
     };
     createGroup(newGroup, {
-      onSuccess: () => handleClose(),
+      onSuccess: handleClose,
     });
   }
 

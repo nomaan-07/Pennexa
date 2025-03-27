@@ -13,7 +13,7 @@ export function useCreateGroup() {
       });
     },
     onError: (err) => {
-      console.log(err.message);
+      console.error(err.message);
     },
   });
 

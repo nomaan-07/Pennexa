@@ -12,10 +12,16 @@ const types = {
   danger: `bg-rose-500 text-white dark:bg-rose-700 md:hover:bg-rose-600 dark:md:hover:bg-rose-600 gap-4 px-4`,
 };
 
-function Button({ children, type = "primary", onClick, className = "" }) {
+function Button({
+  children,
+  type = "primary",
+  onClick,
+  className = "",
+  disabled,
+}) {
   const styles = `${baseStyles} ${types[type]} ${className}`;
   return (
-    <button onClick={onClick} className={styles}>
+    <button onClick={onClick} className={styles} disabled={disabled}>
       {children}
     </button>
   );

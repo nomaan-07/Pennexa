@@ -19,3 +19,15 @@ export async function createGroup(newGroup) {
     throw new Error("Group could not be created.");
   }
 }
+
+export async function deleteGroup(id) {
+  const { error } = await supabase
+    .from("pennexa-groups")
+    .delete(id)
+    .eq("id", id);
+
+  if (error) {
+    console.error(error);
+    throw new Error("Group could not be deleted.");
+  }
+}
