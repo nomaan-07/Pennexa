@@ -53,7 +53,9 @@ function MobileTableBox({
             <Row>
               <span>{title}</span>
               <span>
-                <div className={`size-5 rounded-full ${item.bgColor600}`}></div>
+                <div
+                  className={`size-5 rounded-full ${item.bgColor600 || item.colors.bgColor600}`}
+                ></div>
               </span>
             </Row>
           </>

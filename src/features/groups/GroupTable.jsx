@@ -8,7 +8,7 @@ import Table from "../../ui/tables/Table";
 import MobileTableBox from "../../ui/tables/MobileTableBox";
 import GroupTableDeleteButton from "../../ui/buttons/GroupTableDeleteButton";
 
-function GroupTable({ data, type }) {
+function GroupTable({ groups, type }) {
   const { isOpen, closeModal, openModal } = useModal();
 
   const title = type === "expense" ? "category" : "source";
@@ -30,10 +30,9 @@ function GroupTable({ data, type }) {
         </Table.Header>
 
         <Table.Body
-          // FIXME: Use can only create 10 tables
-          data={data.slice(0, 10)}
-          render={(item, index) => (
-            <GroupTableRow item={item} number={index + 1} key={item.name}>
+          data={groups}
+          render={(group, index) => (
+            <GroupTableRow group={group} number={index + 1} key={group.id}>
               <GroupTableDeleteButton onOpen={openModal} />
             </GroupTableRow>
           )}
@@ -41,7 +40,7 @@ function GroupTable({ data, type }) {
       </Table>
 
       <div className="grid gap-4 text-xs min-[504px]:grid-cols-2 sm:text-sm">
-        {data.map((item, index) => (
+        {groups.map((item, index) => (
           <MobileTableBox
             item={item}
             type="group"

@@ -11,7 +11,16 @@ import ErrorPage from "./pages/ErrorPage";
 import AppLayout from "./ui/layout/AppLayout";
 
 import { DarkModeProvider } from "./context/DarkModeContext";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 30 * 1000,
+    },
+  },
+});
 const router = createBrowserRouter([
   {
     path: "/",
@@ -57,9 +66,12 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <DarkModeProvider>
-      <RouterProvider router={router} />
-    </DarkModeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
+      <DarkModeProvider>
+        <RouterProvider router={router} />
+      </DarkModeProvider>
+    </QueryClientProvider>
   );
 }
 
