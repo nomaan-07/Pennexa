@@ -5,4 +5,3 @@ function Spinner() {
 }
 
 export default Spinner;
-implement;

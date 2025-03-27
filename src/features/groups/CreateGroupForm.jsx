@@ -9,8 +9,11 @@ import Input from "../../ui/forms/Input";
 
 import { colors } from "../../data/colors";
 import { useForm } from "react-hook-form";
+import { useCreateGroup } from "./useCreateGroup";
 
 function CreateGroupForm({ isOpen, onClose }) {
+  const { isCreatingGroup, createGroup } = useCreateGroup();
+
   const { register, handleSubmit, formState, watch, reset } = useForm();
 
   const { errors } = formState;
@@ -31,18 +34,30 @@ function CreateGroupForm({ isOpen, onClose }) {
     validate: (value) => value.trim() !== "" || "This field cannot be empty",
   };
 
-  function onSubmit(data) {
-    console.log(data);
-  }
-
-  function handleCancel() {
+  function handleClose() {
     reset();
     onClose();
   }
 
+  function onSubmit(data) {
+    const newGroup = {
+      type: data.group,
+      icon: data.icon,
+      name: data.name,
+      colors: {
+        textColor: `text-${data.color}-600`,
+        bgColor100: `bg-${data.color}-100`,
+        bgColor600: `bg-${data.color}-600`,
+      },
+    };
+    createGroup(newGroup, {
+      onSuccess: () => handleClose(),
+    });
+  }
+
   return (
-    <Modal isOpen={isOpen} onClose={handleCancel}>
-      <Form onSubmit={handleSubmit(onSubmit)}>
+    <Modal isOpen={isOpen} onClose={handleClose}>
+      <Form onSubmit={handleSubmit(onSubmit)} disabled={isCreatingGroup}>
         <FormRow error={errors?.group?.message}>
           <p>Choose the Group:</p>
           <FormChips>
@@ -120,7 +135,7 @@ function CreateGroupForm({ isOpen, onClose }) {
             ))}
           </FormChips>
         </FormRow>
-        <Button>Add Category</Button>
+        <Button>{isCreatingGroup ? "Creating..." : "Add Category"}</Button>
       </Form>
     </Modal>
   );

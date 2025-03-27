@@ -10,3 +10,12 @@ export async function getGroups() {
 
   return data;
 }
+
+export async function createGroup(newGroup) {
+  const { error } = await supabase.from("pennexa-groups").insert([newGroup]);
+
+  if (error) {
+    console.error(error);
+    throw new Error("Group could not be created.");
+  }
+}
