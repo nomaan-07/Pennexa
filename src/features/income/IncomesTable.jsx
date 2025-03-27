@@ -1,5 +1,4 @@
-import { useNavigate } from "react-router";
-import { Eye, Trash2 } from "lucide-react";
+import { Pencil, Trash2 } from "lucide-react";
 
 import Pagination from "../../ui/tables/Pagination";
 import Table from "../../ui/tables/Table";
@@ -14,10 +13,29 @@ import MobileTransactionTable from "../../ui/tables/MobileTransactionTable";
 
 import { useModal } from "../../hooks/uesModal";
 import { incomes } from "../../data/data-incomes";
+import { useState } from "react";
+import CreateTransactionForm from "../transaction/CreateTransactionForm";
 
 function IncomesTable() {
-  const navigate = useNavigate();
+  const [modalType, setModalType] = useState(null);
+  const [transactionToEdit, setTransactionToEdit] = useState(null);
+
   const { isOpen, openModal, closeModal } = useModal();
+
+  function handleOpenModal(type, transaction) {
+    if (transaction) {
+      setTransactionToEdit({ ...transaction, transactionType: "edit" });
+    }
+
+    setModalType(type);
+    openModal();
+  }
+
+  function handleCloseModal() {
+    setTransactionToEdit(null);
+    setModalType(null);
+    closeModal();
+  }
 
   return (
     <>
@@ -36,14 +54,14 @@ function IncomesTable() {
             <TransactionRow number={index + 1} item={income} key={income.id}>
               <TableAction>
                 <TableActionButton
-                  icon={<Eye />}
-                  label="view"
-                  onClick={() => navigate(`/incomes/${income.id}`)}
+                  icon={<Pencil />}
+                  label="edit"
+                  onClick={() => handleOpenModal("edit", income)}
                 />
                 <TableActionButton
                   icon={<Trash2 />}
                   label="delete"
-                  onClick={openModal}
+                  onClick={() => handleOpenModal("delete")}
                 />
               </TableAction>
             </TransactionRow>
@@ -52,23 +70,23 @@ function IncomesTable() {
       </Table>
 
       <MobileTransactionTable>
-        {incomes.map((item, index) => (
+        {incomes.map((income, index) => (
           <MobileTableBox
             title="source"
-            item={item}
+            item={income}
             number={index + 1}
-            key={item.id}
+            key={income.id}
           >
             <TableAction>
               <TableActionButton
-                icon={<Eye />}
-                label="view"
-                onClick={() => navigate(`/incomes/${item.id}`)}
+                icon={<Pencil />}
+                label="edit"
+                onClick={() => handleOpenModal("edit", income)}
               />
               <TableActionButton
                 icon={<Trash2 />}
                 label="delete"
-                onClick={openModal}
+                onClick={() => handleOpenModal("delete")}
               />
             </TableAction>
           </MobileTableBox>
@@ -77,14 +95,24 @@ function IncomesTable() {
 
       <Pagination />
 
-      <Modal isOpen={isOpen} onClose={closeModal} closeButton={false}>
-        <Buttons>
-          <Button type="danger">Delete</Button>
-          <Button type="secondary" onClick={closeModal}>
-            Cancel
-          </Button>
-        </Buttons>
-      </Modal>
+      {modalType === "delete" && (
+        <Modal isOpen={isOpen} onClose={handleCloseModal} closeButton={false}>
+          <Buttons>
+            <Button type="danger">Delete</Button>
+            <Button type="secondary" onClick={handleCloseModal}>
+              Cancel
+            </Button>
+          </Buttons>
+        </Modal>
+      )}
+
+      {modalType === "edit" && (
+        <CreateTransactionForm
+          isOpen={isOpen}
+          onClose={handleCloseModal}
+          transactionToEdit={transactionToEdit}
+        />
+      )}
     </>
   );
 }

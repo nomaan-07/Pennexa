@@ -11,13 +11,22 @@ import FormChip from "../../ui/forms/FormChip";
 
 import { expenseGroups, incomeGroups } from "../../data/data-groups";
 
-function CreateTransactionForm({ isOpen, onClose }) {
-  const { register, handleSubmit, formState, watch, reset } = useForm();
+function CreateTransactionForm({ isOpen, onClose, transactionToEdit = {} }) {
+  const { id: editId, ...editedValues } = transactionToEdit;
+  const isEditSession = Boolean(editId);
+
+  const { register, handleSubmit, formState, watch, reset } = useForm({
+    defaultValues: isEditSession
+      ? { ...editedValues, date: editedValues.date.toISOString().split("T")[0] }
+      : {},
+  });
 
   const { errors } = formState;
 
   const categories = (
-    watch().type === "expense" ? expenseGroups : incomeGroups
+    watch().type === "expense" || editedValues.transactionType === "expense"
+      ? expenseGroups
+      : incomeGroups
   ).slice(0, 10);
 
   const typeValidation = { required: "You must choose a transaction type" };
@@ -44,48 +53,52 @@ function CreateTransactionForm({ isOpen, onClose }) {
   return (
     <Modal isOpen={isOpen} onClose={handleCancel}>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <FormRow error={errors?.type?.message}>
-          <p>Choose the transaction:</p>
-          <FormChips>
-            <FormChip
-              field="type"
-              activeClasses="bg-rose-50 text-rose-500"
-              name="expense"
-              iconName="LucideTrendingDown"
-              watch={watch}
-              register={register}
-              validation={typeValidation}
-            />
-            <FormChip
-              field="type"
-              activeClasses="bg-emerald-50 text-emerald-500"
-              name="income"
-              iconName="LucideTrendingUp"
-              watch={watch}
-              register={register}
-              validation={typeValidation}
-            />
-          </FormChips>
-        </FormRow>
-        {watch().type && (
-          <FormRow error={errors?.category?.message}>
-            <p>Choose the Category:</p>
+        {!isEditSession && (
+          <FormRow error={errors?.type?.message}>
+            <p>Choose the transaction:</p>
             <FormChips>
-              {categories.map((group) => (
-                <FormChip
-                  field="category"
-                  activeClasses={`${group.textColor} ${group.bgColor100}`}
-                  name={group.name}
-                  iconName={group.icon}
-                  watch={watch}
-                  register={register}
-                  key={group.name}
-                  validation={categoryValidation}
-                />
-              ))}
+              <FormChip
+                field="type"
+                activeClasses="bg-rose-50 text-rose-500"
+                name="expense"
+                iconName="LucideTrendingDown"
+                watch={watch}
+                register={register}
+                validation={typeValidation}
+              />
+              <FormChip
+                field="type"
+                activeClasses="bg-emerald-50 text-emerald-500"
+                name="income"
+                iconName="LucideTrendingUp"
+                watch={watch}
+                register={register}
+                validation={typeValidation}
+              />
             </FormChips>
           </FormRow>
         )}
+
+        {watch().type ||
+          (isEditSession && (
+            <FormRow error={errors?.category?.message}>
+              <p>Choose the Category:</p>
+              <FormChips>
+                {categories.map((group) => (
+                  <FormChip
+                    field="category"
+                    activeClasses={`${group.textColor} ${group.bgColor100}`}
+                    name={group.name}
+                    iconName={group.icon}
+                    watch={watch}
+                    register={register}
+                    key={group.name}
+                    validation={categoryValidation}
+                  />
+                ))}
+              </FormChips>
+            </FormRow>
+          ))}
         <FormRow type="grid">
           <FormRow
             type="gridItem"
@@ -122,7 +135,9 @@ function CreateTransactionForm({ isOpen, onClose }) {
             validation={descriptionValidation}
           />
         </FormRow>
-        <Button>Add transaction</Button>
+        <Button>
+          {isEditSession ? "Edit transaction" : "Add transaction"}
+        </Button>
       </Form>
     </Modal>
   );

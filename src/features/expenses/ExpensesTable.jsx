@@ -1,5 +1,5 @@
-import { useNavigate } from "react-router";
-import { Eye, Trash2 } from "lucide-react";
+import { useState } from "react";
+import { Pencil, Trash2 } from "lucide-react";
 
 import Pagination from "../../ui/tables/Pagination";
 import Table from "../../ui/tables/Table";
@@ -11,13 +11,31 @@ import Modal from "../../ui/common/Modal";
 import Button from "../../ui/buttons/Button";
 import Buttons from "../../ui/buttons/Buttons";
 import MobileTransactionTable from "../../ui/tables/MobileTransactionTable";
+import CreateTransactionForm from "../transaction/CreateTransactionForm";
 
 import { expenses } from "../../data/data-expenses";
 import { useModal } from "../../hooks/uesModal";
 
 function ExpensesTable() {
-  const navigate = useNavigate();
+  const [modalType, setModalType] = useState(null);
+  const [transactionToEdit, setTransactionToEdit] = useState(null);
+
   const { isOpen, openModal, closeModal } = useModal();
+
+  function handleOpenModal(type, transaction) {
+    if (transaction) {
+      setTransactionToEdit({ ...transaction, transactionType: "expense" });
+    }
+
+    setModalType(type);
+    openModal();
+  }
+
+  function handleCloseModal() {
+    setTransactionToEdit(null);
+    setModalType(null);
+    closeModal();
+  }
 
   return (
     <>
@@ -35,14 +53,14 @@ function ExpensesTable() {
             <TransactionRow number={index + 1} item={expense} key={expense.id}>
               <TableAction>
                 <TableActionButton
-                  icon={<Eye />}
-                  label="view"
-                  onClick={() => navigate(`/expenses/${expense.id}`)}
+                  icon={<Pencil />}
+                  label="edit"
+                  onClick={() => handleOpenModal("edit", expense)}
                 />
                 <TableActionButton
                   icon={<Trash2 />}
                   label="delete"
-                  onClick={openModal}
+                  onClick={() => handleOpenModal("delete")}
                 />
               </TableAction>
             </TransactionRow>
@@ -51,23 +69,23 @@ function ExpensesTable() {
       </Table>
 
       <MobileTransactionTable>
-        {expenses.map((item, index) => (
+        {expenses.map((expense, index) => (
           <MobileTableBox
             title="category"
-            item={item}
+            item={expense}
             number={index + 1}
-            key={item.id}
+            key={expense.id}
           >
             <TableAction>
               <TableActionButton
-                icon={<Eye />}
-                label="view"
-                onClick={() => navigate(`/expenses/${item.id}`)}
+                icon={<Pencil />}
+                label="edit"
+                onClick={() => handleOpenModal("edit", expense)}
               />
               <TableActionButton
                 icon={<Trash2 />}
                 label="delete"
-                onClick={openModal}
+                onClick={() => handleOpenModal("delete")}
               />
             </TableAction>
           </MobileTableBox>
@@ -76,14 +94,24 @@ function ExpensesTable() {
 
       <Pagination />
 
-      <Modal isOpen={isOpen} onClose={closeModal} closeButton={false}>
-        <Buttons>
-          <Button type="danger">Delete</Button>
-          <Button type="secondary" onClick={closeModal}>
-            Cancel
-          </Button>
-        </Buttons>
-      </Modal>
+      {modalType === "delete" && (
+        <Modal isOpen={isOpen} onClose={handleCloseModal} closeButton={false}>
+          <Buttons>
+            <Button type="danger">Delete</Button>
+            <Button type="secondary" onClick={handleCloseModal}>
+              Cancel
+            </Button>
+          </Buttons>
+        </Modal>
+      )}
+
+      {modalType === "edit" && (
+        <CreateTransactionForm
+          isOpen={isOpen}
+          onClose={handleCloseModal}
+          transactionToEdit={transactionToEdit}
+        />
+      )}
     </>
   );
 }

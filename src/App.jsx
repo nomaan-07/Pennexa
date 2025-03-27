@@ -9,8 +9,6 @@ import Login from "./pages/Login";
 import PageNotFound from "./pages/PageNotFound";
 import ErrorPage from "./pages/ErrorPage";
 import AppLayout from "./ui/layout/AppLayout";
-import Expense from "./pages/Expense";
-import Income from "./pages/Income";
 
 import { DarkModeProvider } from "./context/DarkModeContext";
 
@@ -33,17 +31,10 @@ const router = createBrowserRouter([
         element: <Expenses />,
       },
       {
-        path: "expenses/:id",
-        element: <Expense />,
-      },
-      {
         path: "incomes",
         element: <Incomes />,
       },
-      {
-        path: "incomes/:id",
-        element: <Income />,
-      },
+
       {
         path: "groups",
         element: <Groups />,
