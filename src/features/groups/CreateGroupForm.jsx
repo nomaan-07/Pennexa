@@ -6,11 +6,13 @@ import FormRow from "../../ui/forms/FormRow";
 import FormChips from "../../ui/forms/FormChips";
 import FormChip from "../../ui/forms/FormChip";
 import Input from "../../ui/forms/Input";
+import GroupFormIcon from "../../ui/forms/GroupFormIcon";
 
 import { colors } from "../../data/colors";
 import { useForm } from "react-hook-form";
 import { useCreateGroup } from "./useCreateGroup";
 import { useToast } from "../../hooks/useToast";
+import GroupFormColor from "../../ui/forms/GroupFormColor";
 
 function CreateGroupForm({ isOpen, onClose, incomeCount, expenseCount }) {
   const { isCreatingGroup, createGroup } = useCreateGroup();
@@ -111,22 +113,14 @@ function CreateGroupForm({ isOpen, onClose, incomeCount, expenseCount }) {
         <FormRow error={errors?.icon?.message}>
           <p>Choose an Icon:</p>
           <FormChips>
-            {icons.map((item) => (
-              <div key={item.name}>
-                <label
-                  htmlFor={item.name}
-                  className={`transition-colors *:size-7 ${watchedValues.icon === item.name ? "text-emerald-500" : "text-slate-500 md:cursor-pointer md:hover:text-slate-900 dark:text-slate-300 dark:md:hover:text-slate-200"}`}
-                >
-                  {item.icon}
-                </label>
-                <input
-                  type="radio"
-                  id={item.name}
-                  value={item.name}
-                  className="hidden"
-                  {...register("icon", iconValidation)}
-                />
-              </div>
+            {icons.map((icon) => (
+              <GroupFormIcon
+                icon={icon}
+                iconValidation={iconValidation}
+                register={register}
+                isActive={watchedValues.icon === icon.name}
+                key={icon.name}
+              />
             ))}
           </FormChips>
         </FormRow>
@@ -134,22 +128,13 @@ function CreateGroupForm({ isOpen, onClose, incomeCount, expenseCount }) {
           <p>Choose a Color:</p>
           <FormChips>
             {colors.map((color) => (
-              <div
+              <GroupFormColor
+                color={color}
+                isActive={watchedValues.color === color.name}
+                register={register}
+                colorValidation={colorValidation}
                 key={color.name}
-                className={`size-8 ${watchedValues.color === color.name ? "brightness-110" : "p-0.5"} `}
-              >
-                <label
-                  htmlFor={color.name}
-                  className={`block size-full rounded-full md:cursor-pointer ${color.bgColor600}`}
-                ></label>
-                <input
-                  type="radio"
-                  id={color.name}
-                  value={color.name}
-                  className="hidden"
-                  {...register("color", colorValidation)}
-                />
-              </div>
+              />
             ))}
           </FormChips>
         </FormRow>
