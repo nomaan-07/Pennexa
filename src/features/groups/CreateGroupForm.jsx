@@ -10,11 +10,12 @@ import Input from "../../ui/forms/Input";
 import { colors } from "../../data/colors";
 import { useForm } from "react-hook-form";
 import { useCreateGroup } from "./useCreateGroup";
+import { useToast } from "../../hooks/useToast";
 
-function CreateGroupForm({ isOpen, onClose }) {
+function CreateGroupForm({ isOpen, onClose, incomeCount, expenseCount }) {
   const { isCreatingGroup, createGroup } = useCreateGroup();
-
   const { register, handleSubmit, formState, watch, reset } = useForm();
+  const { showToast } = useToast();
 
   const { errors } = formState;
 
@@ -40,6 +41,14 @@ function CreateGroupForm({ isOpen, onClose }) {
   }
 
   function onSubmit(data) {
+    if (incomeCount > 10)
+      return showToast("failed", "You can't add more than 10 income sources");
+    if (expenseCount > 10)
+      return showToast(
+        "failed",
+        "You can't add more than 10 expense categories",
+      );
+
     const newGroup = {
       type: data.group,
       icon: data.icon,
@@ -51,7 +60,10 @@ function CreateGroupForm({ isOpen, onClose }) {
       },
     };
     createGroup(newGroup, {
-      onSuccess: handleClose,
+      onSuccess: () => {
+        showToast("success", `new ${watch("group")} successfully created.`);
+        handleClose();
+      },
     });
   }
 

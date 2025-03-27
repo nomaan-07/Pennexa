@@ -7,6 +7,28 @@
 @theme {
   --font-poppins: "Poppins", sans-serif;
   --breakpoint-xs: 30rem;
+
+  --animate-enter: 0.3s ease-out;
+
+  --animate-leave: 0.2s ease-in forwards;
+
+  @keyframes enter {
+    from {
+      transform: translateY(10px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes leave {
+    to {
+      transform: translateY(10px);
+      opacity: 0;
+    }
+  }
 }
 
 @layer base {

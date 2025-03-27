@@ -1,9 +1,11 @@
 import { Plus } from "lucide-react";
+
 import Button from "./Button";
 import CreateGroupForm from "../../features/groups/CreateGroupForm";
+
 import { useModal } from "../../hooks/uesModal";
 
-function AddGroup() {
+function AddGroup({ incomeCount, expenseCount }) {
   const { isOpen, openModal, closeModal } = useModal();
 
   return (
@@ -13,7 +15,12 @@ function AddGroup() {
         <Plus />
       </Button>
 
-      <CreateGroupForm isOpen={isOpen} onClose={closeModal} />
+      <CreateGroupForm
+        incomeCount={incomeCount}
+        expenseCount={expenseCount}
+        isOpen={isOpen}
+        onClose={closeModal}
+      />
     </>
   );
 }

@@ -8,13 +8,16 @@ import Table from "../../ui/tables/Table";
 import MobileTableBox from "../../ui/tables/MobileTableBox";
 import GroupTableDeleteButton from "../../ui/buttons/GroupTableDeleteButton";
 import ActionDisabled from "../../ui/buttons/ActionDisabled";
+
 import { useDeleteGroup } from "./useDeleteGroup";
 import { useModal } from "../../hooks/uesModal";
+import { useToast } from "../../hooks/useToast";
 
 function GroupTable({ groups, type }) {
   const [deleteId, setDeleteId] = useState(null);
   const { isDeleting, deleteGroup } = useDeleteGroup();
   const { isOpen, closeModal, openModal } = useModal();
+  const { showToast } = useToast();
 
   const title = type === "expense" ? "category" : "source";
 
@@ -25,7 +28,10 @@ function GroupTable({ groups, type }) {
 
   function handleDeleteGroup() {
     deleteGroup(deleteId, {
-      onSuccess: closeModal,
+      onSuccess: () => {
+        showToast("success", "Group successfully deleted.");
+        closeModal();
+      },
     });
   }
 

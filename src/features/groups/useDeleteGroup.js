@@ -1,7 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteGroup as deleteGroupApi } from "../../services/apiGroups";
+import { useToast } from "../../hooks/useToast";
 
 export function useDeleteGroup() {
+  const { showToast } = useToast();
+
   const queryClient = useQueryClient();
 
   const { mutate: deleteGroup, isLoading: isDeleting } = useMutation({
@@ -12,7 +15,8 @@ export function useDeleteGroup() {
       });
     },
     onError: (err) => {
-      console.error(err.message);
+      showToast("failed", "Group could not be deleted.");
+      console.error(err);
     },
   });
 

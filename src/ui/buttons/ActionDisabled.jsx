@@ -1,9 +1,13 @@
 import { Ban } from "lucide-react";
+import { useToast } from "../../hooks/useToast";
 
-function ActionDisabled() {
-  // TODO: add toast
+function ActionDisabled({
+  message = "Data mutation in this item is enabled, try another one.",
+}) {
+  const { showToast } = useToast();
+
   function handleClick() {
-    console.log("action disabled");
+    showToast("warning", message);
   }
 
   return (
