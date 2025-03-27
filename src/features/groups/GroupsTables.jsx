@@ -1,10 +1,11 @@
+import Spinner from "../../ui/common/Spinner";
 import GroupTable from "./GroupTable";
 import { useGroups } from "./useGroups";
 
 function GroupsTables() {
   const { isGroupsLoading, groups } = useGroups();
 
-  if (isGroupsLoading) return null;
+  if (isGroupsLoading) return <Spinner />;
 
   const expenseGroups = groups.filter((group) => group.type === "expense");
   const incomeGroups = groups.filter((group) => group.type === "income");

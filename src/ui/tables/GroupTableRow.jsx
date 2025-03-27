@@ -16,7 +16,9 @@ function GroupTableRow({ number, group, children }) {
       <div>
         <Icon name={icon} className="*:size-4.5 sm:*:size-5" />
       </div>
-      <div className={`size-5 rounded-full sm:size-6 ${bgColor600}`}></div>
+      <div
+        className={`mx-auto size-5 rounded-full sm:size-6 ${bgColor600}`}
+      ></div>
       {children}
     </Table.Row>
   );
