@@ -18,7 +18,7 @@ function UpdateUserDataForm() {
   const { showToast } = useToast();
 
   const avatar = user?.user_metadata?.avatar || "";
-
+  const username = user?.user_metadata?.username || "";
   const {
     register,
     handleSubmit,
@@ -29,7 +29,7 @@ function UpdateUserDataForm() {
   } = useForm({
     defaultValues: {
       email: user?.email || "",
-      username: user?.user_metadata?.username || "",
+      username,
       avatar,
     },
   });
@@ -43,16 +43,14 @@ function UpdateUserDataForm() {
     updateUser(updatedUser, {
       onSuccess: () => {
         showToast("success", "Your data successfully updated.");
-        reset({
-          avatar,
-        });
+        reset({ avatar });
       },
     });
   }
 
   function handleReset(e) {
     e.preventDefault();
-    reset();
+    reset({ avatar, username });
   }
 
   return (

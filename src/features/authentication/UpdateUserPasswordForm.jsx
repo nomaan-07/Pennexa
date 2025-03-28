@@ -10,8 +10,13 @@ import {
   passwordConfirmValidation,
   passwordValidation,
 } from "../../utils/validations";
+import { useToast } from "../../hooks/useToast";
+import { useUpdateUser } from "./useUpdateUser";
 
 function UpdateUserPasswordForm() {
+  const { updateUser, isUpdating } = useUpdateUser();
+  const { showToast } = useToast();
+
   const {
     register,
     handleSubmit,
@@ -20,7 +25,15 @@ function UpdateUserPasswordForm() {
   } = useForm();
 
   function onSubmit(data) {
-    console.log("Form Data:", data);
+    updateUser(
+      { password: data.password },
+      {
+        onSuccess: () => {
+          showToast("success", "Your Password successfully Changed.");
+          reset();
+        },
+      },
+    );
   }
 
   function handleReset(e) {
@@ -59,10 +72,12 @@ function UpdateUserPasswordForm() {
         </FormRow>
       </FormRow>
       <Buttons>
-        <Button type="secondary" onClick={handleReset}>
+        <Button type="secondary" onClick={handleReset} disabled={isUpdating}>
           Cancel
         </Button>
-        <Button>Update Password</Button>
+        <Button disabled={isUpdating}>
+          {isUpdating ? "Changing..." : "Change Password"}
+        </Button>
       </Buttons>
     </Form>
   );
