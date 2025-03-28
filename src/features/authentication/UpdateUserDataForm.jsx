@@ -9,7 +9,7 @@ import Button from "../../ui/buttons/Button";
 import Spinner from "../../ui/common/Spinner";
 
 import { nameValidation } from "../../utils/validations";
-import { useUser } from "../authentication/userUser";
+import { useUser } from "../authentication/useUser";
 import { useEffect } from "react";
 
 function UpdateUserDataForm() {
