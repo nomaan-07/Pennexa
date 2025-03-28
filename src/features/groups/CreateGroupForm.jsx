@@ -7,12 +7,12 @@ import FormChips from "../../ui/forms/FormChips";
 import FormChip from "../../ui/forms/FormChip";
 import Input from "../../ui/forms/Input";
 import GroupFormIcon from "../../ui/forms/GroupFormIcon";
+import GroupFormColor from "../../ui/forms/GroupFormColor";
 
 import { colors } from "../../data/colors";
 import { useForm } from "react-hook-form";
 import { useCreateGroup } from "./useCreateGroup";
 import { useToast } from "../../hooks/useToast";
-import GroupFormColor from "../../ui/forms/GroupFormColor";
 
 function CreateGroupForm({ isOpen, onClose, incomeCount, expenseCount }) {
   const { isCreatingGroup, createGroup } = useCreateGroup();
@@ -77,7 +77,7 @@ function CreateGroupForm({ isOpen, onClose, incomeCount, expenseCount }) {
 
   return (
     <Modal isOpen={isOpen} onClose={handleClose}>
-      <Form onSubmit={handleSubmit(onSubmit)} disabled={isCreatingGroup}>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <FormRow error={errors?.group?.message}>
           <p>Choose the Group:</p>
           <FormChips>
@@ -138,7 +138,9 @@ function CreateGroupForm({ isOpen, onClose, incomeCount, expenseCount }) {
             ))}
           </FormChips>
         </FormRow>
-        <Button>{isCreatingGroup ? "Creating..." : "Add Category"}</Button>
+        <Button disabled={isCreatingGroup}>
+          {isCreatingGroup ? "Creating..." : "Add Category"}
+        </Button>
       </Form>
     </Modal>
   );

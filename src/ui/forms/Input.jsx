@@ -1,8 +1,7 @@
-function Input({ type, value, disabled, register, field, id, validation }) {
+function Input({ type, disabled, register, field, id, validation }) {
   return (
     <input
       type={type}
-      value={value}
       id={id}
       disabled={disabled}
       {...register(field, validation)}

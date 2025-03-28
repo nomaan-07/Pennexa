@@ -6,7 +6,7 @@ export function useCreateGroup() {
   const { showToast } = useToast();
   const queryClient = useQueryClient();
 
-  const { mutate: createGroup, isLoading: isCreatingGroup } = useMutation({
+  const { mutate: createGroup, isPending: isCreatingGroup } = useMutation({
     mutationFn: createGroupApi,
     onSuccess: () => {
       queryClient.invalidateQueries({

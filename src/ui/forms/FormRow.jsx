@@ -1,6 +1,6 @@
 const types = {
   primary: "space-y-2 sm:space-y-4",
-  grid: "grid xs:grid-cols-2 gap-2 sm:gap-4",
+  grid: "grid sm:grid-cols-2 gap-2 sm:gap-4",
   gridItem: `w-full space-y-2 sm:space-y-4`,
 };
 

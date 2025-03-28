@@ -7,7 +7,7 @@ export function useDeleteGroup() {
 
   const queryClient = useQueryClient();
 
-  const { mutate: deleteGroup, isLoading: isDeleting } = useMutation({
+  const { mutate: deleteGroup, isPending: isDeleting } = useMutation({
     mutationFn: deleteGroupApi,
     onSuccess: () => {
       queryClient.invalidateQueries({
