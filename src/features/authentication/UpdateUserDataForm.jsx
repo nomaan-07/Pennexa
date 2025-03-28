@@ -1,11 +1,11 @@
+import { useForm } from "react-hook-form";
+
 import Form from "../../ui/forms/Form";
 import Input from "../../ui/forms/Input";
 import FormRow from "../../ui/forms/FormRow";
 import AvatarUpload from "../../ui/forms/AvatarUpload";
 import Buttons from "../../ui/buttons/Buttons";
 import Button from "../../ui/buttons/Button";
-
-import { useForm } from "react-hook-form";
 
 function UpdateUserDataForm() {
   const {
@@ -78,14 +78,12 @@ function UpdateUserDataForm() {
           />
         </FormRow>
       </FormRow>
-      <div className="flex justify-end">
-        <Buttons>
-          <Button type="secondary" onClick={handleReset}>
-            Cancel
-          </Button>
-          <Button>Update Account</Button>
-        </Buttons>
-      </div>
+      <Buttons>
+        <Button type="secondary" onClick={handleReset}>
+          Cancel
+        </Button>
+        <Button>Update Account</Button>
+      </Buttons>
     </Form>
   );
 }
