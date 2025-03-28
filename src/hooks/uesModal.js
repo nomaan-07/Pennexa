@@ -8,8 +8,8 @@ export function useModal() {
   const toggleModal = () => setIsOpen((prev) => !prev);
 
   useEffect(() => {
-    if (isOpen) document.body.classList.add("h-screen", "overflow-hidden");
-    else document.body.classList.remove("h-screen", "overflow-hidden");
+    if (isOpen) document.body.classList.add("overflow-hidden");
+    else document.body.classList.remove("overflow-hidden");
   }, [isOpen]);
 
   return { isOpen, openModal, closeModal, toggleModal };
