@@ -13,6 +13,7 @@ import { colors } from "../../data/colors";
 import { useForm } from "react-hook-form";
 import { useCreateGroup } from "./useCreateGroup";
 import { useToast } from "../../hooks/useToast";
+import { selectValidation, nameValidation } from "../../utils/validations";
 
 function CreateGroupForm({ isOpen, onClose, incomeCount, expenseCount }) {
   const { isCreatingGroup, createGroup } = useCreateGroup();
@@ -21,22 +22,6 @@ function CreateGroupForm({ isOpen, onClose, incomeCount, expenseCount }) {
 
   const watchedValues = watch();
   const { errors } = formState;
-
-  const groupValidation = { required: "You must choose a group" };
-  const colorValidation = { required: "You must choose a Color" };
-  const iconValidation = { required: "You must choose a Icon" };
-  const nameValidation = {
-    required: "This field is required",
-    minLength: {
-      value: 3,
-      message: "Name must be at least 3 characters",
-    },
-    maxLength: {
-      value: 10,
-      message: "Name must not exceed 10 characters",
-    },
-    validate: (value) => value.trim() !== "" || "This field cannot be empty",
-  };
 
   function handleClose() {
     reset();
@@ -88,7 +73,7 @@ function CreateGroupForm({ isOpen, onClose, incomeCount, expenseCount }) {
               iconName="LucideTrendingDown"
               isActive={watchedValues.group === "expense"}
               register={register}
-              validation={groupValidation}
+              validation={selectValidation("group")}
             />
             <FormChip
               field="group"
@@ -97,7 +82,7 @@ function CreateGroupForm({ isOpen, onClose, incomeCount, expenseCount }) {
               iconName="LucideTrendingUp"
               isActive={watchedValues.group === "income"}
               register={register}
-              validation={groupValidation}
+              validation={selectValidation("group")}
             />
           </FormChips>
         </FormRow>
@@ -107,7 +92,7 @@ function CreateGroupForm({ isOpen, onClose, incomeCount, expenseCount }) {
             type="text"
             register={register}
             field="name"
-            validation={nameValidation}
+            validation={nameValidation("name", 3)}
           />
         </FormRow>
         <FormRow error={errors?.icon?.message}>
@@ -116,7 +101,7 @@ function CreateGroupForm({ isOpen, onClose, incomeCount, expenseCount }) {
             {icons.map((icon) => (
               <GroupFormIcon
                 icon={icon}
-                iconValidation={iconValidation}
+                iconValidation={selectValidation("icon")}
                 register={register}
                 isActive={watchedValues.icon === icon.name}
                 key={icon.name}
@@ -132,7 +117,7 @@ function CreateGroupForm({ isOpen, onClose, incomeCount, expenseCount }) {
                 color={color}
                 isActive={watchedValues.color === color.name}
                 register={register}
-                colorValidation={colorValidation}
+                colorValidation={selectValidation("color")}
                 key={color.name}
               />
             ))}

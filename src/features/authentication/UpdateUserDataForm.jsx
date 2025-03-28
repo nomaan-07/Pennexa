@@ -7,6 +7,8 @@ import AvatarUpload from "../../ui/forms/AvatarUpload";
 import Buttons from "../../ui/buttons/Buttons";
 import Button from "../../ui/buttons/Button";
 
+import { emailValidation, nameValidation } from "../../utils/validations";
+
 function UpdateUserDataForm() {
   const {
     register,
@@ -16,27 +18,6 @@ function UpdateUserDataForm() {
     setValue,
     reset,
   } = useForm();
-
-  const usernameValidation = {
-    minLength: {
-      value: 4,
-      message: "Username must be at least 4 characters",
-    },
-    maxLength: {
-      value: 10,
-      message: "Username must not exceed 10 characters",
-    },
-
-    validate: (value) => value.trim() !== "" || "This field cannot be empty",
-  };
-
-  const emailValidation = {
-    required: "Email is required",
-    pattern: {
-      value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-      message: "Invalid email format",
-    },
-  };
 
   function onSubmit(data) {
     console.log("Form Data:", data);
@@ -74,7 +55,7 @@ function UpdateUserDataForm() {
             register={register}
             field="username"
             id="username"
-            validation={usernameValidation}
+            validation={nameValidation()}
           />
         </FormRow>
       </FormRow>

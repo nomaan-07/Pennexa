@@ -4,6 +4,7 @@ const baseStyles =
 const types = {
   modal: "xs:max-w-122 max-h-screen min-w-60 xs:min-w-86 md:w-150 md:max-w-150",
   regular: "p-4",
+  auth: "w-70 xs:w-75 p-4",
 };
 
 function Form({ children, onSubmit, type = "modal" }) {

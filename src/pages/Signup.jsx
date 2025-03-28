@@ -8,7 +8,11 @@ import Logo from "../ui/navigation/Logo";
 import Button from "../ui/buttons/Button";
 import LoginLayout from "../ui/layout/LoginLayout";
 
-import { emailValidation, passwordValidation } from "../utils/validations";
+import {
+  emailValidation,
+  nameValidation,
+  passwordValidation,
+} from "../utils/validations";
 import { NavLink } from "react-router";
 
 function Signup() {
@@ -25,7 +29,7 @@ function Signup() {
   return (
     <LoginLayout>
       <Logo className="justify-center" />
-      <Heading className="text-center">Log in to your account</Heading>
+      <Heading className="text-center">Signup to continue</Heading>
       <Form type="auth" onSubmit={handleSubmit(onSubmit)}>
         <FormRow label="Email address" error={errors?.email?.message}>
           <Input
@@ -36,7 +40,16 @@ function Signup() {
             validation={emailValidation}
           />
         </FormRow>
-        <FormRow label="password" error={errors?.password?.message}>
+        <FormRow label="Username" error={errors?.username?.message}>
+          <Input
+            type="text"
+            register={register}
+            field="username"
+            id="username"
+            validation={nameValidation()}
+          />
+        </FormRow>
+        <FormRow label="Password" error={errors?.password?.message}>
           <Input
             type="password"
             register={register}
@@ -45,12 +58,12 @@ function Signup() {
             validation={passwordValidation}
           />
         </FormRow>
-        <Button>Login</Button>
+        <Button>Sign up</Button>
       </Form>
       <p className="text-xs sm:text-sm">
-        Don't have an account?{" "}
-        <NavLink to="/signup" className="text-emerald-500 md:cursor-pointer">
-          Signup
+        Already have an account?{" "}
+        <NavLink to="/login" className="text-emerald-500 md:cursor-pointer">
+          Login
         </NavLink>
       </p>
     </LoginLayout>

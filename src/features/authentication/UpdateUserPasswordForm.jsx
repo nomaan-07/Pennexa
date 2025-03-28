@@ -6,29 +6,18 @@ import FormRow from "../../ui/forms/FormRow";
 import Buttons from "../../ui/buttons/Buttons";
 import Button from "../../ui/buttons/Button";
 
+import {
+  passwordConfirmValidation,
+  passwordValidation,
+} from "../../utils/validations";
+
 function UpdateUserPasswordForm() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-    getValues,
     reset,
   } = useForm();
-
-  const requiredValidation = { required: "This field is required" };
-  const passwordValidation = {
-    ...requiredValidation,
-    minLength: {
-      value: 8,
-      message: "password must be at least 8 characters",
-    },
-  };
-
-  const passwordConfirmValidation = {
-    ...requiredValidation,
-    validate: (value) =>
-      getValues().password === value || "Passwords don't match",
-  };
 
   function onSubmit(data) {
     console.log("Form Data:", data);

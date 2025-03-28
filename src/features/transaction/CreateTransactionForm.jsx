@@ -10,6 +10,12 @@ import Modal from "../../ui/common/Modal";
 import FormChip from "../../ui/forms/FormChip";
 
 import { expenseGroups, incomeGroups } from "../../data/data-groups";
+import {
+  nameValidation,
+  numberValidation,
+  requiredValidation,
+  selectValidation,
+} from "../../utils/validations";
 
 function CreateTransactionForm({ isOpen, onClose, transactionToEdit = {} }) {
   const { id: editId, ...editedValues } = transactionToEdit;
@@ -31,18 +37,6 @@ function CreateTransactionForm({ isOpen, onClose, transactionToEdit = {} }) {
       ? expenseGroups
       : incomeGroups
   ).slice(0, 10);
-
-  const typeValidation = { required: "You must choose a transaction type" };
-  const categoryValidation = { required: "You must choose a category" };
-  const requiredValidation = { required: "This field is required" };
-  const numberValidation = {
-    ...requiredValidation,
-    validate: (value) => Number(value) > 0 || "Enter a valid number",
-  };
-  const descriptionValidation = {
-    ...requiredValidation,
-    validate: (value) => value.trim() !== "" || "This field cannot be empty",
-  };
 
   function onSubmit(data) {
     console.log(data);
@@ -67,7 +61,7 @@ function CreateTransactionForm({ isOpen, onClose, transactionToEdit = {} }) {
                 iconName="LucideTrendingDown"
                 isActive={watchedValues.type}
                 register={register}
-                validation={typeValidation}
+                validation={selectValidation("transaction type")}
               />
               <FormChip
                 field="type"
@@ -76,7 +70,7 @@ function CreateTransactionForm({ isOpen, onClose, transactionToEdit = {} }) {
                 iconName="LucideTrendingUp"
                 isActive={watchedValues.type}
                 register={register}
-                validation={typeValidation}
+                validation={selectValidation("transaction type")}
               />
             </FormChips>
           </FormRow>
@@ -95,7 +89,7 @@ function CreateTransactionForm({ isOpen, onClose, transactionToEdit = {} }) {
                   isActive={watchedValues.type}
                   register={register}
                   key={group.name}
-                  validation={categoryValidation}
+                  validation={selectValidation("category")}
                 />
               ))}
             </FormChips>
@@ -134,7 +128,7 @@ function CreateTransactionForm({ isOpen, onClose, transactionToEdit = {} }) {
             id="description"
             register={register}
             field="description"
-            validation={descriptionValidation}
+            validation={nameValidation("description", 0, 75)}
           />
         </FormRow>
         <Button>
