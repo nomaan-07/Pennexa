@@ -1,6 +1,6 @@
-import UserProfile from "./UserProfile";
-import MainNav from "./MainNav";
+import UserProfile from "../../features/authentication/UserProfile";
 import Logout from "../../features/authentication/Logout";
+import MainNav from "./MainNav";
 import Logo from "./Logo";
 
 function Sidebar() {

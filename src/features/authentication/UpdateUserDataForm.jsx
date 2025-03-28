@@ -13,7 +13,7 @@ import { useUser } from "../authentication/useUser";
 import { useEffect } from "react";
 
 function UpdateUserDataForm() {
-  const { isLoading, user } = useUser();
+  const { user } = useUser();
   const {
     register,
     handleSubmit,
@@ -38,8 +38,6 @@ function UpdateUserDataForm() {
       });
     }
   }, [user, reset]);
-
-  if (isLoading) return <Spinner />;
 
   function onSubmit(data) {
     console.log("Form Data:", data);
