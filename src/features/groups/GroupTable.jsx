@@ -12,6 +12,7 @@ import ActionDisabled from "../../ui/buttons/ActionDisabled";
 import { useDeleteGroup } from "./useDeleteGroup";
 import { useModal } from "../../hooks/uesModal";
 import { useToast } from "../../hooks/useToast";
+import ActionButtons from "../../ui/common/ActionButtons";
 
 function GroupTable({ groups, type }) {
   const [deleteId, setDeleteId] = useState(null);
@@ -87,20 +88,16 @@ function GroupTable({ groups, type }) {
         ))}
       </div>
 
-      <Modal isOpen={isOpen} onClose={closeModal} closeButton={false}>
-        <Buttons>
-          <Button
-            type="danger"
-            onClick={handleDeleteGroup}
-            disabled={isDeleting}
-          >
-            {isDeleting ? "Deleting..." : "Delete"}
-          </Button>
-          <Button type="secondary" onClick={closeModal} disabled={isDeleting}>
-            Cancel
-          </Button>
-        </Buttons>
-      </Modal>
+      <ActionButtons
+        isOpen={isOpen}
+        onClose={closeModal}
+        onCancel={closeModal}
+        onConfirm={handleDeleteGroup}
+        isLoading={isDeleting}
+        confirmText="Delete"
+        loadingText="Deleting..."
+        type="danger"
+      />
     </>
   );
 }

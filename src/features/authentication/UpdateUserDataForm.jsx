@@ -6,10 +6,14 @@ import FormRow from "../../ui/forms/FormRow";
 import AvatarUpload from "../../ui/forms/AvatarUpload";
 import Buttons from "../../ui/buttons/Buttons";
 import Button from "../../ui/buttons/Button";
+import Spinner from "../../ui/common/Spinner";
 
-import { emailValidation, nameValidation } from "../../utils/validations";
+import { nameValidation } from "../../utils/validations";
+import { useUser } from "../authentication/userUser";
+import { useEffect } from "react";
 
 function UpdateUserDataForm() {
+  const { isLoading, user } = useUser();
   const {
     register,
     handleSubmit,
@@ -17,7 +21,25 @@ function UpdateUserDataForm() {
     watch,
     setValue,
     reset,
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      email: "",
+      username: "",
+      avatar: "",
+    },
+  });
+
+  useEffect(() => {
+    if (user) {
+      reset({
+        email: user?.email || "",
+        username: user?.user_metadata?.username || "",
+        avatar: user?.user_metadata?.avatar || "",
+      });
+    }
+  }, [user, reset]);
+
+  if (isLoading) return <Spinner />;
 
   function onSubmit(data) {
     console.log("Form Data:", data);
@@ -32,18 +54,8 @@ function UpdateUserDataForm() {
     <Form type="regular" onSubmit={handleSubmit(onSubmit)}>
       <AvatarUpload setValue={setValue} previewFile={watch().avatar} />
       <FormRow type="grid">
-        <FormRow
-          type="gridItem"
-          label="Email address"
-          error={errors?.email?.message}
-        >
-          <Input
-            type="text"
-            register={register}
-            field="email"
-            id="email"
-            validation={emailValidation}
-          />
+        <FormRow type="gridItem" label="Email address">
+          <Input type="email" disabled={true} placeholder={user?.email || ""} />
         </FormRow>
         <FormRow
           type="gridItem"

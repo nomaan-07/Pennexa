@@ -15,6 +15,7 @@ import CreateTransactionForm from "../transaction/CreateTransactionForm";
 
 import { expenses } from "../../data/data-expenses";
 import { useModal } from "../../hooks/uesModal";
+import ActionButtons from "../../ui/common/ActionButtons";
 
 function ExpensesTable() {
   const [modalType, setModalType] = useState(null);
@@ -95,14 +96,16 @@ function ExpensesTable() {
       <Pagination />
 
       {modalType === "delete" && (
-        <Modal isOpen={isOpen} onClose={handleCloseModal} closeButton={false}>
-          <Buttons>
-            <Button type="danger">Delete</Button>
-            <Button type="secondary" onClick={handleCloseModal}>
-              Cancel
-            </Button>
-          </Buttons>
-        </Modal>
+        <ActionButtons
+          isOpen={isOpen}
+          onClose={handleCloseModal}
+          onCancel={closeModal}
+          onConfirm={handleCloseModal}
+          isLoading={false}
+          confirmText="Delete"
+          loadingText="Deleting..."
+          type="danger"
+        />
       )}
 
       {modalType === "edit" && (

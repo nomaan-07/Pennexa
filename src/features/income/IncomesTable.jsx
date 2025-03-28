@@ -15,6 +15,7 @@ import { useModal } from "../../hooks/uesModal";
 import { incomes } from "../../data/data-incomes";
 import { useState } from "react";
 import CreateTransactionForm from "../transaction/CreateTransactionForm";
+import ActionButtons from "../../ui/common/ActionButtons";
 
 function IncomesTable() {
   const [modalType, setModalType] = useState(null);
@@ -96,14 +97,16 @@ function IncomesTable() {
       <Pagination />
 
       {modalType === "delete" && (
-        <Modal isOpen={isOpen} onClose={handleCloseModal} closeButton={false}>
-          <Buttons>
-            <Button type="danger">Delete</Button>
-            <Button type="secondary" onClick={handleCloseModal}>
-              Cancel
-            </Button>
-          </Buttons>
-        </Modal>
+        <ActionButtons
+          isOpen={isOpen}
+          onClose={handleCloseModal}
+          onCancel={closeModal}
+          onConfirm={handleCloseModal}
+          isLoading={false}
+          confirmText="Delete"
+          loadingText="Deleting..."
+          type="danger"
+        />
       )}
 
       {modalType === "edit" && (
