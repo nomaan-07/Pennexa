@@ -6,14 +6,19 @@ import FormRow from "../../ui/forms/FormRow";
 import AvatarUpload from "../../ui/forms/AvatarUpload";
 import Buttons from "../../ui/buttons/Buttons";
 import Button from "../../ui/buttons/Button";
-import Spinner from "../../ui/common/Spinner";
 
 import { nameValidation } from "../../utils/validations";
 import { useUser } from "../authentication/useUser";
-import { useEffect } from "react";
+import { useUpdateUser } from "./useUpdateUser";
+import { useToast } from "../../hooks/useToast";
 
 function UpdateUserDataForm() {
   const { user } = useUser();
+  const { updateUser, isUpdating } = useUpdateUser();
+  const { showToast } = useToast();
+
+  const avatar = user?.user_metadata?.avatar || "";
+
   const {
     register,
     handleSubmit,
@@ -23,24 +28,26 @@ function UpdateUserDataForm() {
     reset,
   } = useForm({
     defaultValues: {
-      email: "",
-      username: "",
-      avatar: "",
+      email: user?.email || "",
+      username: user?.user_metadata?.username || "",
+      avatar,
     },
   });
 
-  useEffect(() => {
-    if (user) {
-      reset({
-        email: user?.email || "",
-        username: user?.user_metadata?.username || "",
-        avatar: user?.user_metadata?.avatar || "",
-      });
-    }
-  }, [user, reset]);
-
   function onSubmit(data) {
-    console.log("Form Data:", data);
+    const updatedUser = {
+      username: data.username,
+      avatar: typeof data.avatar === "string" ? null : data.avatar,
+    };
+
+    updateUser(updatedUser, {
+      onSuccess: () => {
+        showToast("success", "Your data successfully updated.");
+        reset({
+          avatar,
+        });
+      },
+    });
   }
 
   function handleReset(e) {
@@ -50,7 +57,6 @@ function UpdateUserDataForm() {
 
   return (
     <Form type="regular" onSubmit={handleSubmit(onSubmit)}>
-      <AvatarUpload setValue={setValue} previewFile={watch().avatar} />
       <FormRow type="grid">
         <FormRow type="gridItem" label="Email address">
           <Input type="email" disabled={true} placeholder={user?.email || ""} />
@@ -69,12 +75,17 @@ function UpdateUserDataForm() {
           />
         </FormRow>
       </FormRow>
-      <Buttons>
-        <Button type="secondary" onClick={handleReset}>
-          Cancel
-        </Button>
-        <Button>Update Account</Button>
-      </Buttons>
+      <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-center">
+        <AvatarUpload setValue={setValue} avatar={watch().avatar} />
+        <Buttons>
+          <Button type="secondary" onClick={handleReset} disabled={isUpdating}>
+            Cancel
+          </Button>
+          <Button disabled={isUpdating}>
+            {isUpdating ? "Updating..." : "Update Account"}
+          </Button>
+        </Buttons>
+      </div>
     </Form>
   );
 }

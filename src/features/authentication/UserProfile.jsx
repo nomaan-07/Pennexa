@@ -10,7 +10,7 @@ function UserProfile() {
       <div className="flex size-16 items-center justify-center rounded-full border border-slate-300 bg-slate-100 dark:border-slate-500 dark:bg-slate-600">
         {avatar ? (
           <img
-            className="rounded-full bg-cover"
+            className="size-full rounded-full bg-cover"
             src={avatar}
             alt="user avatar"
           />

@@ -1,12 +1,8 @@
-import { useState, useRef, useEffect } from "react";
-import { Upload, User, ImagePlus } from "lucide-react";
-
-import Button from "../buttons/Button";
-
+import { useRef } from "react";
+import { Upload } from "lucide-react";
 import { useToast } from "../../hooks/useToast";
 
-const AvatarUpload = ({ setValue, previewFile }) => {
-  const [preview, setPreview] = useState(previewFile);
+const AvatarUpload = ({ setValue, avatar }) => {
   const { showToast } = useToast();
   const fileInputRef = useRef(null);
 
@@ -18,62 +14,17 @@ const AvatarUpload = ({ setValue, previewFile }) => {
         showToast("failed", "Only image files are allowed.");
         return;
       }
-      if (file.size > 5 * 1024 * 1024) {
-        showToast("failed", "File size must be less than 5MB.");
+      if (file.size > 1024 * 1024) {
+        showToast("failed", "File size must be less than 1MB.");
         return;
       }
 
       setValue("avatar", file);
-
-      if (preview) {
-        URL.revokeObjectURL(preview);
-      }
-
-      const objectUrl = URL.createObjectURL(file);
-      setPreview(objectUrl);
     }
   };
 
-  function triggerFileInput(e) {
-    e.preventDefault();
-    fileInputRef.current.click();
-  }
-
-  useEffect(() => {
-    if (!preview) return;
-
-    return () => URL.revokeObjectURL(preview);
-  }, [preview]);
-
-  useEffect(() => {
-    if (!previewFile) setPreview(null);
-  }, [previewFile]);
-
   return (
-    <div className="flex flex-col items-center gap-3 p-4 sm:gap-4 sm:p-6">
-      <div
-        onClick={triggerFileInput}
-        className="group relative flex size-24 cursor-pointer items-center justify-center rounded-full border-2 border-dashed border-slate-300 bg-slate-100 transition-all duration-300 sm:size-32 md:size-36 md:hover:border-emerald-500 dark:border-slate-500 dark:bg-slate-700 dark:md:hover:border-emerald-400"
-      >
-        {preview ? (
-          <>
-            <img
-              src={preview}
-              alt="User avatar preview"
-              className="size-full rounded-full object-cover"
-            />
-            <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/20 opacity-0 transition-opacity duration-300 md:group-hover:opacity-100">
-              <ImagePlus className="size-8 text-slate-100" />
-            </div>
-          </>
-        ) : (
-          <User
-            className="size-10 text-slate-400 sm:size-16 dark:text-slate-300"
-            strokeWidth={1}
-          />
-        )}
-      </div>
-
+    <div className="xs:justify-start flex items-center justify-center gap-2">
       <input
         type="file"
         ref={fileInputRef}
@@ -82,10 +33,23 @@ const AvatarUpload = ({ setValue, previewFile }) => {
         className="hidden"
       />
 
-      <Button onClick={triggerFileInput}>
+      <div
+        className="xs:h-11 flex h-9 items-center gap-2 rounded-full border border-emerald-500 px-4 transition-colors md:cursor-pointer md:hover:bg-emerald-50 dark:md:hover:bg-emerald-950"
+        onClick={() => fileInputRef.current.click()}
+      >
         <Upload className="size-3.5 sm:size-4" strokeWidth={2.5} />
-        <span>Select Image</span>
-      </Button>
+
+        <p className="flex items-center gap-2 text-xs sm:text-sm">
+          {avatar?.name ? (
+            <>
+              <span>{avatar.name}</span>
+              <span>{(avatar.size / (1024 * 1024)).toFixed(2)} MB</span>
+            </>
+          ) : (
+            "Select Image"
+          )}
+        </p>
+      </div>
     </div>
   );
 };
