@@ -18,18 +18,40 @@ import {
   requiredValidation,
   selectValidation,
 } from "../../utils/validations";
+import { useUpdateTransaction } from "./useUpdateTransaction";
 
-function CreateTransactionForm({ isOpen, onClose, transactionToEdit = {} }) {
+function getChangedFields(currentData, defaultData) {
+  const changedFields = {};
+
+  Object.keys(currentData).forEach((key) => {
+    if (key === "category") {
+      if (currentData.category !== defaultData.category.name) {
+        changedFields.category = currentData.category;
+      }
+    } else if (currentData[key] !== defaultData[key]) {
+      changedFields[key] = currentData[key];
+    }
+  });
+
+  return changedFields;
+}
+
+function CreateTransactionForm({ isOpen, onClose, transactionToUpdate = {} }) {
   const { showToast } = useToast();
   const { groups, isGroupsLoading } = useGroups();
   const { createTransaction, isCreating } = useCreateTransaction("income");
+  const { updateTransaction, isUpdating } = useUpdateTransaction();
 
-  const { id: editId, ...editedValues } = transactionToEdit;
-  const isEditSession = Boolean(editId);
+  const { id: editId, ...editedValues } = transactionToUpdate;
+  const isUpdateSession = Boolean(editId);
 
   const { register, handleSubmit, formState, watch, reset } = useForm({
-    defaultValues: isEditSession
-      ? { ...editedValues, date: editedValues.date.toISOString().split("T")[0] }
+    defaultValues: isUpdateSession
+      ? {
+          ...editedValues,
+          date: editedValues.date.split("T")[0],
+          category: editedValues.category.name,
+        }
       : {},
   });
 
@@ -49,9 +71,63 @@ function CreateTransactionForm({ isOpen, onClose, transactionToEdit = {} }) {
       : incomeGroups;
 
   function onSubmit(data) {
+    const chosenGroup = groups.find((group) => group.name === data.category);
+
+    if (isUpdateSession) {
+      const changedFields = getChangedFields(
+        { ...data, date: `${data.date}T00:00:00` },
+        editedValues,
+      );
+
+      if (Object.keys(changedFields).length === 0) {
+        showToast("warning", "No changes detected");
+        return;
+      }
+
+      const updatedTransaction = {
+        ...changedFields,
+        category: changedFields.category
+          ? {
+              name: data.category,
+              textColor: chosenGroup.colors.textColor,
+              bgColor100: chosenGroup.colors.bgColor100,
+              bgColor600: chosenGroup.colors.bgColor600,
+              icon: chosenGroup.icon,
+            }
+          : undefined,
+      };
+
+      Object.keys(updatedTransaction).forEach(
+        (key) =>
+          updatedTransaction[key] === undefined &&
+          delete updatedTransaction[key],
+      );
+
+      updateTransaction(
+        { id: editId, updatedTransaction },
+        {
+          onSuccess: () => {
+            showToast("success", "Transaction updated successfully");
+            reset();
+            onClose();
+          },
+        },
+      );
+
+      return;
+    }
+
+    const category = {
+      name: data.category,
+      textColor: chosenGroup.colors.textColor,
+      bgColor100: chosenGroup.colors.bgColor100,
+      bgColor600: chosenGroup.colors.bgColor600,
+      icon: chosenGroup.icon,
+    };
+
     const newTransaction = {
+      category,
       type: data.type,
-      category: JSON.parse(data.category),
       amount: data.amount,
       description: data.description,
       date: data.date,
@@ -74,7 +150,7 @@ function CreateTransactionForm({ isOpen, onClose, transactionToEdit = {} }) {
   return (
     <Modal isOpen={isOpen} onClose={handleCancel}>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        {!isEditSession && (
+        {!isUpdateSession && (
           <FormRow error={errors?.type?.message}>
             <p>Choose the transaction:</p>
             <FormChips>
@@ -100,7 +176,7 @@ function CreateTransactionForm({ isOpen, onClose, transactionToEdit = {} }) {
           </FormRow>
         )}
 
-        {(watchedValues.type || isEditSession) && (
+        {(watchedValues.type || isUpdateSession) && (
           <FormRow error={errors?.category?.message}>
             <p>Choose the Category:</p>
             <FormChips>
@@ -110,10 +186,7 @@ function CreateTransactionForm({ isOpen, onClose, transactionToEdit = {} }) {
                   activeClasses={`${group.colors.textColor} ${group.colors.bgColor100}`}
                   name={group.name}
                   iconName={group.icon}
-                  isActive={
-                    watchedValues.category &&
-                    JSON.parse(watchedValues.category).name === group.name
-                  }
+                  isActive={watchedValues.category === group.name}
                   register={register}
                   key={group.name}
                   validation={selectValidation("category")}
@@ -160,8 +233,10 @@ function CreateTransactionForm({ isOpen, onClose, transactionToEdit = {} }) {
           />
         </FormRow>
         <Button disabled={isCreating}>
-          {isEditSession
-            ? "Edit transaction"
+          {isUpdateSession
+            ? isUpdating
+              ? "Updating..."
+              : "Update transaction"
             : isCreating
               ? "Adding..."
               : "Add transaction"}

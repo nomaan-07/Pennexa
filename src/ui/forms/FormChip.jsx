@@ -25,17 +25,7 @@ function FormChip({
       <input
         type="radio"
         id={name}
-        value={
-          colors
-            ? JSON.stringify({
-                name,
-                textColor: colors.textColor,
-                bgColor100: colors.bgColor100,
-                bgColor600: colors.bgColor600,
-                icon: iconName,
-              })
-            : name
-        }
+        value={name}
         className="hidden"
         {...register(field, validation)}
       />

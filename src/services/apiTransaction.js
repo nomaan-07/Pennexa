@@ -35,3 +35,18 @@ export async function deleteTransaction(id) {
     throw new Error("Transaction could not be deleted.");
   }
 }
+
+export async function updateTransaction({ id, updatedTransaction }) {
+  const { data, error } = await supabase
+    .from("pennexa-transactions")
+    .update(updatedTransaction)
+    .eq("id", id)
+    .select();
+
+  if (error) {
+    console.error(error);
+    throw new Error("Transaction could not be updated.");
+  }
+
+  return data;
+}

@@ -32,11 +32,11 @@ function IncomesTable() {
   );
 
   function handleOpenModal(type, transaction) {
-    if (type === "edit") {
-      setChosenIncome({ ...transaction, transactionType: "edit" });
-    } else if (type === "delete") {
-      setChosenIncome(transaction);
-    }
+    setChosenIncome(() =>
+      type === "edit"
+        ? { ...transaction, transactionType: "edit" }
+        : transaction,
+    );
 
     setModalType(type);
     openModal();
@@ -133,7 +133,7 @@ function IncomesTable() {
         <CreateTransactionForm
           isOpen={isOpen}
           onClose={handleCloseModal}
-          transactionToEdit={chosenIncome}
+          transactionToUpdate={chosenIncome}
         />
       )}
     </>
