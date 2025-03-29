@@ -97,6 +97,7 @@ function GroupTable({ groups, type }) {
         confirmText="Delete"
         loadingText="Deleting..."
         type="danger"
+        message={`Are you sure you want to delete this ${title}?`}
       />
     </>
   );

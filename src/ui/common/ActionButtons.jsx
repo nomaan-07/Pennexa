@@ -11,17 +11,21 @@ function ActionButtons({
   onClose,
   isOpen,
   type,
+  message,
 }) {
   return (
     <Modal isOpen={isOpen} onClose={onClose} closeButton={false}>
-      <Buttons>
-        <Button type={type} onClick={onConfirm} disabled={isLoading}>
-          {isLoading ? loadingText : confirmText}
-        </Button>
-        <Button type="secondary" onClick={onCancel} disabled={isLoading}>
-          Cancel
-        </Button>
-      </Buttons>
+      <div className="flex flex-col items-center gap-4 text-center">
+        <p className="text-sm sm:text-base">{message}</p>
+        <Buttons>
+          <Button type={type} onClick={onConfirm} disabled={isLoading}>
+            {isLoading ? loadingText : confirmText}
+          </Button>
+          <Button type="secondary" onClick={onCancel} disabled={isLoading}>
+            Cancel
+          </Button>
+        </Buttons>
+      </div>
     </Modal>
   );
 }

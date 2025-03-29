@@ -7,7 +7,7 @@ export function useDeleteTransaction() {
   const queryClient = useQueryClient();
 
   const { mutate: deleteTransaction, isPending: isDeleting } = useMutation({
-    mutation: deleteTransactionApi,
+    mutationFn: deleteTransactionApi,
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["transactions"],

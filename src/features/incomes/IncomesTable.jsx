@@ -14,13 +14,16 @@ import ActionButtons from "../../ui/common/ActionButtons";
 import { useModal } from "../../hooks/uesModal";
 import { useState } from "react";
 import { useTransactions } from "../transaction/useTransactions";
+import { useDeleteTransaction } from "../transaction/useDeleteTransaction";
+import { useToast } from "../../hooks/useToast";
 
 function IncomesTable() {
-  const { transactions, isLoading } = useTransactions();
   const [modalType, setModalType] = useState(null);
-  const [transactionToEdit, setTransactionToEdit] = useState(null);
-
+  const [chosenIncome, setChosenIncome] = useState(null);
+  const { transactions, isLoading } = useTransactions();
+  const { deleteTransaction, isDeleting } = useDeleteTransaction();
   const { isOpen, openModal, closeModal } = useModal();
+  const { showToast } = useToast();
 
   if (isLoading) return <Spinner />;
 
@@ -29,8 +32,10 @@ function IncomesTable() {
   );
 
   function handleOpenModal(type, transaction) {
-    if (transaction) {
-      setTransactionToEdit({ ...transaction, transactionType: "edit" });
+    if (type === "edit") {
+      setChosenIncome({ ...transaction, transactionType: "edit" });
+    } else if (type === "delete") {
+      setChosenIncome(transaction);
     }
 
     setModalType(type);
@@ -38,9 +43,18 @@ function IncomesTable() {
   }
 
   function handleCloseModal() {
-    setTransactionToEdit(null);
+    setChosenIncome(null);
     setModalType(null);
     closeModal();
+  }
+
+  function handleDeleteIncome() {
+    deleteTransaction(chosenIncome, {
+      onSuccess: () => {
+        handleCloseModal();
+        showToast("success", "Income deleted successfully");
+      },
+    });
   }
 
   return (
@@ -67,7 +81,7 @@ function IncomesTable() {
                 <TableActionButton
                   icon={<Trash2 />}
                   label="delete"
-                  onClick={() => handleOpenModal("delete")}
+                  onClick={() => handleOpenModal("delete", income.id)}
                 />
               </TableAction>
             </TransactionRow>
@@ -105,12 +119,13 @@ function IncomesTable() {
         <ActionButtons
           isOpen={isOpen}
           onClose={handleCloseModal}
-          onCancel={closeModal}
-          onConfirm={handleCloseModal}
-          isLoading={false}
+          onCancel={handleCloseModal}
+          onConfirm={handleDeleteIncome}
+          isLoading={isDeleting}
           confirmText="Delete"
           loadingText="Deleting..."
           type="danger"
+          message={`Are you sure you want to delete this income?`}
         />
       )}
 
@@ -118,7 +133,7 @@ function IncomesTable() {
         <CreateTransactionForm
           isOpen={isOpen}
           onClose={handleCloseModal}
-          transactionToEdit={transactionToEdit}
+          transactionToEdit={chosenIncome}
         />
       )}
     </>
