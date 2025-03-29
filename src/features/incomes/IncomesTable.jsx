@@ -6,22 +6,27 @@ import TransactionRow from "../../ui/tables/TransactionRow";
 import TableAction from "../../ui/tables/TableAction";
 import TableActionButton from "../../ui/buttons/TableActionButton";
 import MobileTableBox from "../../ui/tables/MobileTableBox";
-import Modal from "../../ui/common/Modal";
-import Buttons from "../../ui/buttons/Buttons";
-import Button from "../../ui/buttons/Button";
 import MobileTransactionTable from "../../ui/tables/MobileTransactionTable";
-
-import { useModal } from "../../hooks/uesModal";
-import { incomes } from "../../data/data-incomes";
-import { useState } from "react";
+import Spinner from "../../ui/common/Spinner";
 import CreateTransactionForm from "../transaction/CreateTransactionForm";
 import ActionButtons from "../../ui/common/ActionButtons";
 
+import { useModal } from "../../hooks/uesModal";
+import { useState } from "react";
+import { useTransactions } from "../transaction/useTransactions";
+
 function IncomesTable() {
+  const { transactions, isLoading } = useTransactions();
   const [modalType, setModalType] = useState(null);
   const [transactionToEdit, setTransactionToEdit] = useState(null);
 
   const { isOpen, openModal, closeModal } = useModal();
+
+  if (isLoading) return <Spinner />;
+
+  const incomes = transactions.filter(
+    (transaction) => transaction.type === "income",
+  );
 
   function handleOpenModal(type, transaction) {
     if (transaction) {

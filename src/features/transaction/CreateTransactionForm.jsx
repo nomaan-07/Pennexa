@@ -9,7 +9,9 @@ import Textarea from "../../ui/forms/Textarea";
 import Modal from "../../ui/common/Modal";
 import FormChip from "../../ui/forms/FormChip";
 
-import { expenseGroups, incomeGroups } from "../../data/data-groups";
+import { useGroups } from "../groups/useGroups";
+import { useCreateTransaction } from "./useCreateTransaction";
+import { useToast } from "../../hooks/useToast";
 import {
   nameValidation,
   numberValidation,
@@ -18,6 +20,10 @@ import {
 } from "../../utils/validations";
 
 function CreateTransactionForm({ isOpen, onClose, transactionToEdit = {} }) {
+  const { showToast } = useToast();
+  const { groups, isGroupsLoading } = useGroups();
+  const { createTransaction, isCreating } = useCreateTransaction("income");
+
   const { id: editId, ...editedValues } = transactionToEdit;
   const isEditSession = Boolean(editId);
 
@@ -31,15 +37,33 @@ function CreateTransactionForm({ isOpen, onClose, transactionToEdit = {} }) {
 
   const { errors } = formState;
 
-  const categories = (
+  if (isGroupsLoading) return null;
+
+  const expenseGroups = groups.filter((group) => group.type === "expense");
+  const incomeGroups = groups.filter((group) => group.type === "income");
+
+  const categories =
     watchedValues.type === "expense" ||
     editedValues.transactionType === "expense"
       ? expenseGroups
-      : incomeGroups
-  ).slice(0, 10);
+      : incomeGroups;
 
   function onSubmit(data) {
-    console.log(data);
+    const newTransaction = {
+      type: data.type,
+      category: JSON.parse(data.category),
+      amount: data.amount,
+      description: data.description,
+      date: data.date,
+    };
+
+    createTransaction(newTransaction, {
+      onSuccess: () => {
+        showToast("success", "Transaction created successfully");
+        reset();
+        onClose();
+      },
+    });
   }
 
   function handleCancel() {
@@ -59,7 +83,7 @@ function CreateTransactionForm({ isOpen, onClose, transactionToEdit = {} }) {
                 activeClasses="bg-rose-50 text-rose-500"
                 name="expense"
                 iconName="LucideTrendingDown"
-                isActive={watchedValues.type}
+                isActive={watchedValues.type === "expense"}
                 register={register}
                 validation={selectValidation("transaction type")}
               />
@@ -68,7 +92,7 @@ function CreateTransactionForm({ isOpen, onClose, transactionToEdit = {} }) {
                 activeClasses="bg-emerald-50 text-emerald-500"
                 name="income"
                 iconName="LucideTrendingUp"
-                isActive={watchedValues.type}
+                isActive={watchedValues.type === "income"}
                 register={register}
                 validation={selectValidation("transaction type")}
               />
@@ -83,13 +107,17 @@ function CreateTransactionForm({ isOpen, onClose, transactionToEdit = {} }) {
               {categories.map((group) => (
                 <FormChip
                   field="category"
-                  activeClasses={`${group.textColor} ${group.bgColor100}`}
+                  activeClasses={`${group.colors.textColor} ${group.colors.bgColor100}`}
                   name={group.name}
                   iconName={group.icon}
-                  isActive={watchedValues.type}
+                  isActive={
+                    watchedValues.category &&
+                    JSON.parse(watchedValues.category).name === group.name
+                  }
                   register={register}
                   key={group.name}
                   validation={selectValidation("category")}
+                  colors={group.colors}
                 />
               ))}
             </FormChips>
@@ -131,8 +159,12 @@ function CreateTransactionForm({ isOpen, onClose, transactionToEdit = {} }) {
             validation={nameValidation("description", 0, 75)}
           />
         </FormRow>
-        <Button>
-          {isEditSession ? "Edit transaction" : "Add transaction"}
+        <Button disabled={isCreating}>
+          {isEditSession
+            ? "Edit transaction"
+            : isCreating
+              ? "Adding..."
+              : "Add transaction"}
         </Button>
       </Form>
     </Modal>

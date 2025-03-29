@@ -11,6 +11,8 @@ function MobileTableBox({
   number,
   type = "transaction",
 }) {
+  const { amount, date, category } = item;
+
   return (
     <div className="space-y-4 rounded-xl bg-white p-4 capitalize md:hidden dark:bg-slate-800">
       <div className="flex items-center justify-between border-b border-slate-100 pb-3 dark:border-b-slate-700">
@@ -23,19 +25,19 @@ function MobileTableBox({
             <Row>
               <span>{title}</span>
               <Badge
-                name={item.category}
-                className={`${item.textColor} ${item.bgColor}`}
-                icon={item.icon}
+                name={category.name}
+                className={`${category.textColor} ${category.bgColor100}`}
+                icon={category.icon}
                 iconStyles="*:size-4"
               />
             </Row>
             <Row>
               <span>amount</span>
-              <span>{formatPrice(item.amount)}</span>
+              <span>{formatPrice(amount)}</span>
             </Row>
             <Row>
               <span>date</span>
-              <span>{formatDate(item.date)}</span>
+              <span>{formatDate(date)}</span>
             </Row>
           </>
         ) : (

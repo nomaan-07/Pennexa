@@ -1,4 +1,4 @@
-import IncomesTable from "../features/income/IncomesTable";
+import IncomesTable from "../features/incomes/IncomesTable";
 import TableOperations from "../ui/tables/TableOperations";
 
 function Incomes() {
