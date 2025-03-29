@@ -20,6 +20,7 @@ import { filterAndSortData, paginatedData } from "../../utils/helpers";
 import { filterField, sortField } from "../../data/filter-options";
 import { useQueryParam } from "../../hooks/useQueryParam";
 import ActionDisabled from "../../ui/buttons/ActionDisabled";
+import { PAGE_SIZE } from "../../utils/constants";
 
 function IncomesTable() {
   const [modalType, setModalType] = useState(null);
@@ -38,9 +39,11 @@ function IncomesTable() {
 
   const filterValue = getQueryParam(filterField, "all");
   const sortValue = getQueryParam(sortField, "date-desc");
-  const currentPage = Number(getQueryParam("page", 1));
 
   const filteredIncomes = filterAndSortData(incomes, filterValue, sortValue);
+
+  const page = Number(getQueryParam("page", 1));
+  const currentPage = page <= incomes.length / PAGE_SIZE + 1 ? page : 1;
   const paginatedIncomes = paginatedData(filteredIncomes, currentPage);
 
   function handleOpenModal(type, transaction) {
