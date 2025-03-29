@@ -4,7 +4,12 @@ import { filterField, filterOptions } from "../../data/filter-options";
 import FilterButton from "../buttons/FilterButton";
 
 function Filter() {
-  const { currentFilter, setQuery } = useQueryParam(filterField, filterOptions);
+  const { setQueryParams, getCurrentQueryParam } = useQueryParam();
+  const currentFilter = getCurrentQueryParam(filterField, filterOptions);
+
+  function handleClick(value) {
+    setQueryParams({ [filterField]: value, page: 1 });
+  }
 
   return (
     <div className="hidden space-x-1 overflow-hidden rounded-full bg-white p-1 text-sm select-none lg:block dark:bg-slate-800">
@@ -12,7 +17,7 @@ function Filter() {
         <FilterButton
           option={option}
           currentFilter={currentFilter}
-          onClick={setQuery}
+          onClick={() => handleClick(option.value)}
           key={option.value}
         />
       ))}

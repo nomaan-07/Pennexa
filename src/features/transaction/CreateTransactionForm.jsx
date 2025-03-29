@@ -45,7 +45,13 @@ function CreateTransactionForm({ isOpen, onClose, transactionToUpdate = {} }) {
   const { id: editId, ...editedValues } = transactionToUpdate;
   const isUpdateSession = Boolean(editId);
 
-  const { register, handleSubmit, formState, watch, reset } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+    reset,
+  } = useForm({
     defaultValues: isUpdateSession
       ? {
           ...editedValues,
@@ -56,8 +62,6 @@ function CreateTransactionForm({ isOpen, onClose, transactionToUpdate = {} }) {
   });
 
   const watchedValues = watch();
-
-  const { errors } = formState;
 
   if (isGroupsLoading) return null;
 

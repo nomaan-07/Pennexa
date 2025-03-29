@@ -11,15 +11,19 @@ import { useQueryParam } from "../../hooks/useQueryParam";
 
 function MobileTableOperation({ field, options, icon }) {
   const { isOpen, openModal, closeModal } = useModal();
-  const { currentFilter, setQuery } = useQueryParam(field, options);
-  const [value, setValue] = useState(currentFilter);
+  const { getCurrentQueryParam, setQueryParam } = useQueryParam();
+  const [value, setValue] = useState(() =>
+    getCurrentQueryParam(field, options),
+  );
+
+  const currentFilter = getCurrentQueryParam(field, options);
   const fieldName = field === "sortBy" ? "sort" : "filter ";
 
   function handleSubmit(e) {
     e.preventDefault();
     if (value === currentFilter) return closeModal();
 
-    setQuery(value);
+    setQueryParam({ [field]: value, page: 1 });
     closeModal();
   }
 

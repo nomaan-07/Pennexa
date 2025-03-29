@@ -8,18 +8,16 @@ import SortButton from "../buttons/SortButton";
 function SortBy() {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useClickOutside(() => setIsOpen(false));
+  const { setQueryParams, getCurrentQueryParam } = useQueryParam();
 
-  const { currentFilter: currentSort, setQuery } = useQueryParam(
-    sortField,
-    sortOptions,
-  );
+  const currentSort = getCurrentQueryParam(sortField, sortOptions);
 
   const currentSortLabel = sortOptions.find(
     (option) => option.value === currentSort,
   ).label;
 
   const handleClick = (value) => {
-    setQuery(value);
+    setQueryParams({ [sortField]: value, page: 1 });
     setIsOpen((isOpen) => !isOpen);
   };
 

@@ -16,6 +16,10 @@ import { useState } from "react";
 import { useTransactions } from "../transaction/useTransactions";
 import { useDeleteTransaction } from "../transaction/useDeleteTransaction";
 import { useToast } from "../../hooks/useToast";
+import { filterAndSortData, paginatedData } from "../../utils/helpers";
+import { filterField, sortField } from "../../data/filter-options";
+import { useQueryParam } from "../../hooks/useQueryParam";
+import ActionDisabled from "../../ui/buttons/ActionDisabled";
 
 function IncomesTable() {
   const [modalType, setModalType] = useState(null);
@@ -24,12 +28,20 @@ function IncomesTable() {
   const { deleteTransaction, isDeleting } = useDeleteTransaction();
   const { isOpen, openModal, closeModal } = useModal();
   const { showToast } = useToast();
+  const { getQueryParam } = useQueryParam();
 
   if (isLoading) return <Spinner />;
 
-  const incomes = transactions.filter(
+  const incomes = transactions?.filter(
     (transaction) => transaction.type === "income",
   );
+
+  const filterValue = getQueryParam(filterField, "all");
+  const sortValue = getQueryParam(sortField, "date-desc");
+  const currentPage = Number(getQueryParam("page", 1));
+
+  const filteredIncomes = filterAndSortData(incomes, filterValue, sortValue);
+  const paginatedIncomes = paginatedData(filteredIncomes, currentPage);
 
   function handleOpenModal(type, transaction) {
     setChosenIncome(() =>
@@ -69,9 +81,39 @@ function IncomesTable() {
         </Table.Header>
 
         <Table.Body
-          data={incomes}
+          data={paginatedIncomes}
           render={(income, index) => (
             <TransactionRow number={index + 1} item={income} key={income.id}>
+              {income.public ? (
+                <TableAction>
+                  <TableActionButton
+                    icon={<Pencil />}
+                    label="edit"
+                    onClick={() => handleOpenModal("edit", income)}
+                  />
+                  <TableActionButton
+                    icon={<Trash2 />}
+                    label="delete"
+                    onClick={() => handleOpenModal("delete", income.id)}
+                  />
+                </TableAction>
+              ) : (
+                <ActionDisabled />
+              )}
+            </TransactionRow>
+          )}
+        />
+      </Table>
+
+      <MobileTransactionTable>
+        {paginatedIncomes.map((income, index) => (
+          <MobileTableBox
+            title="source"
+            item={income}
+            number={index + 1}
+            key={income.id}
+          >
+            {income.public ? (
               <TableAction>
                 <TableActionButton
                   icon={<Pencil />}
@@ -84,36 +126,14 @@ function IncomesTable() {
                   onClick={() => handleOpenModal("delete", income.id)}
                 />
               </TableAction>
-            </TransactionRow>
-          )}
-        />
-      </Table>
-
-      <MobileTransactionTable>
-        {incomes.map((income, index) => (
-          <MobileTableBox
-            title="source"
-            item={income}
-            number={index + 1}
-            key={income.id}
-          >
-            <TableAction>
-              <TableActionButton
-                icon={<Pencil />}
-                label="edit"
-                onClick={() => handleOpenModal("edit", income)}
-              />
-              <TableActionButton
-                icon={<Trash2 />}
-                label="delete"
-                onClick={() => handleOpenModal("delete")}
-              />
-            </TableAction>
+            ) : (
+              <ActionDisabled />
+            )}
           </MobileTableBox>
         ))}
       </MobileTransactionTable>
 
-      <Pagination />
+      <Pagination currentPage={currentPage} count={filteredIncomes.length} />
 
       {modalType === "delete" && (
         <ActionButtons

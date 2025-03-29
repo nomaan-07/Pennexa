@@ -71,7 +71,7 @@ function UpdateUserPasswordForm() {
           />
         </FormRow>
       </FormRow>
-      <Buttons>
+      <Buttons type="account">
         <Button type="secondary" onClick={handleReset} disabled={isUpdating}>
           Cancel
         </Button>

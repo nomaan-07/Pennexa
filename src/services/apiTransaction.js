@@ -7,7 +7,7 @@ export async function getTransactions() {
 
   if (error) {
     console.error(error);
-    throw new Error("Transactions could not be created.");
+    throw new Error("Transactions could not be loaded.");
   }
 
   return data;
@@ -16,7 +16,8 @@ export async function getTransactions() {
 export async function createTransaction(newTransaction) {
   const { error } = await supabase
     .from("pennexa-transactions")
-    .insert([newTransaction]);
+    .insert([newTransaction])
+    .select();
 
   if (error) {
     console.error(error);
@@ -27,7 +28,7 @@ export async function createTransaction(newTransaction) {
 export async function deleteTransaction(id) {
   const { error } = await supabase
     .from("pennexa-transactions")
-    .delete(id)
+    .delete()
     .eq("id", id);
 
   if (error) {

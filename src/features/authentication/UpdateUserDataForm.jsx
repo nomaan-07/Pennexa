@@ -75,7 +75,7 @@ function UpdateUserDataForm() {
       </FormRow>
       <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-center">
         <AvatarUpload setValue={setValue} avatar={watch().avatar} />
-        <Buttons>
+        <Buttons type="account">
           <Button type="secondary" onClick={handleReset} disabled={isUpdating}>
             Cancel
           </Button>
