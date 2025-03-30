@@ -19,7 +19,7 @@ function DarkModeToggle() {
           <LucideMoon className="size-6" strokeWidth={1.5} />
         </div>
 
-        <div className="absolute top-0.75 left-0.5 size-9 rounded-full bg-amber-200 transition-all duration-500 dark:translate-x-15.5 dark:bg-sky-900"></div>
+        <div className="absolute top-0.75 left-0.5 size-9 translate-x-21.5 rounded-full bg-amber-200 transition-all duration-500 dark:bg-sky-900 dark:lg:translate-x-15.5"></div>
       </div>
     </>
   );
