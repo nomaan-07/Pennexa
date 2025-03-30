@@ -12,12 +12,14 @@ function DarkModeToggle() {
         onClick={toggleDarkMode}
         role="button"
       >
-        <div className="rounded-full bg-amber-200 p-1.5 text-amber-50 dark:bg-inherit dark:text-inherit">
+        <div className="z-10 rounded-full bg-amber-200 p-1.5 text-amber-50 dark:bg-inherit dark:text-inherit">
           <LucideSun className="size-6" strokeWidth={1.5} />
         </div>
-        <div className="dark:text-slate-40 rounded-full p-1.5 text-inherit dark:bg-sky-900">
+        <div className="dark:text-slate-40 z-10 rounded-full p-1.5 text-inherit dark:bg-sky-900">
           <LucideMoon className="size-6" strokeWidth={1.5} />
         </div>
+
+        <div className="absolute top-0.75 left-0.5 size-9 rounded-full bg-amber-200 transition-all duration-500 dark:translate-x-15.5 dark:bg-sky-900"></div>
       </div>
     </>
   );
