@@ -2,7 +2,7 @@ import { Ban } from "lucide-react";
 import { useToast } from "../../hooks/useToast";
 
 function ActionDisabled({
-  message = "Data mutation in this item is disabled, try another one.",
+  message = "Changes are not allowed for this item. Please choose another.",
 }) {
   const { showToast } = useToast();
 
