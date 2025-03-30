@@ -24,7 +24,7 @@ const AvatarUpload = ({ setValue, avatar }) => {
   };
 
   return (
-    <div className="xs:justify-start flex items-center justify-center gap-2">
+    <div className="flex items-center gap-2">
       <input
         type="file"
         ref={fileInputRef}
@@ -37,12 +37,12 @@ const AvatarUpload = ({ setValue, avatar }) => {
         className="xs:h-11 flex h-9 items-center gap-2 rounded-full border border-emerald-500 px-4 transition-colors md:cursor-pointer md:hover:bg-emerald-50 dark:md:hover:bg-emerald-950"
         onClick={() => fileInputRef.current.click()}
       >
-        <Upload className="size-3.5 sm:size-4" strokeWidth={2.5} />
+        <Upload className="size-3.5 shrink-0 sm:size-4" strokeWidth={2.5} />
 
         <p className="flex items-center gap-2 text-xs sm:text-sm">
           {avatar?.name ? (
             <>
-              <span>{avatar.name}</span>
+              <span>{avatar.name.split("").splice(0, 15).join("")}</span>
               <span>{(avatar.size / (1024 * 1024)).toFixed(2)} MB</span>
             </>
           ) : (

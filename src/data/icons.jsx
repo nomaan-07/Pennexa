@@ -45,10 +45,18 @@ import {
   LucideAward,
   LucidePackage,
   LucideTv,
+  LucideArrowUpCircle,
+  LucideArrowDownCircle,
+  LucideLayers,
+  LucideMinus,
 } from "lucide-react";
 
 const icons = [
   { name: "LucideUtensils", icon: <LucideUtensils /> },
+  { name: "LucideArrowUpCircle", icon: <LucideArrowUpCircle /> },
+  { name: "LucideArrowDownCircle", icon: <LucideArrowDownCircle /> },
+  { name: "LucideMinus", icon: <LucideMinus /> },
+  { name: "LucideLayers", icon: <LucideLayers /> },
   { name: "LucideHome", icon: <LucideHome /> },
   { name: "LucideSofa", icon: <LucideSofa /> },
   { name: "LucideShirt", icon: <LucideShirt /> },

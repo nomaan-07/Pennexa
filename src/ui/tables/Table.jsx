@@ -7,7 +7,7 @@ function Table({ columns, children, type = "transaction" }) {
     <TableContext.Provider value={{ columns }}>
       <div
         role="table"
-        className={`hidden overflow-hidden rounded-xl border border-slate-200 bg-white text-sm capitalize md:block dark:border-slate-700 dark:bg-slate-800 ${type === "transaction" ? "min-w-162" : ""}`}
+        className={`hidden overflow-hidden rounded-xl bg-white text-sm capitalize md:block dark:bg-slate-800 ${type === "transaction" ? "min-w-162" : ""}`}
       >
         {children}
       </div>

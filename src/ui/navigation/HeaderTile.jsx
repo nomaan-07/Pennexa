@@ -1,11 +1,11 @@
-import { useCurrentPage } from "../../hooks/useCurrentPage";
+import { useLocation } from "react-router";
 
 function HeaderTile() {
-  const currentPage = useCurrentPage();
+  const { pathname } = useLocation();
 
   return (
     <h1 className="hidden text-3xl font-semibold capitalize lg:block">
-      {currentPage}
+      {pathname.replace("/", "").replace("-", " ")}
     </h1>
   );
 }

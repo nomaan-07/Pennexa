@@ -1,5 +1,5 @@
-import { items } from "../../data/navItems";
 import NavItem from "./NavItem";
+import { items } from "../../data/navItems";
 
 function MainNav() {
   return (

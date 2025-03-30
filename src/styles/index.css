@@ -35,6 +35,12 @@
   body {
     @apply font-poppins bg-slate-100 text-slate-900 dark:bg-slate-900 dark:text-slate-100;
   }
+
+  * {
+    transition:
+      background-color 0.2s ease-in-out,
+      border-color 0.2s ease-in-out;
+  }
 }
 
 @utility nav-link {

@@ -8,7 +8,6 @@ function FormChip({
   iconName,
   isActive,
   validation,
-  colors,
 }) {
   return (
     <label htmlFor={name}>

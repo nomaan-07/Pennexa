@@ -1,5 +1,5 @@
-import { mobileItems } from "../../data/navItems";
 import MobileNavItem from "./MobileNavItem";
+import { mobileItems } from "../../data/navItems";
 
 function MobileNav() {
   return (

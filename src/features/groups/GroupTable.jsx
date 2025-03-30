@@ -1,18 +1,15 @@
 import { useState } from "react";
 
-import Button from "../../ui/buttons/Button";
-import Buttons from "../../ui/buttons/Buttons";
-import Modal from "../../ui/common/Modal";
 import GroupTableRow from "../../ui/tables/GroupTableRow";
 import Table from "../../ui/tables/Table";
 import MobileTableBox from "../../ui/tables/MobileTableBox";
 import GroupTableDeleteButton from "../../ui/buttons/GroupTableDeleteButton";
 import ActionDisabled from "../../ui/buttons/ActionDisabled";
+import ActionButtons from "../../ui/common/ActionButtons";
 
 import { useDeleteGroup } from "./useDeleteGroup";
 import { useModal } from "../../hooks/uesModal";
 import { useToast } from "../../hooks/useToast";
-import ActionButtons from "../../ui/common/ActionButtons";
 
 function GroupTable({ groups, type }) {
   const [deleteId, setDeleteId] = useState(null);
@@ -72,7 +69,7 @@ function GroupTable({ groups, type }) {
         {groups.map((group, index) => (
           <MobileTableBox
             item={group}
-            type="group"
+            variation="group"
             title={title}
             number={index + 1}
             key={group.id}

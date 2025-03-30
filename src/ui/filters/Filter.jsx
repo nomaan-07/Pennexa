@@ -1,7 +1,8 @@
 import { useQueryParam } from "../../hooks/useQueryParam";
-import { filterField, filterOptions } from "../../data/filter-options";
 
 import FilterButton from "../buttons/FilterButton";
+
+import { filterField, filterOptions } from "../../data/filter-options";
 
 function Filter() {
   const { setQueryParams, getCurrentQueryParam } = useQueryParam();

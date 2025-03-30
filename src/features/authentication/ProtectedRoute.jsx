@@ -1,8 +1,9 @@
 import { useEffect } from "react";
+import { useNavigate } from "react-router";
+
 import Spinner from "../../ui/common/Spinner";
 
 import { useUser } from "./useUser";
-import { useNavigate } from "react-router";
 
 function ProtectedRoute({ children }) {
   const { isAuthenticated, isLoading } = useUser();

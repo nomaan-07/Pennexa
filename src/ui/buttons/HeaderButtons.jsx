@@ -6,7 +6,7 @@ import TopSheet from "../common/TopSheet";
 import { Menu } from "lucide-react";
 import { useModal } from "../../hooks/uesModal";
 
-function HeaderButtonGroup() {
+function HeaderButtons() {
   const { openModal, closeModal, isOpen } = useModal();
 
   return (
@@ -17,7 +17,7 @@ function HeaderButtonGroup() {
       </div>
       <Menu className="size-7 lg:hidden" onClick={openModal} />
       <TopSheet isOpen={isOpen} onClose={closeModal} closeButtonLocation="left">
-        <div className="flex flex-col items-end gap-6 bg-white lg:hidden dark:bg-slate-800">
+        <div className="flex flex-col items-end gap-6 bg-white transition-colors lg:hidden dark:bg-slate-800">
           <AddTransaction />
           <DarkModeToggle />
           <Logout />
@@ -27,4 +27,4 @@ function HeaderButtonGroup() {
   );
 }
 
-export default HeaderButtonGroup;
+export default HeaderButtons;

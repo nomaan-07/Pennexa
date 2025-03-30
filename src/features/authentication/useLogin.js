@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router";
 import { useToast } from "../../hooks/useToast";
 import { login as loginApi } from "../../services/apiAuth";
-import { useNavigate } from "react-router";
 
 export function useLogin() {
   const { showToast } = useToast();

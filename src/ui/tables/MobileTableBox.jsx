@@ -1,17 +1,18 @@
 import Badge from "../common/Badge";
 import Row from "../layout/Row";
+import Icon from "../common/Icon";
 
 import { formatDate, formatNumber, formatPrice } from "../../utils/helpers";
-import Icon from "../common/Icon";
 
 function MobileTableBox({
   children,
   title,
   item,
   number,
-  type = "transaction",
+  variation = "transaction",
+  isDashboard,
 }) {
-  const { amount, date, category } = item;
+  const { amount, date, category, type } = item;
 
   return (
     <div className="space-y-4 rounded-xl bg-white p-4 capitalize md:hidden dark:bg-slate-800">
@@ -20,8 +21,25 @@ function MobileTableBox({
         {children}
       </div>
       <div className="space-y-4">
-        {type === "transaction" ? (
+        {variation === "transaction" ? (
           <>
+            {isDashboard && (
+              <Row>
+                <span>type</span>
+                <Badge
+                  name={type}
+                  icon={
+                    type === "income"
+                      ? "LucideTrendingUp"
+                      : "LucideTrendingDown"
+                  }
+                  iconStyles="*:size-4"
+                  className={
+                    type === "income" ? "text-emerald-500" : "text-rose-500"
+                  }
+                />
+              </Row>
+            )}
             <Row>
               <span>{title}</span>
               <Badge
@@ -35,10 +53,12 @@ function MobileTableBox({
               <span>amount</span>
               <span>{formatPrice(amount)}</span>
             </Row>
-            <Row>
-              <span>date</span>
-              <span>{formatDate(date)}</span>
-            </Row>
+            {!isDashboard && (
+              <Row>
+                <span>date</span>
+                <span>{formatDate(date)}</span>
+              </Row>
+            )}
           </>
         ) : (
           <>

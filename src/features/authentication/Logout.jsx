@@ -12,7 +12,7 @@ function Logout() {
 
   return (
     <>
-      <Button type="logout" className="" onClick={openModal}>
+      <Button type="logout" onClick={openModal}>
         <LucideLogOut className="size-6" />
         <span>logout</span>
       </Button>

@@ -1,13 +1,9 @@
-import { isAfter, parseISO, subDays } from "date-fns";
+import { format, isAfter, parseISO, subDays } from "date-fns";
 import { PAGE_SIZE } from "./constants";
 
 export function formatDate(dateString) {
   const date = new Date(dateString);
-  return date.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  return format(date, "MMMM d, yyyy");
 }
 
 export function formatPrice(price) {
@@ -26,6 +22,8 @@ export function getLastDaysData(data, days) {
 export function filterAndSortData(data, filterValue, sortValue) {
   const filteredData =
     filterValue === "all" ? data : getLastDaysData(data, Number(filterValue));
+
+  if (!sortValue) return filteredData;
 
   const [field, direction] = sortValue.split("-");
   const modifier = direction === "asc" ? 1 : -1;

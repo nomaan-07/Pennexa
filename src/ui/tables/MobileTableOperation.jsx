@@ -11,7 +11,7 @@ import { useQueryParam } from "../../hooks/useQueryParam";
 
 function MobileTableOperation({ field, options, icon }) {
   const { isOpen, openModal, closeModal } = useModal();
-  const { getCurrentQueryParam, setQueryParam } = useQueryParam();
+  const { getCurrentQueryParam, setQueryParams } = useQueryParam();
   const [value, setValue] = useState(() =>
     getCurrentQueryParam(field, options),
   );
@@ -23,7 +23,7 @@ function MobileTableOperation({ field, options, icon }) {
     e.preventDefault();
     if (value === currentFilter) return closeModal();
 
-    setQueryParam({ [field]: value, page: 1 });
+    setQueryParams({ [field]: value, page: 1 });
     closeModal();
   }
 

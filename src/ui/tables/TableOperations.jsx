@@ -9,21 +9,25 @@ import {
   sortOptions,
 } from "../../data/filter-options";
 
-function TableOperations() {
+function TableOperations({ isDashboard }) {
   return (
     <Row>
       <Filter />
-      <SortBy />
       <MobileTableOperation
         field={filterField}
         options={filterOptions}
         icon="Filter"
       />
-      <MobileTableOperation
-        field={sortField}
-        options={sortOptions}
-        icon="ArrowUpDown"
-      />
+      {!isDashboard && (
+        <>
+          <SortBy />
+          <MobileTableOperation
+            field={sortField}
+            options={sortOptions}
+            icon="ArrowUpDown"
+          />
+        </>
+      )}
     </Row>
   );
 }

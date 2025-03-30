@@ -6,7 +6,7 @@ function TopSheet({ children, isOpen, onClose }) {
   return createPortal(
     <>
       <div
-        className={`fixed top-6 right-0 z-110 rounded-l-2xl bg-white px-8 pt-8 pb-12 transition-transform lg:hidden dark:bg-slate-800 ${isOpen ? "modal--open translate-x-0" : "modal--close translate-x-20"}`}
+        className={`fixed top-6 z-110 rounded-l-2xl bg-white px-8 pt-8 pb-12 transition-all lg:hidden dark:bg-slate-800 ${isOpen ? "modal--open right-0" : "modal--close -right-20"}`}
       >
         {children}
         <ModalCloseButton onClose={onClose} position="bottom" />
