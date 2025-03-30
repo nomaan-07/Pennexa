@@ -1,9 +1,6 @@
-import { useNavigate } from "react-router";
-import Button from "../ui/buttons/Button";
+import Button from "../buttons/Button";
 
-function ErrorPage() {
-  const navigate = useNavigate();
-
+function ErrorFallback({ error, resetErrorBoundary }) {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center p-4 text-center">
       <h1 className="text-9xl font-bold">500</h1>
@@ -11,11 +8,11 @@ function ErrorPage() {
         Something Went Wrong
       </h2>
       <p className="mt-2 mb-8 text-slate-500 dark:text-slate-400">
-        Oops! An unexpected error occurred.
+        {error.message}
       </p>
-      <Button onClick={() => navigate(-1, { replace: true })}>Go Back</Button>
+      <Button onClick={resetErrorBoundary}>Try again</Button>
     </div>
   );
 }
 
-export default ErrorPage;
+export default ErrorFallback;
