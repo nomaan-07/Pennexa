@@ -142,6 +142,15 @@ Check out [Good First Issues](https://github.com/nomaan-07/Pennexa/issues) to fi
 
 ---
 
+## 🔮 Roadmap
+
+- [ ] Recurring transactions
+- [ ] CSV export/import
+- [ ] Multi-account support
+- [ ] Budget planning tools
+
+---
+
 ## 📜 License
 
 Distributed under the **MIT License**. See [MIT License](LICENSE) for details.
@@ -154,14 +163,5 @@ Nomaan Rigi
 📧 nomaan07.dev@gmail.com
 
 <p align="center"> Built with ❤️ using React by Nomaan Rigi. </p>
-
----
-
-## 🔮 Roadmap
-
-- [ ] Recurring transactions
-- [ ] CSV export/import
-- [ ] Multi-account support
-- [ ] Budget planning tools
 
 ---
