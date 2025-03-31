@@ -8,8 +8,16 @@ function Logo({ type, className = "" }) {
 
   return (
     <div className={`flex items-center gap-2 select-none ${className}`}>
-      <img src="/logo-icon.png" alt="logo-icon" className={iconStyles} />
-      <img src="/logo-text.png" alt="logo-text" className={textStyles} />
+      <img
+        src={`${import.meta.env.BASE_URL}logo-icon.png`}
+        alt="logo-icon"
+        className={iconStyles}
+      />
+      <img
+        src={`${import.meta.env.BASE_URL}logo-text.png`}
+        alt="logo-text"
+        className={textStyles}
+      />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate, RouterProvider } from "react-router";
+import { Navigate, RouterProvider } from "react-router";
 
 import Dashboard from "./pages/Dashboard";
 import Expenses from "./pages/Expenses";
@@ -15,6 +15,7 @@ import ProtectedRoute from "./features/authentication/ProtectedRoute";
 import { DarkModeProvider } from "./context/DarkModeContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
+import { createHashRouter } from "react-router";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -24,7 +25,7 @@ const queryClient = new QueryClient({
   },
 });
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     element: (
