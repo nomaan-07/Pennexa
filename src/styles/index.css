@@ -41,6 +41,14 @@
       background-color 0.2s ease-in-out,
       border-color 0.2s ease-in-out;
   }
+
+  ::-webkit-scrollbar {
+    @apply w-1.5;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply cursor-pointer rounded-full bg-emerald-500;
+  }
 }
 
 @utility nav-link {
