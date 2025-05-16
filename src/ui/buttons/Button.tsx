@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { ClickHandler } from "../../utils/types";
 
 type ButtonType = "primary" | "secondary" | "pagination" | "danger" | "logout";
 
@@ -21,7 +22,7 @@ const typeClasses: Record<ButtonType, string> = {
 interface ButtonProps {
   type?: ButtonType;
   children: ReactNode;
-  onClick: () => void;
+  onClick: ClickHandler;
   disabled?: boolean;
 }
 
