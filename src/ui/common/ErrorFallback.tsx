@@ -1,6 +1,7 @@
+import { FallbackProps } from "react-error-boundary";
 import Button from "../buttons/Button";
 
-function ErrorFallback({ error, resetErrorBoundary }) {
+function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center p-4 text-center">
       <h1 className="text-9xl font-bold">500</h1>
