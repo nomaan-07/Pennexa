@@ -11,6 +11,7 @@ import CreateTransactionForm from "../transaction/CreateTransactionForm";
 import MobileTransactionTable from "../../ui/tables/MobileTransactionTable";
 import Pagination from "../../ui/tables/Pagination";
 import MobileTableBox from "../../ui/tables/MobileTableBox";
+import ActionDisabled from "../../ui/buttons/ActionDisabled";
 
 import { useModal } from "../../hooks/uesModal";
 import { useDeleteTransaction } from "../transaction/useDeleteTransaction";

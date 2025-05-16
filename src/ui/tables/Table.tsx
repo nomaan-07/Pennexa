@@ -1,8 +1,29 @@
-import { createContext, useContext } from "react";
+import { createContext, ReactNode, useContext } from "react";
 
-const TableContext = createContext();
+const TableContext = createContext({ columns: "" });
 
-function Table({ columns, children, type = "transaction" }) {
+type TableType = "transaction" | "group";
+
+interface TableProps {
+  columns: string;
+  children: ReactNode;
+  type?: TableType;
+}
+
+interface HeaderProps {
+  children: ReactNode;
+}
+
+interface BodyProps<T extends { id: string; public?: boolean }> {
+  data: T[];
+  render: (item: T, index: number) => ReactNode;
+}
+
+interface RowProps {
+  children: ReactNode;
+}
+
+function Table({ columns, children, type = "transaction" }: TableProps) {
   return (
     <TableContext.Provider value={{ columns }}>
       <div
@@ -15,7 +36,7 @@ function Table({ columns, children, type = "transaction" }) {
   );
 }
 
-function Header({ children }) {
+function Header({ children }: HeaderProps) {
   const { columns } = useContext(TableContext);
 
   return (
@@ -28,13 +49,16 @@ function Header({ children }) {
   );
 }
 
-function Body({ data, render }) {
+function Body<T extends { id: string; public?: boolean | undefined }>({
+  data,
+  render,
+}: BodyProps<T>) {
   if (!data.length)
     return <p className="p-4 text-center">There is no data to be shown</p>;
   return <section role="rowgroup">{data.map(render)}</section>;
 }
 
-function Row({ children }) {
+function Row({ children }: RowProps) {
   const { columns } = useContext(TableContext);
 
   return (
