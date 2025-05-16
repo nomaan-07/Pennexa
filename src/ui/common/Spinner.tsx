@@ -6,7 +6,7 @@ const types: Record<SpinnerType, string> = {
 };
 
 interface SpinnerProps {
-  type: SpinnerType;
+  type?: SpinnerType;
 }
 
 function Spinner({ type = "section" }: SpinnerProps) {
