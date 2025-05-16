@@ -50,8 +50,14 @@ import {
   LucideLayers,
   LucideMinus,
 } from "lucide-react";
+import { JSX } from "react";
 
-const icons = [
+interface IconItem {
+  name: string;
+  icon: JSX.Element;
+}
+
+const icons: IconItem[] = [
   { name: "LucideUtensils", icon: <LucideUtensils /> },
   { name: "LucideArrowUpCircle", icon: <LucideArrowUpCircle /> },
   { name: "LucideArrowDownCircle", icon: <LucideArrowDownCircle /> },
