@@ -1,11 +1,17 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App.jsx";
+import App from "./App";
 import "./styles/index.css";
 import { ErrorBoundary } from "react-error-boundary";
-import ErrorFallback from "./ui/common/ErrorFallback.jsx";
+import ErrorFallback from "./ui/common/ErrorFallback";
 
-createRoot(document.getElementById("root")).render(
+const rootElement = document.getElementById("root");
+
+if (!rootElement) throw new Error("Failed to find the root element");
+
+const root = createRoot(rootElement);
+
+root.render(
   <StrictMode>
     <ErrorBoundary
       FallbackComponent={ErrorFallback}
