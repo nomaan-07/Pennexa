@@ -1,9 +1,15 @@
-const types = {
+type SpinnerType = "fullPage" | "section";
+
+const types: Record<SpinnerType, string> = {
   fullPage: "h-screen",
   section: "h-full",
 };
 
-function Spinner({ type = "section" }) {
+interface SpinnerProps {
+  type: SpinnerType;
+}
+
+function Spinner({ type = "section" }: SpinnerProps) {
   return (
     <div
       className={`mx-auto flex w-full items-center justify-center ${types[type]}`}
