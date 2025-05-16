@@ -1,14 +1,21 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { LucideMoreVertical } from "lucide-react";
 
 import { useClickOutside } from "../../hooks/useClickOutside";
 
-function TableAction({ children }) {
+interface TableActionProps {
+  children: ReactNode;
+}
+
+function TableAction({ children }: TableActionProps) {
   const [isActionOpen, setIsActionOpen] = useState(false);
 
-  const dropDownRef = useClickOutside(() => setIsActionOpen(false));
+  const dropDownRef = useClickOutside<HTMLDivElement>(() =>
+    setIsActionOpen(false),
+  );
 
   const toggleAction = () => setIsActionOpen((prev) => !prev);
+
   return (
     <div
       ref={dropDownRef}
