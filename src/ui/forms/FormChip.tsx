@@ -1,4 +1,15 @@
+import { FieldValues, RegisterOptions, UseFormRegister } from "react-hook-form";
 import Badge from "../common/Badge";
+
+interface FormChipProps<T extends FieldValues = FieldValues> {
+  field: string;
+  activeClasses?: string;
+  name: string;
+  register: UseFormRegister<T>;
+  iconName: string;
+  isActive?: boolean;
+  validation?: RegisterOptions<T>;
+}
 
 function FormChip({
   field,
@@ -6,9 +17,9 @@ function FormChip({
   name,
   register,
   iconName,
-  isActive,
+  isActive = false,
   validation,
-}) {
+}: FormChipProps) {
   return (
     <label htmlFor={name}>
       <Badge
@@ -21,6 +32,7 @@ function FormChip({
         iconStyles="*:size-4"
         icon={iconName}
       />
+
       <input
         type="radio"
         id={name}
