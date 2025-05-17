@@ -2,8 +2,30 @@ import Table from "./Table";
 import Badge from "../common/Badge";
 
 import { formatDate, formatNumber, formatPrice } from "../../utils/helpers";
+import { ReactNode } from "react";
 
-function TransactionRow({ number, item, children, isDashboard }) {
+type ItemCategory = "name" | "icon" | "textColor" | "bgColor100";
+type TransActionType = "income" | "expense";
+
+type Item = {
+  amount: number;
+  date: string;
+  type: TransActionType;
+  category: Record<ItemCategory, string>;
+};
+interface TransactionRowProps {
+  number: number;
+  item: Item;
+  children: ReactNode;
+  isDashboard?: boolean;
+}
+
+function TransactionRow({
+  number,
+  item,
+  children,
+  isDashboard = false,
+}: TransactionRowProps) {
   const {
     amount,
     date,
