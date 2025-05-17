@@ -1,8 +1,24 @@
 import { createPortal } from "react-dom";
+import { ReactNode } from "react";
+
 import Overlay from "./Overlay";
 import ModalCloseButton from "../buttons/ModalCloseButton";
 
-function Modal({ children, isOpen, onClose, closeButton = true }) {
+import { ClickHandler } from "../../utils/types";
+
+interface ModalProps {
+  children: ReactNode;
+  isOpen?: boolean;
+  onClose: ClickHandler;
+  closeButton?: boolean;
+}
+
+function Modal({
+  children,
+  isOpen = false,
+  onClose,
+  closeButton = true,
+}: ModalProps) {
   if (!isOpen) return null;
 
   return createPortal(
