@@ -1,6 +1,7 @@
+import { Transaction } from "../utils/types";
 import supabase from "./supabase";
 
-export async function getTransactions() {
+export async function getTransactions(): Promise<Transaction[]> {
   const { data, error } = await supabase
     .from("pennexa-transactions")
     .select("*");
@@ -13,7 +14,13 @@ export async function getTransactions() {
   return data;
 }
 
-export async function createTransaction(newTransaction) {
+type NewTransaction = Omit<
+  Transaction,
+  "id" | "created_at" | "edited_at" | "public"
+>;
+
+export async function createTransaction(newTransaction: NewTransaction) {
+  console.log(newTransaction);
   const { error } = await supabase
     .from("pennexa-transactions")
     .insert([newTransaction])
@@ -25,7 +32,7 @@ export async function createTransaction(newTransaction) {
   }
 }
 
-export async function deleteTransaction(id) {
+export async function deleteTransaction(id: number) {
   const { error } = await supabase
     .from("pennexa-transactions")
     .delete()
@@ -37,7 +44,15 @@ export async function deleteTransaction(id) {
   }
 }
 
-export async function updateTransaction({ id, updatedTransaction }) {
+interface UpdateTransaction {
+  id: number;
+  updatedTransaction: Partial<Omit<Transaction, "id">>;
+}
+
+export async function updateTransaction({
+  id,
+  updatedTransaction,
+}: UpdateTransaction) {
   const { data, error } = await supabase
     .from("pennexa-transactions")
     .update(updatedTransaction)

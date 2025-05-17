@@ -12,7 +12,9 @@ export async function getGroups(): Promise<Group[]> {
   return data;
 }
 
-export async function createGroup(newGroup: Group) {
+type NewGroup = Omit<Group, "id" | "created_at" | "public">;
+
+export async function createGroup(newGroup: NewGroup) {
   const { error } = await supabase.from("pennexa-groups").insert([newGroup]);
 
   if (error) {

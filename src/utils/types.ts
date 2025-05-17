@@ -7,6 +7,9 @@ export type ButtonType =
   | "danger"
   | "logout";
 
+export type CustomToastType = "success" | "failed" | "warning";
+
+export type TransactionType = "income" | "expense";
 export interface GroupColors {
   textColor: string;
   bgColor100: string;
@@ -19,8 +22,23 @@ export interface Group {
   name: string;
   icon: string;
   colors: GroupColors;
-  type: "income" | "expense";
+  type: TransactionType;
   public: boolean;
 }
 
-export type CustomToastType = "success" | "failed" | "warning";
+export interface TransactionCategory extends GroupColors {
+  name: string;
+  icon: string;
+}
+
+export interface Transaction {
+  id: number;
+  created_at: string;
+  edited_at: string | null;
+  category: TransactionCategory;
+  amount: number;
+  type: TransactionType;
+  date: string;
+  public: boolean;
+  description: string;
+}
