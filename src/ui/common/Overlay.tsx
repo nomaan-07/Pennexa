@@ -1,4 +1,13 @@
-function Overlay({ isOpen, onClose, children }) {
+import { ReactNode } from "react";
+import { ClickHandler } from "../../utils/types";
+
+interface OverlayProps {
+  isOpen?: boolean;
+  onClose?: ClickHandler;
+  children: ReactNode;
+}
+
+function Overlay({ isOpen = false, onClose, children }: OverlayProps) {
   return (
     <div
       onClick={onClose}
