@@ -1,6 +1,9 @@
+import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
+
 import { getGroups } from "../../services/apiGroups";
 import { useToast } from "../../hooks/useToast";
+import { Group } from "../../utils/types";
 
 export function useGroups() {
   const { showToast } = useToast();
@@ -9,14 +12,17 @@ export function useGroups() {
     isLoading: isGroupsLoading,
     data: groups,
     error,
-  } = useQuery({
+  } = useQuery<Group[], Error>({
     queryKey: ["groups"],
     queryFn: getGroups,
-    onError: (err) => {
-      showToast("failed", "Groups could not be loaded.");
-      console.error(err);
-    },
   });
+
+  useEffect(() => {
+    if (error) {
+      showToast("failed", "Groups could not be loaded.");
+      console.error(error);
+    }
+  }, [error, showToast]);
 
   return { isGroupsLoading, groups, error };
 }
