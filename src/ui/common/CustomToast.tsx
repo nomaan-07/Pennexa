@@ -3,7 +3,9 @@ import { motion } from "motion/react";
 
 const iconBaseStyles = "size-6 block shrink-0";
 
-const types = {
+type CustomToastType = "success" | "failed" | "warning";
+
+const types: Record<CustomToastType, string> = {
   success: "bg-emerald-100 dark:bg-emerald-900",
   failed: "bg-rose-100 dark:bg-rose-900",
   warning: "bg-amber-100 dark:bg-amber-900",
@@ -19,7 +21,12 @@ const toastVariants = {
   exit: { opacity: 0, scale: 0.8, transition: { duration: 0.2 } },
 };
 
-function CustomToast({ type, message }) {
+interface CustomToastProps {
+  type: CustomToastType;
+  message: string;
+}
+
+function CustomToast({ type, message }: CustomToastProps) {
   return (
     <motion.div
       initial="hidden"

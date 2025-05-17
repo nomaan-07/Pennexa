@@ -9,7 +9,6 @@ export async function getGroups(): Promise<Group[]> {
     throw new Error("Groups could not be loaded.");
   }
 
-  console.log(data);
   return data;
 }
 
