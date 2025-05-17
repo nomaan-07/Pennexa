@@ -1,10 +1,14 @@
-export const requiredValidation = { required: "This field is required" };
+import { RegisterOptions } from "react-hook-form";
+
+export const requiredValidation: RegisterOptions = {
+  required: "This field is required",
+};
 
 export const nameValidation = (
   field = "username",
   minLength = 4,
   maxLength = 10,
-) => ({
+): RegisterOptions => ({
   ...requiredValidation,
   minLength: {
     value: minLength,
@@ -14,12 +18,13 @@ export const nameValidation = (
     value: maxLength,
     message: `${field} must not exceed ${maxLength} characters`,
   },
-  validate: (value) => value.trim() !== "" || "This field cannot be empty",
+  validate: (value: string) =>
+    value.trim() !== "" || "This field cannot be empty",
 });
 
-export const numberValidation = {
+export const numberValidation: RegisterOptions = {
   ...requiredValidation,
-  validate: (value) => Number(value) > 0 || "Enter a valid number",
+  validate: (value: string) => Number(value) > 0 || "Enter a valid number",
 };
 
 export const emailValidation = {
@@ -28,9 +33,9 @@ export const emailValidation = {
     value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
     message: "Invalid email format",
   },
-};
+} as RegisterOptions;
 
-export const passwordValidation = {
+export const passwordValidation: RegisterOptions = {
   ...requiredValidation,
   minLength: {
     value: 8,
@@ -38,12 +43,12 @@ export const passwordValidation = {
   },
 };
 
-export const passwordConfirmValidation = {
+export const passwordConfirmValidation: RegisterOptions = {
   ...requiredValidation,
-  validate: (value, allValues) =>
-    allValues["password"] === value || "Passwords don't match",
+  validate: (value: string, allValues: Record<string, unknown>) =>
+    (allValues["password"] as string) === value || "Passwords don't match",
 };
 
-export const selectValidation = (field) => ({
+export const selectValidation = (field: string): RegisterOptions => ({
   required: `You must select the ${field}`,
 });
