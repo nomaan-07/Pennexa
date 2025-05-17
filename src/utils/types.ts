@@ -22,3 +22,5 @@ export interface Group {
   type: "income" | "expense";
   public: boolean;
 }
+
+export type CustomToastType = "success" | "failed" | "warning";

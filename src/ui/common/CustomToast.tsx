@@ -1,9 +1,8 @@
 import { AlertTriangle, CheckCircle, XCircle } from "lucide-react";
 import { motion } from "motion/react";
+import { CustomToastType } from "../../utils/types";
 
 const iconBaseStyles = "size-6 block shrink-0";
-
-type CustomToastType = "success" | "failed" | "warning";
 
 const types: Record<CustomToastType, string> = {
   success: "bg-emerald-100 dark:bg-emerald-900",
