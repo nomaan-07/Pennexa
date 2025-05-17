@@ -1,6 +1,15 @@
 import { X } from "lucide-react";
+import { ClickHandler } from "../../utils/types";
 
-function ModalCloseButton({ onClose, position = "top" }) {
+interface ModalCloseButtonProps {
+  onClose: ClickHandler;
+  position?: "top" | "bottom";
+}
+
+function ModalCloseButton({
+  onClose,
+  position = "top",
+}: ModalCloseButtonProps) {
   return (
     <X
       role="button"
