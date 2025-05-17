@@ -1,12 +1,21 @@
+import { ReactNode } from "react";
+
+type ButtonsType = "default" | "pagination" | "account";
+
 const baseStyles = "flex items-center gap-4";
 
-const types = {
+const types: Record<ButtonsType, string> = {
   default: "justify-center",
-  pagination: "flex items-center justify-between gap-4 sm:justify-center",
+  pagination: "justify-between sm:justify-center",
   account: "xs:justify-end flex justify-center",
 };
 
-function Buttons({ children, type = "default" }) {
+interface ButtonsProps {
+  children: ReactNode;
+  type?: ButtonsType;
+}
+
+function Buttons({ children, type = "default" }: ButtonsProps) {
   const styles = `${baseStyles} ${types[type]}`;
 
   return (
