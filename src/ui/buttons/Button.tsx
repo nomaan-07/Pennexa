@@ -1,7 +1,5 @@
 import { ReactNode } from "react";
-import { ClickHandler } from "../../utils/types";
-
-type ButtonType = "primary" | "secondary" | "pagination" | "danger" | "logout";
+import { ButtonType, ClickHandler } from "../../utils/types";
 
 const baseClasses =
   "md:cursor-pointer items-center justify-center rounded-full py-2.5 font-medium capitalize transition-colors select-none flex";
