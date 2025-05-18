@@ -1,7 +1,7 @@
 import { useSearchParams } from "react-router";
 
 type Field = "page" | "last" | "sortBy";
-type DefaultValue = "all" | "date-desc" | 1;
+type DefaultValue = "all" | "date-desc" | "1";
 type Option = {
   value: string;
   label: string;

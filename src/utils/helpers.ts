@@ -27,7 +27,7 @@ export function getLastDaysData<T extends DataItem>(data: T[], days: number) {
 export function filterAndSortData<T extends DataItem>(
   data: T[],
   filterValue: string,
-  sortValue: string,
+  sortValue?: string,
 ) {
   const filteredData =
     filterValue === "all" ? data : getLastDaysData(data, Number(filterValue));
