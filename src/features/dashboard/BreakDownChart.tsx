@@ -11,28 +11,56 @@ import Heading from "../../ui/layout/Heading";
 
 import { useDarkMode } from "../../hooks/useDarkMode";
 import { formatPrice } from "../../utils/helpers";
+import { Transaction, TransactionType } from "../../utils/types";
+import { ReactNode } from "react";
 
-const getColor = (isExpense, index) => {
-  const expenseColors = ["#8b5cf6", "#84cc16", "#f97316", "#06b6d4", "#f43f5e"];
-  const itemsColors = ["#ec4899", "#14b8a6", "#f59e0b", "#10b981", "#d946ef"];
+type IsExpense = boolean;
+
+type Data = Transaction[];
+
+interface AggregatedDataItem {
+  category: string;
+  value: number;
+}
+
+const getColor = (isExpense: IsExpense, index: number) => {
+  const expenseColors = [
+    "#8b5cf6",
+    "#84cc16",
+    "#f97316",
+    "#06b6d4",
+    "#f43f5e",
+  ] as const;
+  const itemsColors = [
+    "#ec4899",
+    "#14b8a6",
+    "#f59e0b",
+    "#10b981",
+    "#d946ef",
+  ] as const;
   return (isExpense ? expenseColors[index] : itemsColors[index]) || "#94a3b8";
 };
 
-function prepareChartData(data, isExpense) {
+function prepareChartData(data: Data, isExpense: IsExpense) {
   const formattedData = data.map((transaction) => ({
     category: transaction.category.name,
     amount: transaction.amount,
   }));
 
-  const aggregatedData = formattedData.reduce((acc, cur) => {
-    const existingCategory = acc.find((item) => item.category === cur.category);
-    if (existingCategory) {
-      existingCategory.value += cur.amount;
-    } else {
-      acc.push({ category: cur.category, value: cur.amount });
-    }
-    return acc;
-  }, []);
+  const aggregatedData = formattedData.reduce<AggregatedDataItem[]>(
+    (acc, cur) => {
+      const existingCategory = acc.find(
+        (item) => item.category === cur.category,
+      );
+      if (existingCategory) {
+        existingCategory.value += cur.amount;
+      } else {
+        acc.push({ category: cur.category, value: cur.amount });
+      }
+      return acc;
+    },
+    [],
+  );
 
   aggregatedData.sort((a, b) => b.value - a.value);
 
@@ -50,7 +78,12 @@ function prepareChartData(data, isExpense) {
   }));
 }
 
-function BreakDownChart({ type, data }) {
+interface BreakDownChartProps {
+  type: TransactionType;
+  data: Data;
+}
+
+function BreakDownChart({ type, data }: BreakDownChartProps) {
   const { isDarkMode } = useDarkMode();
 
   const isExpense = type === "expense";
@@ -91,7 +124,9 @@ function BreakDownChart({ type, data }) {
               itemStyle={{
                 color: isDarkMode ? "#e5e7eb" : "#374151",
               }}
-              formatter={(value) => <span>{formatPrice(value)}</span>}
+              formatter={(value: number): ReactNode => (
+                <span>{formatPrice(value)}</span>
+              )}
             />
             <Legend
               layout="horizontal"
