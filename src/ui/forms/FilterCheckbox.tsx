@@ -1,4 +1,13 @@
-function FilterCheckbox({ option, value, onChange }) {
+import { FilterValue, Option, SortValue } from "../../utils/types";
+
+type Value = FilterValue | SortValue;
+interface FilterCheckboxProps {
+  option: Option<FilterValue> | Option<SortValue>;
+  value: Value;
+  onChange: (value: Value) => void;
+}
+
+function FilterCheckbox({ option, value, onChange }: FilterCheckboxProps) {
   const { value: optionValue, label } = option;
   const isChecked = value === optionValue;
 
