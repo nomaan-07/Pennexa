@@ -1,9 +1,4 @@
-import { FilterValue, SortValue } from "../utils/types";
-
-interface Option<T extends string> {
-  value: T;
-  label: string;
-}
+import { FilterValue, Option, SortValue } from "../utils/types";
 
 export const filterOptions: Option<FilterValue>[] = [
   { value: "all", label: "All" },

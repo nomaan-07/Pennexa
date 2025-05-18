@@ -45,3 +45,7 @@ export interface Transaction {
 
 export type FilterValue = "all" | "7" | "30" | "90";
 export type SortValue = "date-desc" | "date-asc" | "amount-desc" | "amount-asc";
+export interface Option<T extends string> {
+  value: T;
+  label: string;
+}
