@@ -1,6 +1,15 @@
 import Icon from "../common/Icon";
 import { formatPrice } from "../../utils/helpers";
 
+interface CardProps {
+  icon: string;
+  iconColor: string;
+  iconBgColor: string;
+  value: number;
+  title: string;
+  formatNumber?: boolean;
+}
+
 function Card({
   icon,
   iconColor,
@@ -8,7 +17,7 @@ function Card({
   value,
   title,
   formatNumber = true,
-}) {
+}: CardProps) {
   return (
     <div className="xs:gap-4 flex items-center gap-3 rounded-xl bg-white p-4 capitalize dark:bg-slate-800">
       <Icon
