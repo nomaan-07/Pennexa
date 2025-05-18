@@ -1,6 +1,12 @@
+import { ReactNode } from "react";
 import { ArrowUpDown, Filter } from "lucide-react";
 
-function MobileFilterSort({ fieldName, children }) {
+interface MobileFilterSortProps {
+  fieldName: "sort" | "filter";
+  children: ReactNode;
+}
+
+function MobileFilterSort({ fieldName, children }: MobileFilterSortProps) {
   return (
     <div>
       <div className="flex items-center gap-4">
