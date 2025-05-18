@@ -1,6 +1,17 @@
 import Icon from "../common/Icon";
+import { ClickHandler } from "../../utils/types";
 
-function MobileFilterButton({ iconName, fieldName, onClick }) {
+interface MobileFilterButtonProps {
+  iconName: "Filter" | "ArrowUpDown";
+  fieldName: "filter" | "sort";
+  onClick: ClickHandler;
+}
+
+function MobileFilterButton({
+  iconName,
+  fieldName,
+  onClick,
+}: MobileFilterButtonProps) {
   return (
     <div
       onClick={onClick}
