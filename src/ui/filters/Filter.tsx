@@ -1,15 +1,18 @@
-import { useQueryParam } from "../../hooks/useQueryParam";
-
 import FilterButton from "../buttons/FilterButton";
 
+import { useQueryParam } from "../../hooks/useQueryParam";
 import { filterField, filterOptions } from "../../data/filter-options";
+import { FilterValue } from "../../utils/types";
 
 function Filter() {
   const { setQueryParams, getCurrentQueryParam } = useQueryParam();
-  const currentFilter = getCurrentQueryParam(filterField, filterOptions);
+  const currentFilter = getCurrentQueryParam(
+    filterField,
+    filterOptions,
+  ) as FilterValue;
 
-  function handleClick(value) {
-    setQueryParams({ [filterField]: value, page: 1 });
+  function handleClick(value: FilterValue) {
+    setQueryParams({ [filterField]: value, page: "1" });
   }
 
   return (
