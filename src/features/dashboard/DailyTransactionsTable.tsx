@@ -19,10 +19,24 @@ import { useToast } from "../../hooks/useToast";
 import { useQueryParam } from "../../hooks/useQueryParam";
 import { paginatedData } from "../../utils/helpers";
 import { PAGE_SIZE } from "../../utils/constants";
+import { Transaction } from "../../utils/types";
 
-function DailyTransactionsTable({ transactions }) {
-  const [chosenTransaction, setChosenTransaction] = useState(null);
-  const [modalType, setModalType] = useState(null);
+interface DailyTransactionTableProps {
+  transactions: Transaction[];
+}
+
+interface EditTransaction extends Transaction {
+  transactionType: "edit";
+}
+
+type ChosenTransaction = EditTransaction | number | null;
+
+type ModalType = "edit" | "delete" | null;
+
+function DailyTransactionsTable({ transactions }: DailyTransactionTableProps) {
+  const [chosenTransaction, setChosenTransaction] =
+    useState<ChosenTransaction>(null);
+  const [modalType, setModalType] = useState<ModalType>();
   const { isOpen, openModal, closeModal } = useModal();
   const { deleteTransaction, isDeleting } = useDeleteTransaction();
   const { showToast } = useToast();
@@ -32,12 +46,13 @@ function DailyTransactionsTable({ transactions }) {
   const currentPage = page <= transactions.length / PAGE_SIZE + 1 ? page : 1;
   const paginatedTransactions = paginatedData(transactions, currentPage);
 
-  function handleOpenModal(type, transaction) {
-    setChosenTransaction(() =>
-      type === "edit"
-        ? { ...transaction, transactionType: "edit" }
-        : transaction,
-    );
+  function handleOpenModal(type: ModalType, transaction: Transaction | number) {
+    if (typeof transaction === "number") {
+      setChosenTransaction(transaction);
+    } else {
+      setChosenTransaction({ ...transaction, transactionType: "edit" });
+    }
+
     setModalType(type);
     openModal();
   }
@@ -49,6 +64,8 @@ function DailyTransactionsTable({ transactions }) {
   }
 
   function handleDeleteTransaction() {
+    if (typeof chosenTransaction !== "number") return;
+
     deleteTransaction(chosenTransaction, {
       onSuccess: () => {
         handleCloseModal();
@@ -151,7 +168,7 @@ function DailyTransactionsTable({ transactions }) {
         <CreateTransactionForm
           isOpen={isOpen}
           onClose={handleCloseModal}
-          transactionToUpdate={chosenTransaction}
+          transactionToUpdate={chosenTransaction as EditTransaction}
         />
       )}
     </>

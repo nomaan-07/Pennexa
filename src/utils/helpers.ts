@@ -16,7 +16,7 @@ export function formatNumber(number: number) {
 
 interface DataItem {
   date: string;
-  amount: string;
+  amount: number;
 }
 
 export function getLastDaysData<T extends DataItem>(data: T[], days: number) {

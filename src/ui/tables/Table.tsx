@@ -14,7 +14,7 @@ interface HeaderProps {
   children: ReactNode;
 }
 
-interface BodyProps<T extends { id: string; public?: boolean }> {
+interface BodyProps<T extends { id: number; public?: boolean }> {
   data: T[];
   render: (item: T, index: number) => ReactNode;
 }
@@ -49,7 +49,7 @@ function Header({ children }: HeaderProps) {
   );
 }
 
-function Body<T extends { id: string; public?: boolean | undefined }>({
+function Body<T extends { id: number; public?: boolean | undefined }>({
   data,
   render,
 }: BodyProps<T>) {

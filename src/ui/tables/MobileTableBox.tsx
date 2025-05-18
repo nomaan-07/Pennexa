@@ -8,16 +8,16 @@ import { formatDate, formatNumber, formatPrice } from "../../utils/helpers";
 import { GroupColors, Transaction } from "../../utils/types";
 
 interface Item extends Transaction {
-  name: string;
-  icon: string;
-  colors: GroupColors;
+  name?: string;
+  icon?: string;
+  colors?: GroupColors;
 }
 interface MobileTableBoxProps {
   children: ReactNode;
   title: "source" | "category";
   item: Item;
   number: number;
-  variation: "group" | "transaction";
+  variation?: "group" | "transaction";
   isDashboard?: boolean;
 }
 
@@ -86,14 +86,14 @@ function MobileTableBox({
             <Row>
               <span>icon</span>
               <span>
-                <Icon name={item.icon} className="*:size-4.5 sm:*:size-5" />
+                <Icon name={item.icon!} className="*:size-4.5 sm:*:size-5" />
               </span>
             </Row>
             <Row>
               <span>{title}</span>
               <span>
                 <div
-                  className={`size-5 rounded-full ${item.colors.bgColor600}`}
+                  className={`size-5 rounded-full ${item.colors!.bgColor600}`}
                 ></div>
               </span>
             </Row>
