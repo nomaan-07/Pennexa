@@ -1,8 +1,25 @@
+import { ReactNode } from "react";
+
 import Badge from "../common/Badge";
 import Row from "../layout/Row";
 import Icon from "../common/Icon";
 
 import { formatDate, formatNumber, formatPrice } from "../../utils/helpers";
+import { GroupColors, Transaction } from "../../utils/types";
+
+interface Item extends Transaction {
+  name: string;
+  icon: string;
+  colors: GroupColors;
+}
+interface MobileTableBoxProps {
+  children: ReactNode;
+  title: "source" | "category";
+  item: Item;
+  number: number;
+  variation: "group" | "transaction";
+  isDashboard?: boolean;
+}
 
 function MobileTableBox({
   children,
@@ -10,8 +27,8 @@ function MobileTableBox({
   item,
   number,
   variation = "transaction",
-  isDashboard,
-}) {
+  isDashboard = false,
+}: MobileTableBoxProps) {
   const { amount, date, category, type } = item;
 
   return (
@@ -76,7 +93,7 @@ function MobileTableBox({
               <span>{title}</span>
               <span>
                 <div
-                  className={`size-5 rounded-full ${item.bgColor600 || item.colors.bgColor600}`}
+                  className={`size-5 rounded-full ${item.colors.bgColor600}`}
                 ></div>
               </span>
             </Row>
