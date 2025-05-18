@@ -19,31 +19,74 @@ import {
   selectValidation,
 } from "../../utils/validations";
 import { useUpdateTransaction } from "./useUpdateTransaction";
+import { ClickHandler, Transaction } from "../../utils/types";
 
-function getChangedFields(currentData, defaultData) {
-  const changedFields = {};
+interface ChangeFieldDefault extends Omit<Transaction, "id"> {
+  transactionType: string;
+}
 
-  Object.keys(currentData).forEach((key) => {
+interface ChangedFieldCurrent extends Omit<ChangeFieldDefault, "category"> {
+  category: string;
+}
+
+type ChangedFields = Partial<
+  Record<
+    keyof ChangedFieldCurrent,
+    ChangedFieldCurrent[keyof ChangedFieldCurrent]
+  >
+>;
+
+function getChangedFields(
+  currentData: ChangedFieldCurrent,
+  defaultData: ChangeFieldDefault,
+): ChangedFields {
+  const changedFields: ChangedFields = {};
+
+  (Object.keys(currentData) as (keyof ChangedFieldCurrent)[]).forEach((key) => {
     if (key === "category") {
       if (currentData.category !== defaultData.category.name) {
         changedFields.category = currentData.category;
       }
-    } else if (currentData[key] !== defaultData[key]) {
-      changedFields[key] = currentData[key];
+    } else {
+      const currentValue = currentData[key];
+      const defaultValue = defaultData[key as keyof ChangeFieldDefault];
+
+      if (
+        currentValue !== defaultValue &&
+        currentValue !== null &&
+        currentValue !== undefined
+      ) {
+        changedFields[key] = currentValue;
+      }
     }
   });
 
   return changedFields;
 }
 
-function CreateTransactionForm({ isOpen, onClose, transactionToUpdate = {} }) {
+interface TransactionToUpdate extends Transaction {
+  transactionType: string;
+}
+
+interface CreateTransactionFormProps {
+  isOpen?: boolean;
+  onClose: ClickHandler;
+  transactionToUpdate: TransactionToUpdate;
+}
+
+function CreateTransactionForm({
+  isOpen,
+  onClose,
+  transactionToUpdate = {} as TransactionToUpdate,
+}: CreateTransactionFormProps) {
   const { showToast } = useToast();
   const { groups, isGroupsLoading } = useGroups();
-  const { createTransaction, isCreating } = useCreateTransaction("income");
+  const { createTransaction, isCreating } = useCreateTransaction();
   const { updateTransaction, isUpdating } = useUpdateTransaction();
 
   const { id: editId, ...editedValues } = transactionToUpdate;
   const isUpdateSession = Boolean(editId);
+  const transactionGroups = groups ?? [];
 
   const {
     register,
@@ -51,7 +94,7 @@ function CreateTransactionForm({ isOpen, onClose, transactionToUpdate = {} }) {
     formState: { errors },
     watch,
     reset,
-  } = useForm({
+  } = useForm<ChangedFieldCurrent>({
     defaultValues: isUpdateSession
       ? {
           ...editedValues,
@@ -65,8 +108,12 @@ function CreateTransactionForm({ isOpen, onClose, transactionToUpdate = {} }) {
 
   if (isGroupsLoading) return null;
 
-  const expenseGroups = groups.filter((group) => group.type === "expense");
-  const incomeGroups = groups.filter((group) => group.type === "income");
+  const expenseGroups = transactionGroups.filter(
+    (group) => group.type === "expense",
+  );
+  const incomeGroups = transactionGroups.filter(
+    (group) => group.type === "income",
+  );
 
   const categories =
     watchedValues.type === "expense" ||
@@ -74,8 +121,12 @@ function CreateTransactionForm({ isOpen, onClose, transactionToUpdate = {} }) {
       ? expenseGroups
       : incomeGroups;
 
-  function onSubmit(data) {
-    const chosenGroup = groups.find((group) => group.name === data.category);
+  function onSubmit(data: ChangedFieldCurrent) {
+    const chosenGroup = transactionGroups.find(
+      (group) => group.name === data.category,
+    );
+
+    if (!chosenGroup) return;
 
     if (isUpdateSession) {
       const changedFields = getChangedFields(
@@ -101,14 +152,20 @@ function CreateTransactionForm({ isOpen, onClose, transactionToUpdate = {} }) {
           : undefined,
       };
 
-      Object.keys(updatedTransaction).forEach(
-        (key) =>
-          updatedTransaction[key] === undefined &&
-          delete updatedTransaction[key],
-      );
+      Object.keys(updatedTransaction).forEach((key) => {
+        const typedKey = key as keyof typeof updatedTransaction;
+        if (updatedTransaction[typedKey] === undefined) {
+          delete updatedTransaction[typedKey];
+        }
+      });
 
       updateTransaction(
-        { id: editId, updatedTransaction },
+        {
+          id: editId,
+          updatedTransaction: updatedTransaction as Partial<
+            Omit<Transaction, "id">
+          >,
+        },
         {
           onSuccess: () => {
             showToast("success", "Transaction updated successfully");
@@ -158,7 +215,7 @@ function CreateTransactionForm({ isOpen, onClose, transactionToUpdate = {} }) {
           <FormRow error={errors?.type?.message}>
             <p>Choose the transaction:</p>
             <FormChips>
-              <FormChip
+              <FormChip<ChangedFieldCurrent>
                 field="type"
                 activeClasses="bg-rose-50 text-rose-500"
                 name="expense"
@@ -167,7 +224,7 @@ function CreateTransactionForm({ isOpen, onClose, transactionToUpdate = {} }) {
                 register={register}
                 validation={selectValidation("transaction type")}
               />
-              <FormChip
+              <FormChip<ChangedFieldCurrent>
                 field="type"
                 activeClasses="bg-emerald-50 text-emerald-500"
                 name="income"
@@ -185,7 +242,7 @@ function CreateTransactionForm({ isOpen, onClose, transactionToUpdate = {} }) {
             <p>Choose the Category:</p>
             <FormChips>
               {categories.map((group) => (
-                <FormChip
+                <FormChip<ChangedFieldCurrent>
                   field="category"
                   activeClasses={`${group.colors.textColor} ${group.colors.bgColor100}`}
                   name={group.name}
@@ -194,7 +251,6 @@ function CreateTransactionForm({ isOpen, onClose, transactionToUpdate = {} }) {
                   register={register}
                   key={group.name}
                   validation={selectValidation("category")}
-                  colors={group.colors}
                 />
               ))}
             </FormChips>
@@ -211,7 +267,7 @@ function CreateTransactionForm({ isOpen, onClose, transactionToUpdate = {} }) {
               type="date"
               register={register}
               field="date"
-              validation={requiredValidation}
+              validation={requiredValidation<ChangedFieldCurrent>()}
             />
           </FormRow>
           <FormRow
@@ -224,12 +280,12 @@ function CreateTransactionForm({ isOpen, onClose, transactionToUpdate = {} }) {
               type="number"
               register={register}
               field="amount"
-              validation={numberValidation}
+              validation={numberValidation<ChangedFieldCurrent>()}
             />
           </FormRow>
         </FormRow>
         <FormRow label="Description:" error={errors?.description?.message}>
-          <Textarea
+          <Textarea<ChangedFieldCurrent>
             id="description"
             register={register}
             field="description"

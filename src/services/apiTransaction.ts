@@ -20,7 +20,6 @@ type NewTransaction = Omit<
 >;
 
 export async function createTransaction(newTransaction: NewTransaction) {
-  console.log(newTransaction);
   const { error } = await supabase
     .from("pennexa-transactions")
     .insert([newTransaction])

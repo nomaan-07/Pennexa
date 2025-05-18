@@ -1,8 +1,13 @@
-import { FieldValues, RegisterOptions, UseFormRegister } from "react-hook-form";
+import {
+  FieldValues,
+  Path,
+  RegisterOptions,
+  UseFormRegister,
+} from "react-hook-form";
 import Badge from "../common/Badge";
 
 interface FormChipProps<T extends FieldValues = FieldValues> {
-  field: string;
+  field: Path<T>;
   activeClasses?: string;
   name: string;
   register: UseFormRegister<T>;
@@ -11,7 +16,7 @@ interface FormChipProps<T extends FieldValues = FieldValues> {
   validation?: RegisterOptions<T>;
 }
 
-function FormChip({
+function FormChip<T extends FieldValues = FieldValues>({
   field,
   activeClasses,
   name,
@@ -19,7 +24,7 @@ function FormChip({
   iconName,
   isActive = false,
   validation,
-}: FormChipProps) {
+}: FormChipProps<T>) {
   return (
     <label htmlFor={name}>
       <Badge

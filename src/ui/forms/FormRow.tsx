@@ -9,7 +9,7 @@ const types: Record<FormRowType, string> = {
 };
 
 interface FormRowProps {
-  type: FormRowType;
+  type?: FormRowType;
   label?: string;
   error?: string;
   children: ReactNode;

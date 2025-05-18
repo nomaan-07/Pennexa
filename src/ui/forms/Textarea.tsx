@@ -1,13 +1,23 @@
-import { FieldValues, RegisterOptions, UseFormRegister } from "react-hook-form";
+import {
+  FieldValues,
+  Path,
+  RegisterOptions,
+  UseFormRegister,
+} from "react-hook-form";
 
 interface TextareaProps<T extends FieldValues = FieldValues> {
   id?: string;
   register: UseFormRegister<T>;
-  field: string;
+  field: Path<T>;
   validation?: RegisterOptions<T>;
 }
 
-function Textarea({ id, register, field, validation }: TextareaProps) {
+function Textarea<T extends FieldValues = FieldValues>({
+  id,
+  register,
+  field,
+  validation,
+}: TextareaProps<T>) {
   return (
     <textarea
       id={id}

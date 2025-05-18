@@ -1,5 +1,4 @@
-import { ReactNode } from "react";
-import { FieldValues, SubmitHandler } from "react-hook-form";
+import { FormEvent, ReactNode } from "react";
 
 type FormType = "modal" | "regular" | "auth";
 
@@ -14,7 +13,7 @@ const types: Record<FormType, string> = {
 
 interface FormProps {
   children: ReactNode;
-  onSubmit: SubmitHandler<FieldValues>;
+  onSubmit: (e: FormEvent<HTMLFormElement>) => void;
   type?: FormType;
 }
 

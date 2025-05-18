@@ -20,7 +20,7 @@ const typeClasses: Record<ButtonType, string> = {
 interface ButtonProps {
   type?: ButtonType;
   children: ReactNode;
-  onClick: ClickHandler;
+  onClick?: ClickHandler;
   disabled?: boolean;
 }
 
