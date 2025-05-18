@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import { eachDayOfInterval, format, isSameDay, subDays } from "date-fns";
 import {
   Area,
@@ -13,15 +14,23 @@ import Heading from "../../ui/layout/Heading";
 
 import { useDarkMode } from "../../hooks/useDarkMode";
 import { formatPrice } from "../../utils/helpers";
+import { Transaction } from "../../utils/types";
 
-function TrendsChart({ incomes, expenses, days }) {
+interface TrendChartProps {
+  incomes: Transaction[];
+  expenses: Transaction[];
+  days: "all" | "90" | "30" | "7";
+}
+function TrendsChart({ incomes, expenses, days }: TrendChartProps) {
   const { isDarkMode } = useDarkMode();
 
   const startDate =
     days === "all"
       ? new Date(
           Math.min(
-            ...[...incomes, ...expenses].map((item) => new Date(item.date)),
+            ...[...incomes, ...expenses].map((item) =>
+              new Date(item.date).getTime(),
+            ),
           ),
         )
       : subDays(new Date(), parseInt(days) - 1);
@@ -49,8 +58,8 @@ function TrendsChart({ incomes, expenses, days }) {
   return (
     <div className="rounded-xl bg-white p-4 capitalize dark:bg-slate-800">
       <Heading type="h6" className="mb-6">
-        {format(allDates.at(0), "MMM dd, yyyy")} &mdash;{" "}
-        {format(allDates.at(-1), "MMM dd, yyyy")}
+        {format(allDates.at(0) ?? new Date(), "MMM dd, yyyy")} &mdash;{" "}
+        {format(allDates.at(-1) ?? new Date(), "MMM dd, yyyy")}
       </Heading>
       <div className="text-xs">
         <ResponsiveContainer height={300} width="100%">
@@ -80,7 +89,9 @@ function TrendsChart({ incomes, expenses, days }) {
               itemStyle={{
                 color: isDarkMode ? "#e5e7eb" : "#374151",
               }}
-              formatter={(value) => <span>{formatPrice(value)}</span>}
+              formatter={(value: number): ReactNode => (
+                <span>{formatPrice(value)}</span>
+              )}
             />
             <Area
               dataKey="incomes"
