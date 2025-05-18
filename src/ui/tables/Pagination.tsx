@@ -6,7 +6,12 @@ import Button from "../buttons/Button";
 import { useQueryParam } from "../../hooks/useQueryParam";
 import { PAGE_SIZE } from "../../utils/constants";
 
-function Pagination({ currentPage, count }) {
+interface PaginationProps {
+  currentPage: number;
+  count: number;
+}
+
+function Pagination({ currentPage, count }: PaginationProps) {
   const { setQueryParam } = useQueryParam();
 
   const safeCurrentPage = Math.max(1, Number(currentPage)) || 1;
@@ -22,12 +27,12 @@ function Pagination({ currentPage, count }) {
 
   function nextPage() {
     const next = isNextDisabled ? clampedPage : currentPage + 1;
-    setQueryParam("page", next);
+    setQueryParam("page", String(next));
   }
 
   function prevPage() {
     const prev = isPrevDisabled ? clampedPage : currentPage - 1;
-    setQueryParam("page", prev);
+    setQueryParam("page", String(prev));
   }
 
   return (
