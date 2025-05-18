@@ -1,6 +1,7 @@
 import Card from "../../ui/card/Card";
+import { Transaction } from "../../utils/types";
 
-const getNetBalanceStyles = (balance) => ({
+const getNetBalanceStyles = (balance: number) => ({
   icon:
     balance > 0
       ? "LucideTrendingUp"
@@ -21,7 +22,12 @@ const getNetBalanceStyles = (balance) => ({
         : "bg-pink-100 dark:bg-pink-900",
 });
 
-function SummaryCards({ incomes, expenses }) {
+interface SummaryCardsProps {
+  incomes: Transaction[];
+  expenses: Transaction[];
+}
+
+function SummaryCards({ incomes, expenses }: SummaryCardsProps) {
   const totalIncomes = incomes.reduce((acc, curr) => acc + curr.amount, 0);
   const totalExpenses = expenses.reduce((acc, curr) => acc + curr.amount, 0);
   const netBalance = totalIncomes - totalExpenses;
