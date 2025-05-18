@@ -42,3 +42,6 @@ export interface Transaction {
   public: boolean;
   description: string;
 }
+
+export type FilterValue = "all" | "7" | "30" | "90";
+export type SortValue = "date-desc" | "date-asc" | "amount-desc" | "amount-asc";

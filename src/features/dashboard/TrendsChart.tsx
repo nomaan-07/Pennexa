@@ -14,12 +14,12 @@ import Heading from "../../ui/layout/Heading";
 
 import { useDarkMode } from "../../hooks/useDarkMode";
 import { formatPrice } from "../../utils/helpers";
-import { Transaction } from "../../utils/types";
+import { FilterValue, Transaction } from "../../utils/types";
 
 interface TrendChartProps {
   incomes: Transaction[];
   expenses: Transaction[];
-  days: "all" | "90" | "30" | "7";
+  days: FilterValue;
 }
 function TrendsChart({ incomes, expenses, days }: TrendChartProps) {
   const { isDarkMode } = useDarkMode();
