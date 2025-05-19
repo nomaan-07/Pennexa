@@ -9,7 +9,11 @@ import {
   sortOptions,
 } from "../../data/filter-options";
 
-function TableOperations({ isDashboard }) {
+interface TableOperationsProps {
+  isDashboard?: boolean;
+}
+
+function TableOperations({ isDashboard = false }: TableOperationsProps) {
   return (
     <Row>
       <Filter />
