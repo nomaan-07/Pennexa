@@ -1,4 +1,12 @@
-function SortButton({ option, onClick, currentSort }) {
+import { Option, SortValue } from "../../utils/types";
+
+interface SortButtonProps {
+  option: Option<SortValue>;
+  onClick: (value: SortValue) => void;
+  currentSort: SortValue;
+}
+
+function SortButton({ option, onClick, currentSort }: SortButtonProps) {
   const { value, label } = option;
   const isActive = currentSort === value;
 
@@ -7,7 +15,6 @@ function SortButton({ option, onClick, currentSort }) {
   return (
     <button
       onClick={() => onClick(value)}
-      disabled={isActive}
       className="h-12 w-full cursor-pointer transition-colors hover:bg-emerald-50 hover:text-emerald-500 dark:hover:bg-emerald-500/10 dark:hover:text-inherit"
     >
       {label}
