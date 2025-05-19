@@ -5,7 +5,12 @@ import CreateGroupForm from "../../features/groups/CreateGroupForm";
 
 import { useModal } from "../../hooks/uesModal";
 
-function AddGroup({ incomeCount, expenseCount }) {
+interface AddGroupProps {
+  incomeCount: number;
+  expenseCount: number;
+}
+
+function AddGroup({ incomeCount, expenseCount }: AddGroupProps) {
   const { isOpen, openModal, closeModal } = useModal();
 
   return (
