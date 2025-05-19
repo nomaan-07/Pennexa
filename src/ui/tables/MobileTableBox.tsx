@@ -5,13 +5,27 @@ import Row from "../layout/Row";
 import Icon from "../common/Icon";
 
 import { formatDate, formatNumber, formatPrice } from "../../utils/helpers";
-import { GroupColors, Transaction } from "../../utils/types";
+import {
+  GroupColors,
+  TransactionCategory,
+  TransactionType,
+} from "../../utils/types";
 
-interface Item extends Transaction {
+interface Item {
+  id: number;
+  created_at: string;
+  type: TransactionType;
+  public: boolean;
+  edited_at?: string | null;
+  category?: TransactionCategory;
+  amount?: number;
+  date?: string;
+  description?: string;
   name?: string;
   icon?: string;
   colors?: GroupColors;
 }
+
 interface MobileTableBoxProps {
   children: ReactNode;
   title: "source" | "category";
@@ -60,20 +74,20 @@ function MobileTableBox({
             <Row>
               <span>{title}</span>
               <Badge
-                name={category.name}
-                className={`${category.textColor} ${category.bgColor100}`}
-                icon={category.icon}
+                name={category!.name}
+                className={`${category!.textColor} ${category!.bgColor100}`}
+                icon={category!.icon}
                 iconStyles="*:size-4"
               />
             </Row>
             <Row>
               <span>amount</span>
-              <span>{formatPrice(amount)}</span>
+              <span>{formatPrice(amount as number)}</span>
             </Row>
             {!isDashboard && (
               <Row>
                 <span>date</span>
-                <span>{formatDate(date)}</span>
+                <span>{formatDate(date as string)}</span>
               </Row>
             )}
           </>

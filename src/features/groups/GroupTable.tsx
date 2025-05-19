@@ -10,21 +10,29 @@ import ActionButtons from "../../ui/common/ActionButtons";
 import { useDeleteGroup } from "./useDeleteGroup";
 import { useModal } from "../../hooks/uesModal";
 import { useToast } from "../../hooks/useToast";
+import { Group, TransactionType } from "../../utils/types";
 
-function GroupTable({ groups, type }) {
-  const [deleteId, setDeleteId] = useState(null);
+interface GroupTableProps {
+  groups: Group[];
+  type: TransactionType;
+}
+
+function GroupTable({ groups, type }: GroupTableProps) {
+  const [deleteId, setDeleteId] = useState<number | null>(null);
   const { isDeleting, deleteGroup } = useDeleteGroup();
   const { isOpen, closeModal, openModal } = useModal();
   const { showToast } = useToast();
 
   const title = type === "expense" ? "category" : "source";
 
-  function handleOpenDeleteModal(id) {
+  function handleOpenDeleteModal(id: number) {
     setDeleteId(id);
     openModal();
   }
 
   function handleDeleteGroup() {
+    if (!deleteId) return;
+
     deleteGroup(deleteId, {
       onSuccess: () => {
         showToast("success", "Group successfully deleted.");
