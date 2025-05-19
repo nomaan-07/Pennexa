@@ -12,7 +12,6 @@ interface GroupTableRowProps {
 }
 
 function GroupTableRow({ number, group, children }: GroupTableRowProps) {
-  console.log(group);
   const {
     name,
     colors: { bgColor600 },

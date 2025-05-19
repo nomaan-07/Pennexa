@@ -1,6 +1,11 @@
 import { Trash2 } from "lucide-react";
+import { ClickHandler } from "../../utils/types";
 
-function GroupTableDeleteButton({ onClick }) {
+interface GroupTableDeleteButtonProps {
+  onClick: ClickHandler;
+}
+
+function GroupTableDeleteButton({ onClick }: GroupTableDeleteButtonProps) {
   return (
     <div className="mx-auto">
       <Trash2
