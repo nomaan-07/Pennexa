@@ -1,5 +1,6 @@
 import { UserAttributes } from "@supabase/supabase-js";
 import supabase, { supabaseUrl } from "./supabase";
+import { Avatar } from "../utils/types";
 
 interface Signup {
   email: string;
@@ -13,9 +14,9 @@ interface Login {
 }
 
 interface UpdateCurrentUser {
-  password: string;
-  username: string;
-  avatar: File | null;
+  password?: string;
+  username?: string;
+  avatar: Avatar;
 }
 
 export async function signup({ email, password, username }: Signup) {

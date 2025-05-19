@@ -1,13 +1,17 @@
 import { ChangeEvent, useRef } from "react";
 import { Upload } from "lucide-react";
 import { useToast } from "../../hooks/useToast";
+import { Avatar } from "../../utils/types";
 
-interface AvatarUploadProps {
-  setValue: (value: string, file: File) => void;
-  avatar: string | File;
+interface AvatarUploadProps<T extends { avatar: Avatar }> {
+  setValue: (fieldName: keyof T, value: File) => void;
+  avatar: Avatar;
 }
 
-function AvatarUpload({ setValue, avatar }: AvatarUploadProps) {
+function AvatarUpload<T extends { avatar: Avatar }>({
+  setValue,
+  avatar,
+}: AvatarUploadProps<T>) {
   const { showToast } = useToast();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -25,7 +29,7 @@ function AvatarUpload({ setValue, avatar }: AvatarUploadProps) {
         return;
       }
 
-      setValue("avatar", file);
+      setValue("avatar" as keyof T, file);
     }
   };
 

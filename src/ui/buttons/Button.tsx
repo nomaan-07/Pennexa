@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { MouseEvent, ReactNode } from "react";
 import { ButtonType, ClickHandler } from "../../utils/types";
 
 const baseClasses =
@@ -20,7 +20,7 @@ const typeClasses: Record<ButtonType, string> = {
 interface ButtonProps {
   type?: ButtonType;
   children: ReactNode;
-  onClick?: ClickHandler;
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
   className?: string;
 }

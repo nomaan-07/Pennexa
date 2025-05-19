@@ -1,3 +1,4 @@
+import { MouseEvent } from "react";
 import { useForm } from "react-hook-form";
 
 import Form from "../../ui/forms/Form";
@@ -11,13 +12,20 @@ import { nameValidation } from "../../utils/validations";
 import { useUser } from "./useUser";
 import { useUpdateUser } from "./useUpdateUser";
 import { useToast } from "../../hooks/useToast";
+import { Avatar } from "../../utils/types";
+
+interface UserData {
+  avatar: Avatar;
+  email?: string;
+  username: string;
+}
 
 function UpdateUserDataForm() {
   const { user } = useUser();
   const { updateUser, isUpdating } = useUpdateUser();
   const { showToast } = useToast();
 
-  const avatar = user?.user_metadata?.avatar || "";
+  const avatar = user?.user_metadata?.avatar || null;
   const username = user?.user_metadata?.username || "";
   const {
     register,
@@ -26,7 +34,7 @@ function UpdateUserDataForm() {
     watch,
     setValue,
     reset,
-  } = useForm({
+  } = useForm<UserData>({
     defaultValues: {
       email: user?.email || "",
       username,
@@ -34,10 +42,10 @@ function UpdateUserDataForm() {
     },
   });
 
-  function onSubmit(data) {
-    const updatedUser = {
+  function onSubmit(data: UserData) {
+    const updatedUser: UserData = {
       username: data.username,
-      avatar: typeof data.avatar === "string" ? null : data.avatar,
+      avatar: data.avatar instanceof File ? data.avatar : null,
     };
 
     updateUser(updatedUser, {
@@ -48,7 +56,7 @@ function UpdateUserDataForm() {
     });
   }
 
-  function handleReset(e) {
+  function handleReset(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     reset({ avatar, username });
   }
@@ -64,7 +72,7 @@ function UpdateUserDataForm() {
           label="Username"
           error={errors?.username?.message}
         >
-          <Input
+          <Input<UserData>
             type="text"
             register={register}
             field="username"
