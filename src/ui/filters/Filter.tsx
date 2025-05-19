@@ -10,6 +10,7 @@ function Filter() {
     filterField,
     filterOptions,
   ) as FilterValue;
+  console.log(currentFilter);
 
   function handleClick(value: FilterValue) {
     setQueryParams({ [filterField]: value, page: "1" });

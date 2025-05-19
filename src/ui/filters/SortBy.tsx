@@ -1,23 +1,25 @@
 import { useState } from "react";
-import { useQueryParam } from "../../hooks/useQueryParam";
-import { useClickOutside } from "../../hooks/useClickOutside";
-import { sortField, sortOptions } from "../../data/filter-options";
 
 import SortButton from "../buttons/SortButton";
 
+import { useQueryParam } from "../../hooks/useQueryParam";
+import { useClickOutside } from "../../hooks/useClickOutside";
+import { sortField, sortOptions } from "../../data/filter-options";
+import { SortValue } from "../../utils/types";
+
 function SortBy() {
   const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useClickOutside(() => setIsOpen(false));
+  const dropdownRef = useClickOutside<HTMLDivElement>(() => setIsOpen(false));
   const { setQueryParams, getCurrentQueryParam } = useQueryParam();
 
-  const currentSort = getCurrentQueryParam(sortField, sortOptions);
+  const currentSort = getCurrentQueryParam(sortField, sortOptions) as SortValue;
 
   const currentSortLabel = sortOptions.find(
     (option) => option.value === currentSort,
-  ).label;
+  )!.label;
 
-  const handleClick = (value) => {
-    setQueryParams({ [sortField]: value, page: 1 });
+  const handleClick = (value: SortValue) => {
+    setQueryParams({ [sortField]: value, page: "1" });
     setIsOpen((isOpen) => !isOpen);
   };
 
