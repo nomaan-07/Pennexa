@@ -21,19 +21,28 @@ import { filterAndSortData, paginatedData } from "../../utils/helpers";
 import { filterField, sortField } from "../../data/filter-options";
 import { useQueryParam } from "../../hooks/useQueryParam";
 import { PAGE_SIZE } from "../../utils/constants";
+import { Transaction } from "../../utils/types";
+
+interface EditExpense extends Transaction {
+  transactionType: "edit";
+}
+
+type ChosenExpense = EditExpense | number | null;
+
+type ModalType = "edit" | "delete" | null;
 
 function ExpensesTable() {
-  const [modalType, setModalType] = useState(null);
-  const [chosenExpense, setChosenExpense] = useState(null);
+  const [modalType, setModalType] = useState<ModalType>(null);
+  const [chosenExpense, setChosenExpense] = useState<ChosenExpense>(null);
   const { transactions, isLoading } = useTransactions();
   const { deleteTransaction, isDeleting } = useDeleteTransaction();
   const { isOpen, openModal, closeModal } = useModal();
   const { showToast } = useToast();
   const { getQueryParam } = useQueryParam();
 
-  if (isLoading) return <Spinner />;
+  if (isLoading || !transactions) return <Spinner />;
 
-  const expenses = transactions?.filter(
+  const expenses = transactions.filter(
     (transaction) => transaction.type === "expense",
   );
 
@@ -42,16 +51,16 @@ function ExpensesTable() {
 
   const filteredExpenses = filterAndSortData(expenses, filterValue, sortValue);
 
-  const page = Number(getQueryParam("page", 1));
+  const page = Number(getQueryParam("page", "1"));
   const currentPage = page <= expenses.length / PAGE_SIZE + 1 ? page : 1;
   const paginatedExpenses = paginatedData(filteredExpenses, currentPage);
 
-  function handleOpenModal(type, transaction) {
-    setChosenExpense(() =>
-      type === "edit"
-        ? { ...transaction, transactionType: "edit" }
-        : transaction,
-    );
+  function handleOpenModal(type: ModalType, transaction: Transaction | number) {
+    if (typeof transaction === "number") {
+      setChosenExpense(transaction);
+    } else {
+      setChosenExpense({ ...transaction, transactionType: "edit" });
+    }
 
     setModalType(type);
     openModal();
@@ -64,6 +73,8 @@ function ExpensesTable() {
   }
 
   function handleDeleteExpense() {
+    if (typeof chosenExpense !== "number") return;
+
     deleteTransaction(chosenExpense, {
       onSuccess: () => {
         handleCloseModal();
@@ -156,7 +167,7 @@ function ExpensesTable() {
         <CreateTransactionForm
           isOpen={isOpen}
           onClose={handleCloseModal}
-          transactionToUpdate={chosenExpense}
+          transactionToUpdate={chosenExpense as EditExpense}
         />
       )}
     </>

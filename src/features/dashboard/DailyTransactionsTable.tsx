@@ -42,7 +42,7 @@ function DailyTransactionsTable({ transactions }: DailyTransactionTableProps) {
   const { showToast } = useToast();
   const { getQueryParam } = useQueryParam();
 
-  const page = Number(getQueryParam("page", 1));
+  const page = Number(getQueryParam("page", "1"));
   const currentPage = page <= transactions.length / PAGE_SIZE + 1 ? page : 1;
   const paginatedTransactions = paginatedData(transactions, currentPage);
 
