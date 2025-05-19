@@ -13,7 +13,7 @@ type Icon = {
 
 interface GroupFormIconProps<T extends FieldValues = FieldValues> {
   icon: Icon;
-  iconValidation?: RegisterOptions<T>;
+  iconValidation: RegisterOptions<T>;
   register: UseFormRegister<T>;
   isActive: boolean;
 }
