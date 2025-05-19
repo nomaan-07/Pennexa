@@ -1,8 +1,18 @@
 import Icon from "../common/Icon";
 import Table from "./Table";
-import { formatNumber } from "../../utils/helpers";
 
-function GroupTableRow({ number, group, children }) {
+import { formatNumber } from "../../utils/helpers";
+import { Group } from "../../utils/types";
+import { ReactNode } from "react";
+
+interface GroupTableRowProps {
+  number: number;
+  group: Group;
+  children: ReactNode;
+}
+
+function GroupTableRow({ number, group, children }: GroupTableRowProps) {
+  console.log(group);
   const {
     name,
     colors: { bgColor600 },
