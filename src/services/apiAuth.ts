@@ -1,6 +1,24 @@
+import { UserAttributes } from "@supabase/supabase-js";
 import supabase, { supabaseUrl } from "./supabase";
 
-export async function signup({ email, password, username }) {
+interface Signup {
+  email: string;
+  password: string;
+  username: string;
+}
+
+interface Login {
+  email: string;
+  password: string;
+}
+
+interface UpdateCurrentUser {
+  password: string;
+  username: string;
+  avatar: File | null;
+}
+
+export async function signup({ email, password, username }: Signup) {
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
@@ -17,7 +35,7 @@ export async function signup({ email, password, username }) {
   return data;
 }
 
-export async function login({ email, password }) {
+export async function login({ email, password }: Login) {
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
@@ -42,8 +60,12 @@ export async function logout() {
   if (error) throw new Error(error.message);
 }
 
-export async function updateCurrentUser({ password, username, avatar }) {
-  let updateData;
+export async function updateCurrentUser({
+  password,
+  username,
+  avatar,
+}: UpdateCurrentUser) {
+  let updateData: UserAttributes = {};
 
   if (password) updateData = { password };
   if (username) updateData = { data: { username } };
