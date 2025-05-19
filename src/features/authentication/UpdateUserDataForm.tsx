@@ -8,7 +8,7 @@ import Buttons from "../../ui/buttons/Buttons";
 import Button from "../../ui/buttons/Button";
 
 import { nameValidation } from "../../utils/validations";
-import { useUser } from "../authentication/useUser";
+import { useUser } from "./useUser";
 import { useUpdateUser } from "./useUpdateUser";
 import { useToast } from "../../hooks/useToast";
 

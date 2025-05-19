@@ -1,13 +1,19 @@
-import { useRef } from "react";
+import { ChangeEvent, useRef } from "react";
 import { Upload } from "lucide-react";
 import { useToast } from "../../hooks/useToast";
 
-const AvatarUpload = ({ setValue, avatar }) => {
-  const { showToast } = useToast();
-  const fileInputRef = useRef(null);
+interface AvatarUploadProps {
+  setValue: (value: string, file: File) => void;
+  avatar: string | File;
+}
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
+function AvatarUpload({ setValue, avatar }: AvatarUploadProps) {
+  const { showToast } = useToast();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    const file = target.files?.[0];
 
     if (file) {
       if (!file.type.startsWith("image/")) {
@@ -35,12 +41,12 @@ const AvatarUpload = ({ setValue, avatar }) => {
 
       <div
         className="xs:h-11 flex h-9 items-center gap-2 rounded-full border border-emerald-500 px-4 transition-colors md:cursor-pointer md:hover:bg-emerald-50 dark:md:hover:bg-emerald-950"
-        onClick={() => fileInputRef.current.click()}
+        onClick={() => fileInputRef.current?.click()}
       >
         <Upload className="size-3.5 shrink-0 sm:size-4" strokeWidth={2.5} />
 
         <p className="flex items-center gap-2 text-xs sm:text-sm">
-          {avatar?.name ? (
+          {typeof avatar !== "string" && avatar?.name ? (
             <>
               <span>{avatar.name.split("").splice(0, 15).join("")}</span>
               <span>{(avatar.size / (1024 * 1024)).toFixed(2)} MB</span>
@@ -52,6 +58,6 @@ const AvatarUpload = ({ setValue, avatar }) => {
       </div>
     </div>
   );
-};
+}
 
 export default AvatarUpload;
