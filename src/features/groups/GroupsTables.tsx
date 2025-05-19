@@ -8,11 +8,14 @@ import { useGroups } from "./useGroups";
 function GroupsTables() {
   const { isGroupsLoading, groups } = useGroups();
 
-  if (isGroupsLoading) {
-    return <Spinner />;
-  }
+  if (isGroupsLoading || !groups) return <Spinner />;
 
-  const sortedGroups = [...groups].sort((a, b) => b.public - a.public);
+  const sortedGroups = [...groups].sort((a, b) => {
+    const aValue = a.public ? 1 : 0;
+    const bValue = b.public ? 1 : 0;
+    return bValue - aValue;
+  });
+
   const expenseGroups = sortedGroups.filter(
     (group) => group.type === "expense",
   );
