@@ -21,19 +21,28 @@ import { filterAndSortData, paginatedData } from "../../utils/helpers";
 import { filterField, sortField } from "../../data/filter-options";
 import { useQueryParam } from "../../hooks/useQueryParam";
 import { PAGE_SIZE } from "../../utils/constants";
+import { Transaction } from "../../utils/types";
+
+interface EditIncome extends Transaction {
+  transactionType: "edit";
+}
+
+type ChosenIncome = EditIncome | number | null;
+
+type ModalType = "edit" | "delete" | null;
 
 function IncomesTable() {
-  const [modalType, setModalType] = useState(null);
-  const [chosenIncome, setChosenIncome] = useState(null);
+  const [modalType, setModalType] = useState<ModalType>(null);
+  const [chosenIncome, setChosenIncome] = useState<ChosenIncome>(null);
   const { transactions, isLoading } = useTransactions();
   const { deleteTransaction, isDeleting } = useDeleteTransaction();
   const { isOpen, openModal, closeModal } = useModal();
   const { showToast } = useToast();
   const { getQueryParam } = useQueryParam();
 
-  if (isLoading) return <Spinner />;
+  if (isLoading || !transactions) return <Spinner />;
 
-  const incomes = transactions?.filter(
+  const incomes = transactions.filter(
     (transaction) => transaction.type === "income",
   );
 
@@ -42,16 +51,16 @@ function IncomesTable() {
 
   const filteredIncomes = filterAndSortData(incomes, filterValue, sortValue);
 
-  const page = Number(getQueryParam("page", 1));
+  const page = Number(getQueryParam("page", "1"));
   const currentPage = page <= incomes.length / PAGE_SIZE + 1 ? page : 1;
   const paginatedIncomes = paginatedData(filteredIncomes, currentPage);
 
-  function handleOpenModal(type, transaction) {
-    setChosenIncome(() =>
-      type === "edit"
-        ? { ...transaction, transactionType: "edit" }
-        : transaction,
-    );
+  function handleOpenModal(type: ModalType, transaction: Transaction | number) {
+    if (typeof transaction === "number") {
+      setChosenIncome(transaction);
+    } else {
+      setChosenIncome({ ...transaction, transactionType: "edit" });
+    }
 
     setModalType(type);
     openModal();
@@ -64,6 +73,8 @@ function IncomesTable() {
   }
 
   function handleDeleteIncome() {
+    if (typeof chosenIncome !== "number") return;
+
     deleteTransaction(chosenIncome, {
       onSuccess: () => {
         handleCloseModal();
@@ -156,7 +167,7 @@ function IncomesTable() {
         <CreateTransactionForm
           isOpen={isOpen}
           onClose={handleCloseModal}
-          transactionToUpdate={chosenIncome}
+          transactionToUpdate={chosenIncome as EditIncome}
         />
       )}
     </>
