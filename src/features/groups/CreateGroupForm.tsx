@@ -14,10 +14,42 @@ import { useForm } from "react-hook-form";
 import { useCreateGroup } from "./useCreateGroup";
 import { useToast } from "../../hooks/useToast";
 import { selectValidation, nameValidation } from "../../utils/validations";
+import { ClickHandler, TransactionType } from "../../utils/types";
 
-function CreateGroupForm({ isOpen, onClose, incomeCount, expenseCount }) {
+interface CreateGroupFormProps {
+  isOpen?: boolean;
+  onClose: ClickHandler;
+  incomeCount: number;
+  expenseCount: number;
+}
+
+type FormValues = {
+  color: string;
+  group: TransactionType;
+  icon: string;
+  name: string;
+};
+
+type NewGroup = {
+  type: TransactionType;
+  icon: string;
+  name: string;
+  colors: {
+    textColor: `text-${string}-600`;
+    bgColor100: `bg-${string}-100`;
+    bgColor600: `bg-${string}-600`;
+  };
+};
+
+function CreateGroupForm({
+  isOpen,
+  onClose,
+  incomeCount,
+  expenseCount,
+}: CreateGroupFormProps) {
   const { isCreatingGroup, createGroup } = useCreateGroup();
-  const { register, handleSubmit, formState, watch, reset } = useForm();
+  const { register, handleSubmit, formState, watch, reset } =
+    useForm<FormValues>();
   const { showToast } = useToast();
 
   const watchedValues = watch();
@@ -28,7 +60,7 @@ function CreateGroupForm({ isOpen, onClose, incomeCount, expenseCount }) {
     onClose();
   }
 
-  function onSubmit(data) {
+  function onSubmit(data: FormValues) {
     if (watchedValues.group === "income" && incomeCount >= 10) {
       showToast("failed", "You can't add more than 10 income sources.");
       return;
@@ -39,7 +71,7 @@ function CreateGroupForm({ isOpen, onClose, incomeCount, expenseCount }) {
       return;
     }
 
-    const newGroup = {
+    const newGroup: NewGroup = {
       type: data.group,
       icon: data.icon,
       name: data.name.toLowerCase(),
@@ -66,7 +98,7 @@ function CreateGroupForm({ isOpen, onClose, incomeCount, expenseCount }) {
         <FormRow error={errors?.group?.message}>
           <p>Choose the Group:</p>
           <FormChips>
-            <FormChip
+            <FormChip<FormValues>
               field="group"
               activeClasses="bg-rose-50 text-rose-500"
               name="expense"
@@ -75,7 +107,7 @@ function CreateGroupForm({ isOpen, onClose, incomeCount, expenseCount }) {
               register={register}
               validation={selectValidation("group")}
             />
-            <FormChip
+            <FormChip<FormValues>
               field="group"
               activeClasses="bg-emerald-50 text-emerald-500"
               name="income"
@@ -87,7 +119,7 @@ function CreateGroupForm({ isOpen, onClose, incomeCount, expenseCount }) {
           </FormChips>
         </FormRow>
         <FormRow label="Enter category name:" error={errors?.name?.message}>
-          <Input
+          <Input<FormValues>
             id="name"
             type="text"
             register={register}
@@ -99,7 +131,7 @@ function CreateGroupForm({ isOpen, onClose, incomeCount, expenseCount }) {
           <p>Choose an Icon:</p>
           <FormChips>
             {icons.map((icon) => (
-              <GroupFormIcon
+              <GroupFormIcon<FormValues>
                 icon={icon}
                 iconValidation={selectValidation("icon")}
                 register={register}
@@ -113,7 +145,7 @@ function CreateGroupForm({ isOpen, onClose, incomeCount, expenseCount }) {
           <p>Choose a Color:</p>
           <FormChips>
             {colors.map((color) => (
-              <GroupFormColor
+              <GroupFormColor<FormValues>
                 color={color}
                 isActive={watchedValues.color === color.name}
                 register={register}

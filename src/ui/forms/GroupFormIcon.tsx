@@ -24,7 +24,6 @@ function GroupFormIcon<T extends FieldValues = FieldValues>({
   register,
   isActive,
 }: GroupFormIconProps<T>) {
-  console.log(icon);
   return (
     <div key={icon.name}>
       <label

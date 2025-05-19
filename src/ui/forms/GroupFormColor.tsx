@@ -24,7 +24,6 @@ function GroupFormColor<T extends FieldValues = FieldValues>({
   register,
   colorValidation,
 }: GroupFormColorProps<T>) {
-  console.log(color);
   return (
     <div
       key={color.name}
