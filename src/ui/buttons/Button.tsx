@@ -22,6 +22,7 @@ interface ButtonProps {
   children: ReactNode;
   onClick?: ClickHandler;
   disabled?: boolean;
+  className?: string;
 }
 
 function Button({
@@ -29,11 +30,12 @@ function Button({
   type = "primary",
   onClick,
   disabled = false,
+  className = "",
 }: ButtonProps) {
   const styles =
     type === "logout"
-      ? `${typeClasses[type]}`
-      : `${baseClasses} ${typeClasses[type]} ${disabled ? "opacity-50" : ""}`;
+      ? `${typeClasses[type]} ${className}`
+      : `${baseClasses} ${typeClasses[type]} ${disabled ? "opacity-50" : ""} ${className}`;
 
   return (
     <button onClick={onClick} className={styles} disabled={disabled}>

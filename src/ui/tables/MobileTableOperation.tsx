@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
 import MobileFilterSort from "../filters/MobileFilterSort";
 import BottomSheet from "../common/BottomSheet";
@@ -8,22 +8,35 @@ import MobileFilterButton from "../buttons/MobileFilterButton";
 
 import { useModal } from "../../hooks/uesModal";
 import { useQueryParam } from "../../hooks/useQueryParam";
+import { FilterValue, Option, SortValue } from "../../utils/types";
 
-function MobileTableOperation({ field, options, icon }) {
+interface MobileTableOperationProps {
+  field: "last" | "sortBy";
+  options: (Option<FilterValue> | Option<SortValue>)[];
+  icon: "Filter" | "ArrowUpDown";
+}
+
+type Value = FilterValue | SortValue;
+
+function MobileTableOperation({
+  field,
+  options,
+  icon,
+}: MobileTableOperationProps) {
   const { isOpen, openModal, closeModal } = useModal();
   const { getCurrentQueryParam, setQueryParams } = useQueryParam();
-  const [value, setValue] = useState(() =>
-    getCurrentQueryParam(field, options),
+  const [value, setValue] = useState<Value>(
+    () => getCurrentQueryParam(field, options) as Value,
   );
 
-  const currentFilter = getCurrentQueryParam(field, options);
-  const fieldName = field === "sortBy" ? "sort" : "filter ";
+  const currentFilter = getCurrentQueryParam(field, options) as Value;
+  const fieldName = field === "sortBy" ? "sort" : "filter";
 
-  function handleSubmit(e) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (value === currentFilter) return closeModal();
 
-    setQueryParams({ [field]: value, page: 1 });
+    setQueryParams({ [field]: value, page: "1" });
     closeModal();
   }
 
@@ -48,7 +61,6 @@ function MobileTableOperation({ field, options, icon }) {
                 key={option.value}
                 option={option}
                 onChange={setValue}
-                currentFilter={currentFilter}
                 value={value}
               />
             ))}
