@@ -131,4 +131,4 @@ export const colors = [
     bgColor100: "bg-stone-100",
     bgColor600: "bg-stone-600",
   },
-];
+] as const;
