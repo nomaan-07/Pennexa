@@ -6,7 +6,7 @@ import Button from "../buttons/Button";
 import FilterCheckbox from "../forms/FilterCheckbox";
 import MobileFilterButton from "../buttons/MobileFilterButton";
 
-import { useModal } from "../../hooks/uesModal";
+import { useModal } from "../../hooks/useModal";
 import { useQueryParam } from "../../hooks/useQueryParam";
 import { FilterValue, Option, SortValue } from "../../utils/types";
 

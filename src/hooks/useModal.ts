@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 
-// TODO: Rename function and file to useModal
 export function useModal() {
   const [isOpen, setIsOpen] = useState(false);
 

@@ -2,7 +2,7 @@ import { Plus } from "lucide-react";
 
 import CreateTransactionForm from "../../features/transaction/CreateTransactionForm";
 
-import { useModal } from "../../hooks/uesModal";
+import { useModal } from "../../hooks/useModal";
 
 function AddTransaction() {
   const { isOpen, openModal, closeModal } = useModal();

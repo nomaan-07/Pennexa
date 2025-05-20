@@ -13,7 +13,7 @@ import Pagination from "../../ui/tables/Pagination";
 import MobileTableBox from "../../ui/tables/MobileTableBox";
 import ActionDisabled from "../../ui/buttons/ActionDisabled";
 
-import { useModal } from "../../hooks/uesModal";
+import { useModal } from "../../hooks/useModal";
 import { useDeleteTransaction } from "../transaction/useDeleteTransaction";
 import { useToast } from "../../hooks/useToast";
 import { useQueryParam } from "../../hooks/useQueryParam";

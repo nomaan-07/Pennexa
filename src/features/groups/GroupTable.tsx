@@ -8,7 +8,7 @@ import ActionDisabled from "../../ui/buttons/ActionDisabled";
 import ActionButtons from "../../ui/common/ActionButtons";
 
 import { useDeleteGroup } from "./useDeleteGroup";
-import { useModal } from "../../hooks/uesModal";
+import { useModal } from "../../hooks/useModal";
 import { useToast } from "../../hooks/useToast";
 import { Group, TransactionType } from "../../utils/types";
 

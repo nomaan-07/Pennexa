@@ -3,7 +3,7 @@ import { Plus } from "lucide-react";
 import Button from "./Button";
 import CreateGroupForm from "../../features/groups/CreateGroupForm";
 
-import { useModal } from "../../hooks/uesModal";
+import { useModal } from "../../hooks/useModal";
 
 interface AddGroupProps {
   incomeCount: number;

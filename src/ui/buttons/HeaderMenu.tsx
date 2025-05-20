@@ -5,7 +5,7 @@ import TopSheet from "../common/TopSheet";
 import UserProfile from "../../features/authentication/UserProfile";
 
 import { Menu } from "lucide-react";
-import { useModal } from "../../hooks/uesModal";
+import { useModal } from "../../hooks/useModal";
 
 function HeaderMenu() {
   const { openModal, closeModal, isOpen } = useModal();

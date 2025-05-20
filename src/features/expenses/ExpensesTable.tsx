@@ -13,7 +13,7 @@ import CreateTransactionForm from "../transaction/CreateTransactionForm";
 import ActionButtons from "../../ui/common/ActionButtons";
 import ActionDisabled from "../../ui/buttons/ActionDisabled";
 
-import { useModal } from "../../hooks/uesModal";
+import { useModal } from "../../hooks/useModal";
 import { useTransactions } from "../transaction/useTransactions";
 import { useDeleteTransaction } from "../transaction/useDeleteTransaction";
 import { useToast } from "../../hooks/useToast";

@@ -4,7 +4,7 @@ import Button from "../../ui/buttons/Button";
 import ActionButtons from "../../ui/common/ActionButtons";
 
 import { useLogout } from "./useLogout";
-import { useModal } from "../../hooks/uesModal";
+import { useModal } from "../../hooks/useModal";
 
 function Logout() {
   const { isOpen, closeModal, openModal } = useModal();
