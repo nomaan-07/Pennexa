@@ -1,9 +1,9 @@
-import { ReactNode } from "react";
+import { JSX } from "react";
 import { NavLink } from "react-router";
 
 interface NavItemProps {
   name: string;
-  icon: ReactNode;
+  icon: JSX.Element;
   path: string;
 }
 

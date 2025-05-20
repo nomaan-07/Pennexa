@@ -12,7 +12,7 @@ export const items = [
   {
     name: "dashboard",
     icon: <LucideLayoutDashboard className={iconStyles} />,
-    path: "dashboard",
+    path: "/dashboard",
   },
   {
     name: "expenses",
@@ -34,7 +34,7 @@ export const items = [
     icon: <LucideUserCog className={iconStyles} />,
     path: "/account",
   },
-];
+] as const;
 
 export const mobileItems = [
   "groups",
