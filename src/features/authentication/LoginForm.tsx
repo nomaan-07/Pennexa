@@ -9,6 +9,11 @@ import { emailValidation, passwordValidation } from "../../utils/validations";
 import { useLogin } from "./useLogin";
 import { useToast } from "../../hooks/useToast";
 
+interface FormValues {
+  email: string;
+  password: string;
+}
+
 function LoginForm() {
   const { login, isPending } = useLogin();
   const { showToast } = useToast();
@@ -16,9 +21,9 @@ function LoginForm() {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm();
+  } = useForm<FormValues>();
 
-  function onSubmit(data) {
+  function onSubmit(data: FormValues) {
     const user = {
       email: data.email,
       password: data.password,
@@ -37,21 +42,21 @@ function LoginForm() {
   return (
     <Form type="auth" onSubmit={handleSubmit(onSubmit)}>
       <FormRow label="Email address" error={errors?.email?.message}>
-        <Input
+        <Input<FormValues>
           type="text"
           register={register}
           field="email"
           id="email"
-          validation={emailValidation}
+          validation={emailValidation()}
         />
       </FormRow>
       <FormRow label="password" error={errors?.password?.message}>
-        <Input
+        <Input<FormValues>
           type="password"
           register={register}
           field="password"
           id="password"
-          validation={passwordValidation}
+          validation={passwordValidation()}
         />
       </FormRow>
       <Button disabled={isPending}>
