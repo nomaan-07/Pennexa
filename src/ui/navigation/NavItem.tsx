@@ -1,6 +1,13 @@
+import { ReactNode } from "react";
 import { NavLink } from "react-router";
 
-function NavItem({ name, icon, path }) {
+interface NavItemProps {
+  name: string;
+  icon: ReactNode;
+  path: string;
+}
+
+function NavItem({ name, icon, path }: NavItemProps) {
   return (
     <NavLink
       to={path}
