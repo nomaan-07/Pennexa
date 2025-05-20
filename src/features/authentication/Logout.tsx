@@ -35,6 +35,7 @@ function Logout() {
         confirmText="Logout"
         loadingText="Logging out..."
         type="danger"
+        message="Are you sure?"
       />
     </>
   );
