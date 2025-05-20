@@ -13,7 +13,7 @@ function ErrorPage() {
       <p className="mt-2 mb-8 text-slate-500 dark:text-slate-400">
         Oops! An unexpected error occurred.
       </p>
-      <Button onClick={() => navigate(-1, { replace: true })}>Go Back</Button>
+      <Button onClick={() => navigate(-1)}>Go Back</Button>
     </div>
   );
 }
