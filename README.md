@@ -2,13 +2,15 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 ![React](https://img.shields.io/badge/React-19.0-%2361DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.8-%233178C6)
 ![Supabase](https://img.shields.io/badge/Supabase-2.49-%233ECF8E)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0-%2338B2AC)
 ![React Query](https://img.shields.io/badge/React_Query-5.69-%23FF4154)
 
-**Pennexa** is a modern **Personal Finance Dashboard** that helps users track their income and expenses effortlessly, with powerful analytics and real-time insights.
+**Pennexa** is a modern **Personal Finance Dashboard** built with TypeScript that helps users track their income and expenses effortlessly, with powerful analytics and real-time insights.
 
-▶ **Live Demo:** [Pennexa](https://nomaan-07.github.io/Pennexa)  
+▶ **Live Demo:** [Pennexa](https://nomaan-07.github.io/Pennexa)
+
 📱 Fully optimized for all devices: mobile, tablet, and desktop.
 
 ![Dashboard Preview](public/screenshots/dashboard-preview.png)
@@ -50,6 +52,7 @@
 | Technology          | Usage                 | Version  |
 | ------------------- | --------------------- | -------- |
 | **React 19**        | Core framework        | v19.0.0  |
+| **TypeScript**      | Type safety           | v5.8.3   |
 | **Tailwind CSS**    | Styling + Dark mode   | v4.0.15  |
 | **React Query**     | Data fetching/caching | v5.69.0  |
 | **React Hook Form** | Form management       | v7.54.2  |
