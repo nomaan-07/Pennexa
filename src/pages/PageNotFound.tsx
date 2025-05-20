@@ -13,7 +13,7 @@ function NotFoundPage() {
       <p className="mt-2 mb-8 text-slate-500 dark:text-slate-400">
         Oops! The page you're looking for doesn't exist.
       </p>
-      <Button onClick={() => navigate(-1, { replace: true })}>Go Back</Button>
+      <Button onClick={() => navigate(-1)}>Go Back</Button>
     </div>
   );
 }
