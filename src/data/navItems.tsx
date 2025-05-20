@@ -42,4 +42,6 @@ export const mobileItems = [
   "dashboard",
   "incomes",
   "account",
-].map((name) => items.find((item) => item.name === name));
+].map(
+  (name) => items.find((item) => item.name === name) as (typeof items)[number],
+);
