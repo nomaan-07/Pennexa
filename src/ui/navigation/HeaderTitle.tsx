@@ -1,7 +1,6 @@
 import { useLocation } from "react-router";
 
-// TODO: rename to HeaderTitle
-function HeaderTile() {
+function HeaderTitle() {
   const { pathname } = useLocation();
 
   return (
@@ -11,4 +10,4 @@ function HeaderTile() {
   );
 }
 
-export default HeaderTile;
+export default HeaderTitle;
