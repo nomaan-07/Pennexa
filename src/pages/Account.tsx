@@ -1,18 +1,16 @@
 import UpdateUserDataForm from "../features/authentication/UpdateUserDataForm";
 import UpdateUserPasswordForm from "../features/authentication/UpdateUserPasswordForm";
-import Heading from "../ui/layout/Heading";
+import AccountSection from "../ui/layout/AccountSection";
 
 function Account() {
   return (
     <>
-      <div className="space-y-2 sm:space-y-4">
-        <Heading>Update your data</Heading>
+      <AccountSection title="Update your data">
         <UpdateUserDataForm />
-      </div>
-      <div className="space-y-2 sm:space-y-4">
-        <Heading>Update your password</Heading>
+      </AccountSection>
+      <AccountSection title="Update your password">
         <UpdateUserPasswordForm />
-      </div>
+      </AccountSection>
     </>
   );
 }
