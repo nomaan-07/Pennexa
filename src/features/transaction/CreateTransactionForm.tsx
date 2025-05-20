@@ -71,7 +71,7 @@ interface TransactionToUpdate extends Transaction {
 interface CreateTransactionFormProps {
   isOpen?: boolean;
   onClose: ClickHandler;
-  transactionToUpdate: TransactionToUpdate;
+  transactionToUpdate?: TransactionToUpdate;
 }
 
 function CreateTransactionForm({
