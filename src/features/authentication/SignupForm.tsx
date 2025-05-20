@@ -10,7 +10,7 @@ import {
   nameValidation,
   passwordValidation,
 } from "../../utils/validations";
-import { useSignup } from "../authentication/useSignup";
+import { useSignup } from "./useSignup";
 import { useToast } from "../../hooks/useToast";
 
 function SignupForm() {

@@ -1,5 +1,6 @@
 import { useLocation } from "react-router";
 
+// TODO: rename to HeaderTitle
 function HeaderTile() {
   const { pathname } = useLocation();
 
