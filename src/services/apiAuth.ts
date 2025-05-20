@@ -16,7 +16,7 @@ interface Login {
 interface UpdateCurrentUser {
   password?: string;
   username?: string;
-  avatar: Avatar;
+  avatar?: Avatar;
 }
 
 export async function signup({ email, password, username }: Signup) {

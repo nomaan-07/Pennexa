@@ -1,3 +1,4 @@
+import { MouseEvent } from "react";
 import { useForm } from "react-hook-form";
 
 import Form from "../../ui/forms/Form";
@@ -13,6 +14,11 @@ import {
 import { useToast } from "../../hooks/useToast";
 import { useUpdateUser } from "./useUpdateUser";
 
+type FormValues = {
+  password: string;
+  passwordConfirm: string;
+};
+
 function UpdateUserPasswordForm() {
   const { updateUser, isUpdating } = useUpdateUser();
   const { showToast } = useToast();
@@ -22,9 +28,9 @@ function UpdateUserPasswordForm() {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm();
+  } = useForm<FormValues>();
 
-  function onSubmit(data) {
+  function onSubmit(data: FormValues) {
     updateUser(
       { password: data.password },
       {
@@ -36,7 +42,7 @@ function UpdateUserPasswordForm() {
     );
   }
 
-  function handleReset(e) {
+  function handleReset(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     reset();
   }
@@ -49,12 +55,12 @@ function UpdateUserPasswordForm() {
           label="New password"
           error={errors?.password?.message}
         >
-          <Input
+          <Input<FormValues>
             type="password"
             register={register}
             field="password"
             id="password"
-            validation={passwordValidation}
+            validation={passwordValidation()}
           />
         </FormRow>
         <FormRow
@@ -62,12 +68,12 @@ function UpdateUserPasswordForm() {
           label="Confirm password"
           error={errors?.passwordConfirm?.message}
         >
-          <Input
+          <Input<FormValues>
             type="password"
             register={register}
             field="passwordConfirm"
             id="passwordConfirm"
-            validation={passwordConfirmValidation}
+            validation={passwordConfirmValidation()}
           />
         </FormRow>
       </FormRow>

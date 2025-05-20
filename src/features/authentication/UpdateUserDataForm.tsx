@@ -14,7 +14,7 @@ import { useUpdateUser } from "./useUpdateUser";
 import { useToast } from "../../hooks/useToast";
 import { Avatar } from "../../utils/types";
 
-interface UserData {
+interface FormValues {
   avatar: Avatar;
   email?: string;
   username: string;
@@ -34,7 +34,7 @@ function UpdateUserDataForm() {
     watch,
     setValue,
     reset,
-  } = useForm<UserData>({
+  } = useForm<FormValues>({
     defaultValues: {
       email: user?.email || "",
       username,
@@ -42,8 +42,8 @@ function UpdateUserDataForm() {
     },
   });
 
-  function onSubmit(data: UserData) {
-    const updatedUser: UserData = {
+  function onSubmit(data: FormValues) {
+    const updatedUser: FormValues = {
       username: data.username,
       avatar: data.avatar instanceof File ? data.avatar : null,
     };
@@ -72,7 +72,7 @@ function UpdateUserDataForm() {
           label="Username"
           error={errors?.username?.message}
         >
-          <Input<UserData>
+          <Input<FormValues>
             type="text"
             register={register}
             field="username"
