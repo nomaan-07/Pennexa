@@ -1,11 +1,14 @@
-import { useEffect } from "react";
+import { ReactNode, useEffect } from "react";
 import { useNavigate } from "react-router";
 
 import Spinner from "../../ui/common/Spinner";
 
 import { useUser } from "./useUser";
 
-function ProtectedRoute({ children }) {
+interface ProtectedRouteProps {
+  children: ReactNode;
+}
+function ProtectedRoute({ children }: ProtectedRouteProps) {
   const { isAuthenticated, isLoading } = useUser();
   const navigate = useNavigate();
 
