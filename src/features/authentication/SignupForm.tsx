@@ -13,6 +13,12 @@ import {
 import { useSignup } from "./useSignup";
 import { useToast } from "../../hooks/useToast";
 
+interface FormValues {
+  email: string;
+  username: string;
+  password: string;
+}
+
 function SignupForm() {
   const { signup, isPending } = useSignup();
   const { showToast } = useToast();
@@ -21,9 +27,9 @@ function SignupForm() {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm();
+  } = useForm<FormValues>();
 
-  function onSubmit(data) {
+  function onSubmit(data: FormValues) {
     const newUser = {
       email: data.email,
       username: data.username,
@@ -38,16 +44,16 @@ function SignupForm() {
   return (
     <Form type="auth" onSubmit={handleSubmit(onSubmit)}>
       <FormRow label="Email address" error={errors?.email?.message}>
-        <Input
+        <Input<FormValues>
           type="text"
           register={register}
           field="email"
           id="email"
-          validation={emailValidation}
+          validation={emailValidation()}
         />
       </FormRow>
       <FormRow label="Username" error={errors?.username?.message}>
-        <Input
+        <Input<FormValues>
           type="text"
           register={register}
           field="username"
@@ -56,12 +62,12 @@ function SignupForm() {
         />
       </FormRow>
       <FormRow label="Password" error={errors?.password?.message}>
-        <Input
+        <Input<FormValues>
           type="password"
           register={register}
           field="password"
           id="password"
-          validation={passwordValidation}
+          validation={passwordValidation()}
         />
       </FormRow>
       <Button disabled={isPending}>
