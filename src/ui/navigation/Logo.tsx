@@ -1,8 +1,12 @@
-function Logo({ type, className = "" }) {
-  const inHeader = type === "header";
+interface LogoProps {
+  isHeader?: boolean;
+  className?: string;
+}
 
-  const iconStyles = inHeader ? "w-6 lg:w-9" : "w-9";
-  const textStyles = inHeader
+function Logo({ isHeader = false, className = "" }: LogoProps) {
+  const iconStyles = isHeader ? "w-6 lg:w-9" : "w-9";
+
+  const textStyles = isHeader
     ? "w-28 translate-y-1 lg:w-40 lg:translate-y-1.5"
     : "w-40 translate-y-1.5";
 
