@@ -1,7 +1,8 @@
+import { JSX } from "react";
 import { NavLink } from "react-router";
 
 const baseStyles =
-  "flex flex-col items-center justify-center gap-1 text-xs capitalize select-none";
+  "flex flex-col items-center justify-center gap-1 text-[10px] xs:text-xs capitalize select-none";
 
 const types = {
   dashboard:
@@ -9,17 +10,23 @@ const types = {
   other: "mobile-nav-link xs:size-auto relative size-10 text-slate-400",
 };
 
-function MobileNavItem({ name = "other", icon, path }) {
+interface MobileNavItemProps {
+  name: string;
+  icon: JSX.Element;
+  path: string;
+}
+
+function MobileNavItem({ name, icon, path }: MobileNavItemProps) {
   const isDashboard = name === "dashboard";
 
-  const className = `${baseStyles} ${isDashboard ? types["dashboard"] : types["other"]}`;
+  const className = `${baseStyles} ${isDashboard ? types.dashboard : types.other}`;
 
   return (
     <NavLink to={path} className={className}>
       {icon}
       {!isDashboard && (
         <>
-          <span className="xs:block hidden">{name}</span>
+          <span>{name}</span>
           <span className="circle xs:-top-5 absolute -top-4.5 hidden size-4 rounded-full border-4 border-slate-100 bg-emerald-500 dark:border-slate-900"></span>
         </>
       )}
