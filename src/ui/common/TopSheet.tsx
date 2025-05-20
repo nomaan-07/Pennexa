@@ -1,8 +1,16 @@
 import { createPortal } from "react-dom";
 import Overlay from "./Overlay";
 import ModalCloseButton from "../buttons/ModalCloseButton";
+import { ReactNode } from "react";
+import { ClickHandler } from "@/src/utils/types";
 
-function TopSheet({ children, isOpen, onClose }) {
+interface TopSheetProps {
+  children: ReactNode;
+  isOpen: boolean;
+  onClose: ClickHandler;
+}
+
+function TopSheet({ children, isOpen, onClose }: TopSheetProps) {
   return createPortal(
     <>
       <div

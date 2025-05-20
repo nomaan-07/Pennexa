@@ -17,7 +17,7 @@ function HeaderMenu() {
         <DarkModeToggle />
       </div>
       <Menu className="size-7 lg:hidden" onClick={openModal} />
-      <TopSheet isOpen={isOpen} onClose={closeModal} closeButtonLocation="left">
+      <TopSheet isOpen={isOpen} onClose={closeModal}>
         <div className="flex flex-col items-end gap-6 bg-white transition-colors lg:hidden dark:bg-slate-800">
           <div className="mx-auto">
             <UserProfile />
