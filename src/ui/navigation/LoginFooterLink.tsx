@@ -1,6 +1,12 @@
+import { ReactNode } from "react";
 import { NavLink } from "react-router";
 
-function LoginFooterLink({ to, children }) {
+interface LoginFooterLinkProps {
+  to: "/login" | "/signup";
+  children: ReactNode;
+}
+
+function LoginFooterLink({ to, children }: LoginFooterLinkProps) {
   return (
     <p className="text-xs sm:text-sm">
       {children}{" "}
