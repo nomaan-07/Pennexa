@@ -3,8 +3,9 @@ import { useUser } from "./useUser";
 
 function UserProfile() {
   const { user } = useUser();
-  const avatar = user?.user_metadata?.avatar;
-  const username = user?.user_metadata?.username;
+  const avatar: string = user?.user_metadata?.avatar;
+  const username: string = user?.user_metadata?.username;
+
   return (
     <div className="mt-2 flex flex-col items-center gap-y-3 text-center">
       <div className="flex size-16 items-center justify-center rounded-full border border-slate-300 bg-slate-100 dark:border-slate-500 dark:bg-slate-600">
